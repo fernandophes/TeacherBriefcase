@@ -6,7 +6,9 @@ public class Disciplina {
     private int id;
     private String nome;
     private int autor;
-    // Não dá pra instanciar Professor aqui, por enquanto, pois poderia abrir um ciclo infinito de Disciplina instanciando Professor, e Professor instanciando Disciplina
+    // Não dá pra instanciar Professor aqui, por enquanto, pois poderia abrir um
+    // ciclo infinito de Disciplina instanciando Professor, e Professor instanciando
+    // Disciplina
     private Calendar dataCriacao;
 
     public int getId() {
@@ -14,7 +16,8 @@ public class Disciplina {
     }
 
     public void setId(int id) {
-        this.id = id;
+        if (id >= 0)
+            this.id = id;
     }
 
     public String getNome() {
@@ -22,7 +25,8 @@ public class Disciplina {
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        if (nome != null && !nome.isEmpty())
+            this.nome = nome;
     }
 
     public int getAutor() {
@@ -30,7 +34,8 @@ public class Disciplina {
     }
 
     public void setAutor(int autor) {
-        this.autor = autor;
+        if (autor > 0)
+            this.autor = autor;
     }
 
     public Calendar getDataCriacao() {
@@ -38,6 +43,7 @@ public class Disciplina {
     }
 
     public void setDataCriacao(Calendar dataCriacao) {
-        this.dataCriacao = dataCriacao;
+        if (dataCriacao != null)
+            this.dataCriacao = dataCriacao;
     }
 }

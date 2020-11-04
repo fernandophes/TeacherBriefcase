@@ -5,9 +5,10 @@ import java.util.Calendar;
 public class Alternativa {
     private int id;
     private int questao;
-    // Não recomendado instanciar Questão aqui agora, porque pode causar um ciclo infinito de Alternativa e Questão se instanciando mutuamente
+    // Não recomendado instanciar Questão aqui agora, porque pode causar um ciclo
+    // infinito de Alternativa e Questão se instanciando mutuamente
     private String texto;
-    private boolean veracidade;
+    private boolean verdadeira;
     private Professor autor;
     private Calendar dataCriacao;
 
@@ -16,7 +17,8 @@ public class Alternativa {
     }
 
     public void setId(int id) {
-        this.id = id;
+        if (id >= 0)
+            this.id = id;
     }
 
     public int getQuestao() {
@@ -32,15 +34,16 @@ public class Alternativa {
     }
 
     public void setTexto(String texto) {
-        this.texto = texto;
+        if (texto != null && !texto.isEmpty())
+            this.texto = texto;
     }
 
-    public boolean isVeracidade() {
-        return veracidade;
+    public boolean isVerdadeira() {
+        return verdadeira;
     }
 
-    public void setVeracidade(boolean veracidade) {
-        this.veracidade = veracidade;
+    public void setVerdadeira(boolean verdadeira) {
+        this.verdadeira = verdadeira;
     }
 
     public Professor getAutor() {
@@ -48,7 +51,8 @@ public class Alternativa {
     }
 
     public void setAutor(Professor autor) {
-        this.autor = autor;
+        if (autor != null)
+            this.autor = autor;
     }
 
     public Calendar getDataCriacao() {
@@ -56,7 +60,8 @@ public class Alternativa {
     }
 
     public void setDataCriacao(Calendar dataCriacao) {
-        this.dataCriacao = dataCriacao;
+        if (dataCriacao != null)
+            this.dataCriacao = dataCriacao;
     }
 
 }

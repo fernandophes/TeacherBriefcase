@@ -13,7 +13,8 @@ public class Assunto {
     }
 
     public void setId(int id) {
-        this.id = id;
+        if (id >= 0)
+            this.id = id;
     }
 
     public String getNome() {
@@ -21,7 +22,8 @@ public class Assunto {
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        if (nome != null && !nome.isEmpty())
+            this.nome = nome;
     }
 
     public Professor getAutor() {
@@ -29,7 +31,8 @@ public class Assunto {
     }
 
     public void setAutor(Professor autor) {
-        this.autor = autor;
+        if (autor != null)
+            this.autor = autor;
     }
 
     public Calendar getDataCriacao() {
@@ -37,6 +40,7 @@ public class Assunto {
     }
 
     public void setDataCriacao(Calendar dataCriacao) {
-        this.dataCriacao = dataCriacao;
+        if (dataCriacao != null)
+            this.dataCriacao = dataCriacao;
     }
 }

@@ -8,15 +8,16 @@ public class Prova {
     private Professor autor;
     private String titulo;
     private boolean aberta;
-    private Questao[] questoes;
     private Calendar dataCriacao;
+    private Questao[] questoes;
 
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        if (id >= 0)
+            this.id = id;
     }
 
     public Disciplina getDisciplina() {
@@ -24,7 +25,8 @@ public class Prova {
     }
 
     public void setDisciplina(Disciplina disciplina) {
-        this.disciplina = disciplina;
+        if (disciplina != null)
+            this.disciplina = disciplina;
     }
 
     public Professor getAutor() {
@@ -32,7 +34,8 @@ public class Prova {
     }
 
     public void setAutor(Professor autor) {
-        this.autor = autor;
+        if (autor != null)
+            this.autor = autor;
     }
 
     public String getTitulo() {
@@ -40,7 +43,8 @@ public class Prova {
     }
 
     public void setTitulo(String titulo) {
-        this.titulo = titulo;
+        if (titulo != null && !titulo.isEmpty())
+            this.titulo = titulo;
     }
 
     public boolean isAberta() {
@@ -51,19 +55,20 @@ public class Prova {
         this.aberta = aberta;
     }
 
+    public Calendar getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(Calendar dataCriacao) {
+        if (dataCriacao != null)
+            this.dataCriacao = dataCriacao;
+    }
+
     public Questao[] getQuestoes() {
         return questoes;
     }
 
     public void setQuestoes(Questao[] questoes) {
         this.questoes = questoes;
-    }
-
-    public Calendar getDataCriacao() {
-        return dataCriacao;
-    }
-
-    public void setDataCriacao(Calendar dataCriacao) {
-        this.dataCriacao = dataCriacao;
     }
 }

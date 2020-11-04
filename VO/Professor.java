@@ -16,7 +16,8 @@ public class Professor {
     }
 
     public void setId(int id) {
-        this.id = id;
+        if (id >= 0)
+            this.id = id;
     }
 
     public String getNome() {
@@ -24,7 +25,8 @@ public class Professor {
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        if (nome != null && !nome.isEmpty())
+            this.nome = nome;
     }
 
     public String getEmail() {
@@ -32,7 +34,8 @@ public class Professor {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        if (email != null && !email.isEmpty())
+            this.email = email;
     }
 
     public String getUsername() {
@@ -40,7 +43,8 @@ public class Professor {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        if (username != null && !username.isEmpty())
+            this.username = username;
     }
 
     public String getSenha() {
@@ -48,7 +52,8 @@ public class Professor {
     }
 
     public void setSenha(String senha) {
-        this.senha = senha;
+        if (senha != null && !senha.isEmpty())
+            this.senha = senha;
     }
 
     public Calendar getDataCriacao() {
@@ -56,7 +61,8 @@ public class Professor {
     }
 
     public void setDataCriacao(Calendar dataCriacao) {
-        this.dataCriacao = dataCriacao;
+        if (dataCriacao != null)
+            this.dataCriacao = dataCriacao;
     }
 
     public Disciplina[] getDisciplinas() {

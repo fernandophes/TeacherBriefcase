@@ -16,7 +16,8 @@ public class Questao {
     }
 
     public void setId(int id) {
-        this.id = id;
+        if (id >= 0)
+            this.id = id;
     }
 
     public String getEnunciado() {
@@ -24,7 +25,8 @@ public class Questao {
     }
 
     public void setEnunciado(String enunciado) {
-        this.enunciado = enunciado;
+        if (enunciado != null && !enunciado.isEmpty())
+            this.enunciado = enunciado;
     }
 
     public Disciplina getDisciplina() {
@@ -32,7 +34,8 @@ public class Questao {
     }
 
     public void setDisciplina(Disciplina disciplina) {
-        this.disciplina = disciplina;
+        if (disciplina != null)
+            this.disciplina = disciplina;
     }
 
     public int getDificuldade() {
@@ -40,7 +43,8 @@ public class Questao {
     }
 
     public void setDificuldade(int dificuldade) {
-        this.dificuldade = dificuldade;
+        if (dificuldade >= 0)
+            this.dificuldade = dificuldade;
     }
 
     public boolean isPublica() {
@@ -56,7 +60,8 @@ public class Questao {
     }
 
     public void setAutor(Professor autor) {
-        this.autor = autor;
+        if (autor != null)
+            this.autor = autor;
     }
 
     public Calendar getDataCriacao() {
@@ -64,6 +69,7 @@ public class Questao {
     }
 
     public void setDataCriacao(Calendar dataCriacao) {
-        this.dataCriacao = dataCriacao;
+        if (dataCriacao != null)
+            this.dataCriacao = dataCriacao;
     }
 }
