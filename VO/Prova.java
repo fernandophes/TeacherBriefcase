@@ -1,5 +1,7 @@
 package VO;
 
+import java.util.Calendar;
+
 public class Prova {
     private int id;
     private Disciplina disciplina;
@@ -7,6 +9,7 @@ public class Prova {
     private String titulo;
     private boolean aberta;
     private Questao[] questoes;
+    private Calendar dataCriacao;
 
     public int getId() {
         return id;
@@ -54,5 +57,13 @@ public class Prova {
 
     public void setQuestoes(Questao[] questoes) {
         this.questoes = questoes;
+    }
+
+    public Calendar getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(Calendar dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 }
