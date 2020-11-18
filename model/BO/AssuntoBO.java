@@ -49,10 +49,10 @@ public class AssuntoBO {
 
         QuestaoVO[] lista = assunto.getQuestoes();
 
-        // verifica se já existe uma questão de mesmo enunciado neste assunto
+        // verifica se ja existe uma questão de mesmo enunciado neste assunto
         for (int i = 0; i < lista.length; i++)
-            // Por enquanto, o enunciado está sendo "a chave", sei que isso não é o ideal,
-            // mas por ora é o que temos
+            // Por enquanto, o enunciado esta sendo "a chave", sei que isso não eh o ideal,
+            // mas por ora eh o que temos
             if (lista[i].getEnunciado().equals(questao.getEnunciado()))
                 return;
 
@@ -74,8 +74,8 @@ public class AssuntoBO {
 
         // verifica se realmente existe uma questão de mesmo enunciado neste assunto
         for (int i = 0; i < lista.length; i++)
-            // Por enquanto, o enunciado está sendo "a chave", sei que isso não é o ideal,
-            // mas por ora é o que temos
+            // Por enquanto, o enunciado esta sendo "a chave", sei que isso não eh o ideal,
+            // mas por ora eh o que temos
             if (lista[i].getEnunciado().equals(questao.getEnunciado())) {
                 // atualiza o assunto
                     // CÓDIGO QUE REMOVE A QUESTÃO DO ACERVO DO ASSUNTO
