@@ -51,11 +51,11 @@ public class DisciplinaBO {
 
         AssuntoVO[] lista = disciplina.getAssuntos();
 
-        // verifica se a disciplina já possui um assunto de mesmo nome cadastrado
+        // verifica se a disciplina ja possui um assunto de mesmo nome cadastrado
         for (int i = 0; i < lista.length; i++)
             if (lista[i].getNome().equals(assunto.getNome()))
                 return;
-                // ERRO: A disciplina JÁ POSSUI um assunto com o mesmo nome
+                // ERRO: A disciplina JA POSSUI um assunto com o mesmo nome
                 // a execução do método morre
 
         // incrementa a lista
@@ -106,11 +106,11 @@ public class DisciplinaBO {
         
         ProfessorVO[] lista = disciplina.getProfessores();
 
-        // verifica se a disciplina já possui um professor de mesmo e-mail cadastrado
+        // verifica se a disciplina ja possui um professor de mesmo e-mail cadastrado
         for (int i = 0; i < lista.length; i++)
             if (lista[i].getEmail().equals(professor.getEmail()))
                 return;
-                // ERRO: A disciplina JÁ POSSUI um professor com o mesmo e-mail
+                // ERRO: A disciplina JA POSSUI um professor com o mesmo e-mail
                 // a execução do método morre
 
         // incrementa a lista
