@@ -57,10 +57,10 @@ public class ProfessorBO {
 
         DisciplinaVO[] lista = professor.getDisciplinas();
 
-        // verifica se o professor já possui uma disciplina de mesmo nome cadastrada
+        // verifica se o professor ja possui uma disciplina de mesmo nome cadastrada
         for (int i = 0; i < lista.length; i++) {
             if (lista[i].getNome().equals(disciplina.getNome())) {
-                // ERRO: O professor JÁ POSSUI uma disciplina com o mesmo nome
+                // ERRO: O professor JA POSSUI uma disciplina com o mesmo nome
                 // a execução do método morre
                 return;
             }
