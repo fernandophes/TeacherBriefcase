@@ -10,11 +10,11 @@ public class QuestaoComAlternativasBO extends QuestaoBO {
 
         AlternativaVO[] lista = questao.getAlternativas();
 
-        // verifica se já existe uma alternativa com o mesmo texto na questão
+        // verifica se ja existe uma alternativa com o mesmo texto na questão
         for (int i = 0; i < lista.length; i++)
             if (lista[i].getTexto().equals(alternativa.getTexto()))
                 return;
-        // O método não continua, pois já existe uma alternativa de mesmo texto
+        // O método não continua, pois ja existe uma alternativa de mesmo texto
 
         // incrementa a lista
         lista[lista.length] = alternativa;
