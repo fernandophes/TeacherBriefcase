@@ -4,14 +4,14 @@ import model.VO.ProvaVO;
 import model.VO.QuestaoVO;
 
 public class ProvaBO {
-    void cadastrar(ProvaVO prova) {
+    public void cadastrar(ProvaVO prova) {
         // cadastra uma prova no BD
 
         // analisa
         // DAO
     }
 
-    ProvaVO[] listar() {
+    public ProvaVO[] listar() {
         // lista todas as provas
 
         ProvaVO[] lista = {};
@@ -20,7 +20,7 @@ public class ProvaBO {
         return lista;
     }
 
-    ProvaVO buscar(ProvaVO prova) {
+    public ProvaVO buscar(ProvaVO prova) {
         // busca uma prova
 
         ProvaVO resultado = new ProvaVO();
@@ -29,21 +29,21 @@ public class ProvaBO {
         return resultado;
     }
 
-    void editar(ProvaVO prova) {
+    public void editar(ProvaVO prova) {
         // edita os dados da prova
 
         // analisa
         // DAO
     }
 
-    void excluir(ProvaVO prova) {
+    public void excluir(ProvaVO prova) {
         // exclui a prova do BD
 
         // analisa
         // DAO
     }
 
-    void adicionar(ProvaVO prova, QuestaoVO questao) {
+    public void adicionar(ProvaVO prova, QuestaoVO questao) {
         // adiciona a questão à prova
 
         // analisa
@@ -51,7 +51,7 @@ public class ProvaBO {
         // ajusta
     }
 
-    void remover(ProvaVO prova, QuestaoVO questao) {
+    public void remover(ProvaVO prova, QuestaoVO questao) {
         // remove a questão da prova
 
         // analisa

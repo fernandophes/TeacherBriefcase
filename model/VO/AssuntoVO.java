@@ -2,10 +2,13 @@ package model.VO;
 
 import java.util.Calendar;
 
+import model.BO.DisciplinaBO;
+
 public class AssuntoVO {
     private String nome;
     private Calendar dataCriacao;
     private DisciplinaVO disciplina;
+    private QuestaoVO[] questoes;
 
     public String getNome() {
         return nome;
@@ -31,5 +34,16 @@ public class AssuntoVO {
 
     public void setDisciplina(DisciplinaVO disciplina) {
         this.disciplina = disciplina;
+
+        DisciplinaBO disciplinaBO = new DisciplinaBO();
+        disciplinaBO.adicionar(disciplina, this);
+    }
+
+    public QuestaoVO[] getQuestoes() {
+        return questoes;
+    }
+
+    public void setQuestoes(QuestaoVO[] questoes) {
+        this.questoes = questoes;
     }
 }

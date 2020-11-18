@@ -3,14 +3,14 @@ package model.BO;
 import model.VO.AlternativaVO;
 
 public class AlternativaBO {
-    void cadastrar(AlternativaVO alternativa) {
+    public void cadastrar(AlternativaVO alternativa) {
         // cadastra uma nova alternativa no BD
 
         // analisa
         // DAO
     }
 
-    AlternativaVO[] listar() {
+    public AlternativaVO[] listar() {
         // lista todas as alternativas
 
         AlternativaVO[] lista = {};
@@ -19,7 +19,7 @@ public class AlternativaBO {
         return lista;
     }
 
-    AlternativaVO buscar(AlternativaVO alternativa) {
+    public AlternativaVO buscar(AlternativaVO alternativa) {
         // busca uma alternativa
 
         AlternativaVO resultado = new AlternativaVO();
@@ -28,7 +28,7 @@ public class AlternativaBO {
         return resultado;
     }
 
-    void editar(AlternativaVO alternativa) {
+    public void editar(AlternativaVO alternativa) {
         // edita os dados de uma alternativa
 
         // analisa
@@ -36,7 +36,7 @@ public class AlternativaBO {
         // ajusta
     }
 
-    void excluir(AlternativaVO alternativa) {
+    public void excluir(AlternativaVO alternativa) {
         // exclui uma alternativa
 
         // analisa
