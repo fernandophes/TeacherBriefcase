@@ -24,7 +24,8 @@ public class AssuntoVO {
     }
 
     public void setDataCriacao(Calendar dataCriacao) {
-        if (dataCriacao != null)
+        // A data de criação do assunto pode ser passada ou atual, mas não futura
+        if (dataCriacao != null && (dataCriacao.compareTo(Calendar.getInstance()) <= 0))
             this.dataCriacao = dataCriacao;
     }
 
