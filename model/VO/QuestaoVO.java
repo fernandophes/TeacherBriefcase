@@ -9,7 +9,6 @@ public abstract class QuestaoVO {
     private String enunciado;
     private DisciplinaVO disciplina;
     private int dificuldade;
-    private boolean publica;
     private Calendar dataCriacao;
     private List<AssuntoVO> assuntos;
     private List<ProvaVO> provas;
@@ -49,14 +48,6 @@ public abstract class QuestaoVO {
     public void setDificuldade(int dificuldade) {
         if (dificuldade >= 0)
             this.dificuldade = dificuldade;
-    }
-
-    public boolean isPublica() {
-        return publica;
-    }
-
-    public void setPublica(boolean publica) {
-        this.publica = publica;
     }
 
     public Calendar getDataCriacao() {
