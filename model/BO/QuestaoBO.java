@@ -9,14 +9,14 @@ import model.VO.ProvaVO;
 import model.VO.QuestaoVO;
 
 public abstract class QuestaoBO {
-    public void cadastrar(QuestaoVO questao) {
+    public static void cadastrar(QuestaoVO questao) {
         // cadastra uma nova questão
 
         // analisa
         // DAO
     }
 
-    public QuestaoVO[] listar() {
+    public static QuestaoVO[] listar() {
         // lista todas as questoes
 
         QuestaoVO[] lista = {};
@@ -27,7 +27,7 @@ public abstract class QuestaoBO {
 
     public abstract QuestaoVO buscar(QuestaoVO questao);
 
-    public QuestaoVO[] buscar(DisciplinaVO disciplina) {
+    public static QuestaoVO[] buscar(DisciplinaVO disciplina) {
         // busca todas as questoes desta disciplina
 
         QuestaoVO[] lista = {};
@@ -36,7 +36,7 @@ public abstract class QuestaoBO {
         return lista;
     }
 
-    public List<QuestaoVO> buscar(AssuntoVO assunto) {
+    public static List<QuestaoVO> buscar(AssuntoVO assunto) {
         // busca todas as questoes deste assunto
 
         List<QuestaoVO> lista = new ArrayList<QuestaoVO>();
@@ -45,7 +45,7 @@ public abstract class QuestaoBO {
         return lista;
     }
 
-    public List<QuestaoVO> buscar(int dificuldade) {
+    public static List<QuestaoVO> buscar(int dificuldade) {
         // busca todas as questoes neste nível de dificuldade
 
         List<QuestaoVO> lista = new ArrayList<QuestaoVO>();
@@ -54,7 +54,7 @@ public abstract class QuestaoBO {
         return lista;
     }
 
-    public List<QuestaoVO> buscar(DisciplinaVO disciplina, int dificuldade) {
+    public static List<QuestaoVO> buscar(DisciplinaVO disciplina, int dificuldade) {
         // busca todas as questoes desta disciplina neste nível de dificuldade
 
         List<QuestaoVO> lista = new ArrayList<QuestaoVO>();
@@ -63,7 +63,7 @@ public abstract class QuestaoBO {
         return lista;
     }
 
-    public List<QuestaoVO> buscar(AssuntoVO assunto, int dificuldade) {
+    public static List<QuestaoVO> buscar(AssuntoVO assunto, int dificuldade) {
         // busca todas as questoes deste assunto neste nível de dificuldade
 
         List<QuestaoVO> lista = new ArrayList<QuestaoVO>();
@@ -72,7 +72,7 @@ public abstract class QuestaoBO {
         return lista;
     }
 
-    public void editar(QuestaoVO questao) {
+    public static void editar(QuestaoVO questao) {
         // edita os dados de uma questão
 
         // analisa
@@ -80,14 +80,14 @@ public abstract class QuestaoBO {
         // ajusta
     }
 
-    public void excluir(QuestaoVO questao) {
+    public static void excluir(QuestaoVO questao) {
         // exclui uma questão
 
         // analisa
         // DAO
     }
 
-    public void adicionar(QuestaoVO questao, AssuntoVO assunto) {
+    public static void adicionar(QuestaoVO questao, AssuntoVO assunto) {
 
         List<AssuntoVO> lista = questao.getAssuntos();
 
@@ -108,7 +108,7 @@ public abstract class QuestaoBO {
             }
     }
 
-    public void remover(QuestaoVO questao, AssuntoVO assunto) {
+    public static void remover(QuestaoVO questao, AssuntoVO assunto) {
 
         List<AssuntoVO> lista = questao.getAssuntos();
 
@@ -124,7 +124,7 @@ public abstract class QuestaoBO {
         }
     }
 
-    public void adicionar(QuestaoVO questao, ProvaVO prova) {
+    public static void adicionar(QuestaoVO questao, ProvaVO prova) {
 
         List<ProvaVO> lista = questao.getProvas();
 
@@ -142,7 +142,7 @@ public abstract class QuestaoBO {
             }
     }
 
-    public void remover(QuestaoVO questao, ProvaVO prova) {
+    public static void remover(QuestaoVO questao, ProvaVO prova) {
 
         List<ProvaVO> lista = questao.getProvas();
 
