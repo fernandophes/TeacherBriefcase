@@ -4,7 +4,7 @@ import model.VO.AssuntoVO;
 import model.VO.DisciplinaVO;
 import model.VO.QuestaoVO;
 
-public class QuestaoBO {
+public abstract class QuestaoBO {
     public void cadastrar(QuestaoVO questao) {
         // cadastra uma nova questão
 
@@ -21,14 +21,7 @@ public class QuestaoBO {
         return lista;
     }
 
-    public QuestaoVO buscar(QuestaoVO questao) {
-        // busca uma questão
-
-        QuestaoVO resultado = new QuestaoVO();
-        // DAO
-        // ajusta
-        return resultado;
-    }
+    public abstract QuestaoVO buscar(QuestaoVO questao);
 
     public QuestaoVO[] buscar(DisciplinaVO disciplina) {
         // busca todas as questoes desta disciplina

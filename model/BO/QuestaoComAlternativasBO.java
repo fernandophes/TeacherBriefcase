@@ -2,6 +2,7 @@ package model.BO;
 
 import model.VO.AlternativaVO;
 import model.VO.QuestaoComAlternativasVO;
+import model.VO.QuestaoVO;
 
 public class QuestaoComAlternativasBO extends QuestaoBO {
 
@@ -39,7 +40,7 @@ public class QuestaoComAlternativasBO extends QuestaoBO {
         for (int i = 0; i < lista.length; i++)
             if (lista[i].getTexto().equals(alternativa.getTexto())) {
                 // atualiza a questão
-                    // CÓDIGO QUE REMOVE A ALTERNATIVA DO ARRAY
+                // CÓDIGO QUE REMOVE A ALTERNATIVA DO ARRAY
 
                 // atualiza a alternativa (exclui, pois ela depende do vínculo com a questão)
                 AlternativaBO alternativaBO = new AlternativaBO();
@@ -47,9 +48,19 @@ public class QuestaoComAlternativasBO extends QuestaoBO {
 
                 return;
             }
-            
+
         // analisa
         // DAO
         // ajusta
+    }
+
+    @Override
+    public QuestaoComAlternativasVO buscar(QuestaoVO questao) {
+
+        QuestaoComAlternativasVO resultado = new QuestaoComAlternativasVO();
+        // DAO
+        // ajusta
+
+        return resultado;
     }
 }
