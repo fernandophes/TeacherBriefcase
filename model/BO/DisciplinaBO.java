@@ -1,5 +1,6 @@
 package model.BO;
 
+import java.util.Iterator;
 import java.util.List;
 
 import model.VO.AssuntoVO;
@@ -73,11 +74,12 @@ public class DisciplinaBO {
         if (lista.remove(assunto)) {
             disciplina.setAssuntos(lista);
 
-            // atualiza as questões (remove este assunto da lista de cada uma)
+            // Atualizar as questões (remover este assunto da lista de cada uma)
             List<QuestaoVO> questoes = assunto.getQuestoes();
-            QuestaoBO questaoBO = new QuestaoBO();
-            // percorrer
-            questaoBO.remover(questoes.get(i), assunto);
+            Iterator<QuestaoVO> iterator = questoes.iterator();
+            while (iterator.hasNext()) {
+                QuestaoBO.remover(iterator.next(), assunto);
+            }
 
             // atualiza o assunto (exclui, pois o assunto depende da ligação com a
             // disciplina)

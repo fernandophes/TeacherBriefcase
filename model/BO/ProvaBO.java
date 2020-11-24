@@ -59,8 +59,7 @@ public class ProvaBO {
                 prova.setQuestoes(lista);
 
                 // Atualizar a questão
-                QuestaoBO questaoBO = new QuestaoBO();
-                questaoBO.adicionar(questao, prova);
+                QuestaoBO.adicionar(questao, prova);
 
                 // DAO
             }
@@ -75,8 +74,7 @@ public class ProvaBO {
             prova.setQuestoes(lista);
 
             // Atualizar a questão
-            QuestaoBO questaoBO = new QuestaoBO();
-            questaoBO.remover(questao, prova);
+            QuestaoBO.remover(questao, prova);
 
             // DAO
         }

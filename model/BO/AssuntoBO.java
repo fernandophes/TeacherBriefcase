@@ -60,8 +60,7 @@ public class AssuntoBO {
                 assunto.setQuestoes(lista);
 
                 // Atualiza a questão
-                QuestaoBO questaoBO = new QuestaoBO();
-                questaoBO.adicionar(questao, assunto);
+                QuestaoBO.adicionar(questao, assunto);
 
                 // DAO
             }
@@ -76,8 +75,7 @@ public class AssuntoBO {
             assunto.setQuestoes(lista);
 
             // Atualiza a questão
-            QuestaoBO questaoBO = new QuestaoBO();
-            questaoBO.remover(questao, assunto);
+            QuestaoBO.remover(questao, assunto);
         }
     }
 }
