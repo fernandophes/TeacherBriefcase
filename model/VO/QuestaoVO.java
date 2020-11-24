@@ -13,9 +13,9 @@ public abstract class QuestaoVO {
     private List<AssuntoVO> assuntos;
     private List<ProvaVO> provas;
 
-    public final int facil = 0;
-    public final int media = 1;
-    public final int dificil = 2;
+    public final int FACIL = 0;
+    public final int MEDIA = 1;
+    public final int DIFICIL = 2;
 
     public String getEnunciado() {
         return enunciado;
