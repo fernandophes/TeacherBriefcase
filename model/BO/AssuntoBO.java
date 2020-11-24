@@ -6,7 +6,7 @@ import java.util.List;
 import model.VO.AssuntoVO;
 import model.VO.QuestaoVO;
 
-public class AssuntoBO {
+public class AssuntoBO implements AssuntoInterBO {
     public void cadastrar(AssuntoVO assunto) {
         // cadastra um novo assunto no BD
 

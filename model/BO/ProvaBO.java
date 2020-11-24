@@ -6,7 +6,7 @@ import java.util.List;
 import model.VO.ProvaVO;
 import model.VO.QuestaoVO;
 
-public class ProvaBO {
+public class ProvaBO implements ProvaInterBO {
     public void cadastrar(ProvaVO prova) {
         // cadastra uma prova no BD
 
@@ -46,6 +46,17 @@ public class ProvaBO {
         // DAO
     }
 
+    /*
+    public ProvaVO gerar(int quaisquer, int faceis, int medias, int dificeis) {
+        // Gera uma prova com questões aleatórias
+        ProvaVO resultado = new ProvaVO();
+
+        // DAO
+
+        return resultado;
+    }
+    */
+    
     public void adicionar(ProvaVO prova, QuestaoVO questao) {
 
         List<QuestaoVO> lista = prova.getQuestoes();

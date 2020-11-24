@@ -6,7 +6,8 @@ import java.util.List;
 import model.VO.DisciplinaVO;
 import model.VO.ProfessorVO;
 
-public class ProfessorBO {
+public class ProfessorBO implements ProfessorInterBO {
+    
     public void cadastrar(ProfessorVO professor) {
         // cadastra um novo Professor
 

@@ -10,7 +10,7 @@ import model.VO.ProfessorVO;
 import model.VO.ProvaVO;
 import model.VO.QuestaoVO;
 
-public class DisciplinaBO {
+public class DisciplinaBO implements DisciplinaInterBO {
     public void cadastrar(DisciplinaVO disciplina) {
         // cadastra uma nova disciplina
 

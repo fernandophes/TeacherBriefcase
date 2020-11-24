@@ -2,7 +2,7 @@ package model.BO;
 
 import java.util.List;
 
-public interface BaseInterBO<VO> {
+public abstract interface BaseInterBO<VO> {
     
     public void cadastrar(VO vo);
 

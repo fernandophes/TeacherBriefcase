@@ -5,7 +5,7 @@ import java.util.List;
 
 import model.VO.AlternativaVO;
 
-public class AlternativaBO {
+public class AlternativaBO implements AlternativaInterBO {
     public void cadastrar(AlternativaVO alternativa) {
         // cadastra uma nova alternativa no BD
 
