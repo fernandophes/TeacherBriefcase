@@ -1,5 +1,7 @@
 package model.BO;
 
+import java.util.List;
+
 import model.VO.AlternativaVO;
 import model.VO.QuestaoComAlternativasVO;
 import model.VO.QuestaoVO;
@@ -9,49 +11,35 @@ public class QuestaoComAlternativasBO extends QuestaoBO {
     public void adicionar(QuestaoComAlternativasVO questao, AlternativaVO alternativa) {
         // adiciona uma alternativa à questão
 
-        AlternativaVO[] lista = questao.getAlternativas();
+        List<AlternativaVO> lista = questao.getAlternativas();
 
-        // verifica se ja existe uma alternativa com o mesmo texto na questão
-        for (int i = 0; i < lista.length; i++)
-            if (lista[i].getTexto().equals(alternativa.getTexto()))
-                return;
-        // O método não continua, pois ja existe uma alternativa de mesmo texto
+        // Se esta alternativa não estiver na lista desta questão, será adicionada
+        if (!lista.contains(alternativa)) {
+            lista.add(alternativa);
+            questao.setAlternativas(lista);
 
-        // incrementa a lista
-        lista[lista.length] = alternativa;
+            // atualiza a alternativa
+            alternativa.setQuestao(questao);
 
-        // atualiza a questão
-        questao.setAlternativas(lista);
-
-        // atualiza a alternativa
-        alternativa.setQuestao(questao);
-
-        // analisa
-        // DAO
-        // ajusta
+            // DAO
+        }
     }
 
     public void remover(QuestaoComAlternativasVO questao, AlternativaVO alternativa) {
         // remove a alternativa da questão
 
-        AlternativaVO[] lista = questao.getAlternativas();
+        List<AlternativaVO> lista = questao.getAlternativas();
 
-        // verifica se realmente existe uma alternativa com o mesmo texto na questão
-        for (int i = 0; i < lista.length; i++)
-            if (lista[i].getTexto().equals(alternativa.getTexto())) {
-                // atualiza a questão
-                // CÓDIGO QUE REMOVE A ALTERNATIVA DO ARRAY
+        // Se esta alternativa estiver na lista desta questão, será removida
+        if (lista.remove(alternativa)) {
+            questao.setAlternativas(lista);
 
-                // atualiza a alternativa (exclui, pois ela depende do vínculo com a questão)
-                AlternativaBO alternativaBO = new AlternativaBO();
-                alternativaBO.excluir(alternativa);
+            // atualiza a alternativa (exclui, pois ela depende do vínculo com a questão)
+            AlternativaBO alternativaBO = new AlternativaBO();
+            alternativaBO.excluir(alternativa);
 
-                return;
-            }
-
-        // analisa
-        // DAO
-        // ajusta
+            // DAO
+        }
     }
 
     @Override

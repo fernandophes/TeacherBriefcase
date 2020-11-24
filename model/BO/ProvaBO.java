@@ -1,5 +1,7 @@
 package model.BO;
 
+import java.util.List;
+
 import model.VO.ProvaVO;
 import model.VO.QuestaoVO;
 
@@ -44,18 +46,39 @@ public class ProvaBO {
     }
 
     public void adicionar(ProvaVO prova, QuestaoVO questao) {
-        // adiciona a questão à prova
 
-        // analisa
-        // DAO
-        // ajusta
+        List<QuestaoVO> lista = prova.getQuestoes();
+
+        // Se esta questão não estiver na lista desta prova, poderá ou não ser
+        // adicionada
+        if (!lista.contains(questao))
+            // Esta questão só será adicionada a esta prova se ambas pertencerem à mesma
+            // disciplina
+            if (prova.getDisciplina().equals(questao.getDisciplina())) {
+                lista.add(questao);
+                prova.setQuestoes(lista);
+
+                // Atualizar a questão
+                QuestaoBO questaoBO = new QuestaoBO();
+                questaoBO.adicionar(questao, prova);
+
+                // DAO
+            }
     }
 
     public void remover(ProvaVO prova, QuestaoVO questao) {
-        // remove a questão da prova
 
-        // analisa
-        // DAO
-        // ajusta
+        List<QuestaoVO> lista = prova.getQuestoes();
+
+        // Se esta questão estiver na lista desta prova, será removida
+        if (lista.remove(questao)) {
+            prova.setQuestoes(lista);
+
+            // Atualizar a questão
+            QuestaoBO questaoBO = new QuestaoBO();
+            questaoBO.remover(questao, prova);
+
+            // DAO
+        }
     }
 }

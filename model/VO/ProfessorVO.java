@@ -1,13 +1,14 @@
 package model.VO;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class ProfessorVO {
     private String nome;
     private String email;
     private String senha;
     private Calendar dataCriacao;
-    private DisciplinaVO[] disciplinas;
+    private List<DisciplinaVO> disciplinas;
 
     public String getNome() {
         return nome;
@@ -46,11 +47,11 @@ public class ProfessorVO {
             this.dataCriacao = dataCriacao;
     }
 
-    public DisciplinaVO[] getDisciplinas() {
+    public List<DisciplinaVO> getDisciplinas() {
         return disciplinas;
     }
 
-    public void setDisciplinas(DisciplinaVO[] disciplinas) {
+    public void setDisciplinas(List<DisciplinaVO> disciplinas) {
         this.disciplinas = disciplinas;
     }
 }

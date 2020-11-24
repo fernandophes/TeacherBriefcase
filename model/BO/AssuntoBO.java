@@ -1,5 +1,7 @@
 package model.BO;
 
+import java.util.List;
+
 import model.VO.AssuntoVO;
 import model.VO.QuestaoVO;
 
@@ -45,46 +47,37 @@ public class AssuntoBO {
     }
 
     public void adicionar(AssuntoVO assunto, QuestaoVO questao) {
-        // adiciona uma questão ao acervo deste assunto
 
-        QuestaoVO[] lista = assunto.getQuestoes();
+        List<QuestaoVO> lista = assunto.getQuestoes();
 
-        // verifica se ja existe uma questão de mesmo enunciado neste assunto
-        for (int i = 0; i < lista.length; i++)
-            // Por enquanto, o enunciado esta sendo "a chave", sei que isso não eh o ideal,
-            // mas por ora eh o que temos
-            if (lista[i].getEnunciado().equals(questao.getEnunciado()))
-                return;
+        // Se esta questão não existir na lista deste assunto, poderá ou não ser
+        // adicionada
+        if (!lista.contains(questao))
+            // Esta questão só será adicionada se pertencer à mesma disciplina que este
+            // assunto
+            if (questao.getDisciplina().equals(assunto.getDisciplina())) {
+                lista.add(questao);
+                assunto.setQuestoes(lista);
 
-        // incrementa a lista
-        lista[lista.length] = questao;
+                // Atualiza a questão
+                QuestaoBO questaoBO = new QuestaoBO();
+                questaoBO.adicionar(questao, assunto);
 
-        // atualiza o assunto
-        assunto.setQuestoes(lista);
-
-        // atualiza a questão
-        QuestaoBO questaoBO = new QuestaoBO();
-        questaoBO.adicionar(questao, assunto);
+                // DAO
+            }
     }
 
     public void remover(AssuntoVO assunto, QuestaoVO questao) {
-        // remove uma questão do acervo deste assunto
 
-        QuestaoVO[] lista = assunto.getQuestoes();
+        List<QuestaoVO> lista = assunto.getQuestoes();
 
-        // verifica se realmente existe uma questão de mesmo enunciado neste assunto
-        for (int i = 0; i < lista.length; i++)
-            // Por enquanto, o enunciado esta sendo "a chave", sei que isso não eh o ideal,
-            // mas por ora eh o que temos
-            if (lista[i].getEnunciado().equals(questao.getEnunciado())) {
-                // atualiza o assunto
-                    // CÓDIGO QUE REMOVE A QUESTÃO DO ACERVO DO ASSUNTO
+        // Se esta questão estiver na lista deste assunto, será removida
+        if (lista.remove(questao)) {
+            assunto.setQuestoes(lista);
 
-                // atualiza a questão
-                QuestaoBO questaoBO = new QuestaoBO();
-                questaoBO.remover(questao, assunto);
-
-                return;
-                }
+            // Atualiza a questão
+            QuestaoBO questaoBO = new QuestaoBO();
+            questaoBO.remover(questao, assunto);
+        }
     }
 }

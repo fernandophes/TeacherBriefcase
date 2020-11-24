@@ -1,7 +1,11 @@
 package model.BO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import model.VO.AssuntoVO;
 import model.VO.DisciplinaVO;
+import model.VO.ProvaVO;
 import model.VO.QuestaoVO;
 
 public abstract class QuestaoBO {
@@ -32,37 +36,37 @@ public abstract class QuestaoBO {
         return lista;
     }
 
-    public QuestaoVO[] buscar(AssuntoVO assunto) {
+    public List<QuestaoVO> buscar(AssuntoVO assunto) {
         // busca todas as questoes deste assunto
 
-        QuestaoVO[] lista = {};
+        List<QuestaoVO> lista = new ArrayList<QuestaoVO>();
         // DAO
         // ajusta
         return lista;
     }
 
-    public QuestaoVO[] buscar(int dificuldade) {
+    public List<QuestaoVO> buscar(int dificuldade) {
         // busca todas as questoes neste nível de dificuldade
 
-        QuestaoVO[] lista = {};
+        List<QuestaoVO> lista = new ArrayList<QuestaoVO>();
         // DAO
         // ajusta
         return lista;
     }
 
-    public QuestaoVO[] buscar(DisciplinaVO disciplina, int dificuldade) {
+    public List<QuestaoVO> buscar(DisciplinaVO disciplina, int dificuldade) {
         // busca todas as questoes desta disciplina neste nível de dificuldade
 
-        QuestaoVO[] lista = {};
+        List<QuestaoVO> lista = new ArrayList<QuestaoVO>();
         // DAO
         // ajusta
         return lista;
     }
 
-    public QuestaoVO[] buscar(AssuntoVO assunto, int dificuldade) {
+    public List<QuestaoVO> buscar(AssuntoVO assunto, int dificuldade) {
         // busca todas as questoes deste assunto neste nível de dificuldade
 
-        QuestaoVO[] lista = {};
+        List<QuestaoVO> lista = new ArrayList<QuestaoVO>();
         // DAO
         // ajusta
         return lista;
@@ -84,48 +88,73 @@ public abstract class QuestaoBO {
     }
 
     public void adicionar(QuestaoVO questao, AssuntoVO assunto) {
-        // adiciona um assunto à questão
-        AssuntoVO[] lista = questao.getAssuntos();
 
-        // verifica se a questão possui um assunto de mesmo nome
-        for (int i = 0; i < lista.length; i++)
-            if (lista[i].getNome().equals(assunto.getNome()))
-                return;
+        List<AssuntoVO> lista = questao.getAssuntos();
 
-        // incrementa a lista
-        lista[lista.length] = assunto;
-
-        // atualiza a questão
-        questao.setAssuntos(lista);
-
-        // atualiza o assunto
-        AssuntoBO assuntoBO = new AssuntoBO();
-        assuntoBO.adicionar(assunto, questao);
-        
-        // analisa (o assunto pertence à disciplina correta?)
-        // DAO
-        // ajusta
-    }
-
-    public void remover(QuestaoVO questao, AssuntoVO assunto) {
-        // remove o assunto da questão
-        AssuntoVO[] lista = questao.getAssuntos();
-
-        // verifica se a questão possui um assunto de mesmo nome
-        for (int i = 0; i < lista.length; i++)
-            if (lista[i].getNome().equals(assunto.getNome())) {
-                // atualiza a questão
-                    // CÓDIGO PARA REMOVER O ASSUNTO
+        // Se este assunto não estiver na lista desta questão, poderá ou não ser
+        // adicionado
+        if (!lista.contains(assunto))
+            // Este assunto só será adicionado a esta questão se ambos pertencerem à mesma
+            // disciplina
+            if (assunto.getDisciplina().equals(questao.getDisciplina())) {
+                lista.add(assunto);
+                questao.setAssuntos(lista);
 
                 // atualiza o assunto
                 AssuntoBO assuntoBO = new AssuntoBO();
-                assuntoBO.remover(assunto, questao);
+                assuntoBO.adicionar(assunto, questao);
 
-                return;
+                // DAO
             }
+    }
 
-        // analisa
-        // DAO
-        // ajusta
+    public void remover(QuestaoVO questao, AssuntoVO assunto) {
+
+        List<AssuntoVO> lista = questao.getAssuntos();
+
+        // Se este assunto estiver na lista deste assunto, será removido
+        if (lista.remove(assunto)) {
+            questao.setAssuntos(lista);
+
+            // atualiza o assunto
+            AssuntoBO assuntoBO = new AssuntoBO();
+            assuntoBO.remover(assunto, questao);
+
+            // DAO
+        }
+    }
+
+    public void adicionar(QuestaoVO questao, ProvaVO prova) {
+
+        List<ProvaVO> lista = questao.getProvas();
+
+        // Se esta prova não estiver na lista desta questão, poderá ou não ser adicionada
+        if (!lista.contains(prova))
+            // Esta prova só será adicionada a esta questão se ambas pertencerem à mesma disciplina
+            if (questao.getDisciplina().equals(prova.getDisciplina())) {
+                lista.add(prova);
+
+                // Atualizar a prova
+                ProvaBO provaBO = new ProvaBO();
+                provaBO.adicionar(prova, questao);
+
+                // DAO
+            }
+    }
+
+    public void remover(QuestaoVO questao, ProvaVO prova) {
+
+        List<ProvaVO> lista = questao.getProvas();
+
+        // Se esta prova estiver na lista desta questão, será removida
+        if (lista.remove(prova)) {
+            questao.setProvas(lista);
+
+            // Atualizar a prova
+            ProvaBO provaBO = new ProvaBO();
+            provaBO.remover(prova, questao);
+
+            // DAO
+        }
     }
 }

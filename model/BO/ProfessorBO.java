@@ -1,5 +1,7 @@
 package model.BO;
 
+import java.util.List;
+
 import model.VO.DisciplinaVO;
 import model.VO.ProfessorVO;
 
@@ -45,7 +47,7 @@ public class ProfessorBO {
 
     public boolean autenticar(ProfessorVO professor) {
         // verifica se o e-mail e a senha do Professor correspondem ao BD
-        
+
         // analisa
         // DAO
         // ajusta
@@ -55,50 +57,35 @@ public class ProfessorBO {
     public void adicionar(ProfessorVO professor, DisciplinaVO disciplina) {
         // adiciona a disciplina à lista, caso ainda não exista
 
-        DisciplinaVO[] lista = professor.getDisciplinas();
+        List<DisciplinaVO> lista = professor.getDisciplinas();
 
-        // verifica se o professor ja possui uma disciplina de mesmo nome cadastrada
-        for (int i = 0; i < lista.length; i++) {
-            if (lista[i].getNome().equals(disciplina.getNome())) {
-                // ERRO: O professor JA POSSUI uma disciplina com o mesmo nome
-                // a execução do método morre
-                return;
-            }
+        // Se esta disciplina não estiver na lista deste professor, será adicionada
+        if (!lista.contains(disciplina)) {
+            lista.add(disciplina);
+            professor.setDisciplinas(lista);
+
+            // atualiza a disciplina
+            DisciplinaBO disciplinaBO = new DisciplinaBO();
+            disciplinaBO.adicionar(disciplina, professor);
+
+            // DAO
         }
-
-        // adiciona a disciplina ao final da lista
-        lista[lista.length] = disciplina;
-
-        // atualiza o professor
-        professor.setDisciplinas(lista);
-
-        // atualiza a disciplina
-        DisciplinaBO disciplinaBO = new DisciplinaBO();
-        disciplinaBO.adicionar(disciplina, professor);
-
-        // analisa
-        // DAO
     }
 
     public void remover(ProfessorVO professor, DisciplinaVO disciplina) {
         // remove a disciplina deste professor
 
-        DisciplinaVO[] lista = professor.getDisciplinas();
+        List<DisciplinaVO> lista = professor.getDisciplinas();
 
-        // verifica se o professor realmente possui uma disciplina de mesmo nome cadastrada
-        for (int i = 0; i < lista.length; i++)
-            if (lista[i].getNome().equals(disciplina.getNome())) {
-                // atualiza o professor
-                    // CÓDIGO PARA REMOVER A DISCIPLINA
+        // Se esta disciplina estiver na lista deste professor, será removida
+        if (lista.remove(disciplina)) {
+            professor.setDisciplinas(lista);
 
-                // atualiza a disciplina
-                DisciplinaBO disciplinaBO = new DisciplinaBO();
-                disciplinaBO.remover(disciplina, professor);
-                
-                return;
-            }
+            // atualiza a disciplina
+            DisciplinaBO disciplinaBO = new DisciplinaBO();
+            disciplinaBO.remover(disciplina, professor);
 
-        // analisa
-        // DAO
+            // DAO
+        }
     }
 }

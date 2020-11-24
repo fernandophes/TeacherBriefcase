@@ -1,8 +1,11 @@
 package model.BO;
 
+import java.util.List;
+
 import model.VO.AssuntoVO;
 import model.VO.DisciplinaVO;
 import model.VO.ProfessorVO;
+import model.VO.ProvaVO;
 import model.VO.QuestaoVO;
 
 public class DisciplinaBO {
@@ -47,107 +50,136 @@ public class DisciplinaBO {
     }
 
     public void adicionar(DisciplinaVO disciplina, AssuntoVO assunto) {
-        // adiciona um assunto à disciplina
 
-        AssuntoVO[] lista = disciplina.getAssuntos();
+        List<AssuntoVO> lista = disciplina.getAssuntos();
 
-        // verifica se a disciplina ja possui um assunto de mesmo nome cadastrado
-        for (int i = 0; i < lista.length; i++)
-            if (lista[i].getNome().equals(assunto.getNome()))
-                return;
-                // ERRO: A disciplina JA POSSUI um assunto com o mesmo nome
-                // a execução do método morre
+        // Se este assunto não estiver na lista desta disciplina, ele será adicionado
+        if (!lista.contains(assunto)) {
+            lista.add(assunto);
+            disciplina.setAssuntos(lista);
 
-        // incrementa a lista
-        lista[lista.length] = assunto;
-        
-        // atualiza a disciplina
-        disciplina.setAssuntos(lista);
+            // atualiza o assunto
+            assunto.setDisciplina(disciplina);
 
-        // atualiza o assunto
-        assunto.setDisciplina(disciplina);
-
-        // analisa
-        // DAO
-        // ajusta
+            // DAO
+        }
     }
 
     public void remover(DisciplinaVO disciplina, AssuntoVO assunto) {
-        // remove o assunto da disciplina
 
-        AssuntoVO[] lista = disciplina.getAssuntos();
+        List<AssuntoVO> lista = disciplina.getAssuntos();
 
-        // verifica se a disciplina realmente possui um assunto de mesmo nome cadastrado
-        for (int i = 0; i < lista.length; i++)
-            if (lista[i].getNome().equals(assunto.getNome())) {
-                // atualiza a disciplina
-                    // CÓDIGO PARA REMOVER O ASSUNTO
+        // Se este assunto estiver na lista desta disciplina, ele será removido
+        if (lista.remove(assunto)) {
+            disciplina.setAssuntos(lista);
 
-                // atualiza as questões (remove este assunto da lista de cada uma)
-                QuestaoBO questaoBO = new QuestaoBO();
-                QuestaoVO[] questoes = assunto.getQuestoes();
-                for (int j = 0; j < questoes.length; j++)
-                    questaoBO.remover(questoes[j], assunto);
+            // atualiza as questões (remove este assunto da lista de cada uma)
+            List<QuestaoVO> questoes = assunto.getQuestoes();
+            QuestaoBO questaoBO = new QuestaoBO();
+            // percorrer
+            questaoBO.remover(questoes.get(i), assunto);
 
-                // atualiza o assunto (exclui, pois o assunto depende da ligação com a disciplina)
-                AssuntoBO assuntoBO = new AssuntoBO();
-                assuntoBO.excluir(assunto);
+            // atualiza o assunto (exclui, pois o assunto depende da ligação com a
+            // disciplina)
+            AssuntoBO assuntoBO = new AssuntoBO();
+            assuntoBO.excluir(assunto);
 
-                return;
-            }
-
-        // analisa
-        // DAO
-        // ajusta
+            // DAO
+        }
     }
 
     public void adicionar(DisciplinaVO disciplina, ProfessorVO professor) {
-        // adiciona um professor à disciplina
-        
-        ProfessorVO[] lista = disciplina.getProfessores();
 
-        // verifica se a disciplina ja possui um professor de mesmo e-mail cadastrado
-        for (int i = 0; i < lista.length; i++)
-            if (lista[i].getEmail().equals(professor.getEmail()))
-                return;
-                // ERRO: A disciplina JA POSSUI um professor com o mesmo e-mail
-                // a execução do método morre
+        List<ProfessorVO> lista = disciplina.getProfessores();
 
-        // incrementa a lista
-        lista[lista.length] = professor;
+        // Se este professor não estiver na lista desta disciplina, será adicionado
+        if (!lista.contains(professor)) {
+            lista.add(professor);
+            disciplina.setProfessores(lista);
 
-        // atualiza a disciplina
-        disciplina.setProfessores(lista);
+            // atualiza o professor
+            ProfessorBO professorBO = new ProfessorBO();
+            professorBO.adicionar(professor, disciplina);
 
-        // atualiza o professor
-        ProfessorBO professorBO = new ProfessorBO();
-        professorBO.adicionar(professor, disciplina);
-
-        // analisa
-        // DAO
-        // ajusta
+            // DAO
+        }
     }
 
     public void remover(DisciplinaVO disciplina, ProfessorVO professor) {
-        // remove o professor da disciplina
 
-        ProfessorVO[] lista = disciplina.getProfessores();
+        List<ProfessorVO> lista = disciplina.getProfessores();
 
-        // verifica se a disciplina realmente possui um professor de mesmo e-mail cadastrado
-        for (int i = 0; i < lista.length; i++)
-            if (lista[i].getEmail().equals(professor.getEmail())) {
-                // atualiza a disciplina
-                    // CÓDIGO QUE REMOVE O PROFESSOR
-                
-                // atualiza o professor
-                ProfessorBO professorBO = new ProfessorBO();
-                professorBO.remover(professor, disciplina);
+        // Se este professor estiver na lista desta disciplina, será removido
+        if (lista.remove(professor)) {
+            disciplina.setProfessores(lista);
 
-                return;
-            }
+            // atualiza o professor
+            ProfessorBO professorBO = new ProfessorBO();
+            professorBO.remover(professor, disciplina);
 
-        // analisa
-        // DAO
-        // ajusta
+            // DAO
+        }
+    }
+
+    public void adicionar(DisciplinaVO disciplina, QuestaoVO questao) {
+
+        List<QuestaoVO> lista = disciplina.getQuestoes();
+
+        // Se esta questão não estiver na lista desta disciplina, será adicionada
+        if (!lista.contains(questao)) {
+            lista.add(questao);
+            disciplina.setQuestoes(lista);
+
+            // Atualiza a questão
+            questao.setDisciplina(disciplina);
+
+            // DAO
+        }
+    }
+
+    public void remover(DisciplinaVO disciplina, QuestaoVO questao) {
+        
+        List<QuestaoVO> lista = disciplina.getQuestoes();
+
+        // Se esta questão estiver na lista desta disciplina, será removida
+        if (lista.remove(questao)) {
+            disciplina.setQuestoes(lista);
+
+            // Atualiza a questão
+            questao.setDisciplina(null);
+
+            // DAO
+        }
+    }
+
+    public void adicionar(DisciplinaVO disciplina, ProvaVO prova) {
+
+        List<ProvaVO> lista = disciplina.getProvas();
+
+        // Se esta prova não estiver na lista desta disciplina, será adicionada
+        if (!lista.contains(prova)) {
+            lista.add(prova);
+            disciplina.setProvas(lista);
+
+            // Atualizar a prova
+            prova.setDisciplina(disciplina);
+
+            // DAO
+        }
+    }
+
+    public void remover(DisciplinaVO disciplina, ProvaVO prova) {
+
+        List<ProvaVO> lista = disciplina.getProvas();
+
+        // Se esta prova estiver na lista desta disciplina, será removida
+        if (lista.remove(prova)) {
+            disciplina.setProvas(lista);
+
+            // Atualizar a prova
+            prova.setDisciplina(null);
+
+            // DAO
+        }
     }
 }

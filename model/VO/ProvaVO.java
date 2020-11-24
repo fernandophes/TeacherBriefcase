@@ -1,12 +1,13 @@
 package model.VO;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class ProvaVO {
     private DisciplinaVO disciplina;
     private String titulo;
     private Calendar dataCriacao;
-    private QuestaoVO[] questoes;
+    private List<QuestaoVO> questoes;
 
     public DisciplinaVO getDisciplina() {
         return disciplina;
@@ -36,11 +37,11 @@ public class ProvaVO {
             this.dataCriacao = dataCriacao;
     }
 
-    public QuestaoVO[] getQuestoes() {
+    public List<QuestaoVO> getQuestoes() {
         return questoes;
     }
 
-    public void setQuestoes(QuestaoVO[] questoes) {
+    public void setQuestoes(List<QuestaoVO> questoes) {
         this.questoes = questoes;
     }
 }

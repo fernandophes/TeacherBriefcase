@@ -1,13 +1,15 @@
 package model.VO;
 
-public class QuestaoComAlternativasVO extends QuestaoVO {
-    private AlternativaVO[] alternativas;
+import java.util.List;
 
-    public AlternativaVO[] getAlternativas() {
+public class QuestaoComAlternativasVO extends QuestaoVO {
+    private List<AlternativaVO> alternativas;
+
+    public List<AlternativaVO> getAlternativas() {
         return alternativas;
     }   
 
-    public void setAlternativas(AlternativaVO[] alternativas) {
+    public void setAlternativas(List<AlternativaVO> alternativas) {
         this.alternativas = alternativas;
     }
 }

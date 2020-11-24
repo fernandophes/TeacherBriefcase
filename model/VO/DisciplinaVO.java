@@ -1,13 +1,16 @@
 package model.VO;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class DisciplinaVO {
     private String codigo;
     private String nome;
     private Calendar dataCriacao;
-    private ProfessorVO[] professores;
-    private AssuntoVO[] assuntos;
+    private List<ProfessorVO> professores;
+    private List<AssuntoVO> assuntos;
+    private List<QuestaoVO> questoes;
+    private List<ProvaVO> provas;
 
     public String getCodigo() {
         return this.codigo;
@@ -36,19 +39,35 @@ public class DisciplinaVO {
             this.dataCriacao = dataCriacao;
     }
 
-    public ProfessorVO[] getProfessores() {
+    public List<ProfessorVO> getProfessores() {
         return professores;
     }
 
-    public void setProfessores(ProfessorVO[] professores) {
+    public void setProfessores(List<ProfessorVO> professores) {
         this.professores = professores;
     }
 
-    public AssuntoVO[] getAssuntos() {
+    public List<AssuntoVO> getAssuntos() {
         return assuntos;
     }
 
-    public void setAssuntos(AssuntoVO[] assuntos) {
+    public void setAssuntos(List<AssuntoVO> assuntos) {
         this.assuntos = assuntos;
+    }
+
+    public List<QuestaoVO> getQuestoes() {
+        return questoes;
+    }
+
+    public void setQuestoes(List<QuestaoVO> questoes) {
+        this.questoes = questoes;
+    }
+
+    public List<ProvaVO> getProvas() {
+        return provas;
+    }
+
+    public void setProvas(List<ProvaVO> provas) {
+        this.provas = provas;
     }
 }

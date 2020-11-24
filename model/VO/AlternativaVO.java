@@ -2,6 +2,8 @@ package model.VO;
 
 import java.util.Calendar;
 
+import model.BO.QuestaoComAlternativasBO;
+
 public class AlternativaVO {
     private QuestaoComAlternativasVO questao;
     private String texto;
@@ -13,7 +15,18 @@ public class AlternativaVO {
     }
 
     public void setQuestao(QuestaoComAlternativasVO questao) {
+        // Atualiza a questão antiga, se existir uma
+        if (this.questao != null) {
+            QuestaoComAlternativasBO antiga = new QuestaoComAlternativasBO();
+            antiga.remover(questao, this);
+        }
+
+        // Atualiza a alternativa
         this.questao = questao;
+
+        // Atualiza a nova questão
+        QuestaoComAlternativasBO nova = new QuestaoComAlternativasBO();
+        nova.adicionar(questao, this);
     }
 
     public String getTexto() {

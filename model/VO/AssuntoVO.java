@@ -1,6 +1,7 @@
 package model.VO;
 
 import java.util.Calendar;
+import java.util.List;
 
 import model.BO.DisciplinaBO;
 
@@ -8,7 +9,7 @@ public class AssuntoVO {
     private String nome;
     private Calendar dataCriacao;
     private DisciplinaVO disciplina;
-    private QuestaoVO[] questoes;
+    private List<QuestaoVO> questoes;
 
     public String getNome() {
         return nome;
@@ -34,17 +35,23 @@ public class AssuntoVO {
     }
 
     public void setDisciplina(DisciplinaVO disciplina) {
+        // Atualiza a antiga disciplina, se existir uma
+        DisciplinaBO antiga = new DisciplinaBO();
+        antiga.remover(disciplina, this);
+
+        // Atualiza o assunto
         this.disciplina = disciplina;
 
-        DisciplinaBO disciplinaBO = new DisciplinaBO();
-        disciplinaBO.adicionar(disciplina, this);
+        // Atualiza a nova disciplina
+        DisciplinaBO nova = new DisciplinaBO();
+        nova.adicionar(disciplina, this);
     }
 
-    public QuestaoVO[] getQuestoes() {
+    public List<QuestaoVO> getQuestoes() {
         return questoes;
     }
 
-    public void setQuestoes(QuestaoVO[] questoes) {
+    public void setQuestoes(List<QuestaoVO> questoes) {
         this.questoes = questoes;
     }
 }

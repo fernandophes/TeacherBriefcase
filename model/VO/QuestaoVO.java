@@ -1,6 +1,9 @@
 package model.VO;
 
 import java.util.Calendar;
+import java.util.List;
+
+import model.BO.DisciplinaBO;
 
 public abstract class QuestaoVO {
     private String enunciado;
@@ -8,7 +11,8 @@ public abstract class QuestaoVO {
     private int dificuldade;
     private boolean publica;
     private Calendar dataCriacao;
-    private AssuntoVO[] assuntos;
+    private List<AssuntoVO> assuntos;
+    private List<ProvaVO> provas;
 
     public String getEnunciado() {
         return enunciado;
@@ -24,8 +28,18 @@ public abstract class QuestaoVO {
     }
 
     public void setDisciplina(DisciplinaVO disciplina) {
-        if (disciplina != null)
+        if (disciplina != null) {
+            // Atualizar a disciplina antiga
+            DisciplinaBO antiga = new DisciplinaBO();
+            antiga.remover(disciplina, this);
+            
+            // Atualizar a questão
             this.disciplina = disciplina;
+
+            // Atualizar a nova disciplina
+            DisciplinaBO nova = new DisciplinaBO();
+            nova.adicionar(disciplina, this);
+        }
     }
 
     public int getDificuldade() {
@@ -55,11 +69,19 @@ public abstract class QuestaoVO {
             this.dataCriacao = dataCriacao;
     }
 
-    public AssuntoVO[] getAssuntos() {
+    public List<AssuntoVO> getAssuntos() {
         return assuntos;
     }
 
-    public void setAssuntos(AssuntoVO[] assuntos) {
+    public void setAssuntos(List<AssuntoVO> assuntos) {
         this.assuntos = assuntos;
+    }
+
+    public List<ProvaVO> getProvas() {
+        return provas;
+    }
+
+    public void setProvas(List<ProvaVO> provas) {
+        this.provas = provas;
     }
 }
