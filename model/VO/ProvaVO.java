@@ -44,4 +44,11 @@ public class ProvaVO {
     public void setQuestoes(List<QuestaoVO> questoes) {
         this.questoes = questoes;
     }
+
+    @Override
+    public String toString() {
+        return "ProvaVO{" + "disciplina=" + disciplina + ", titulo=" + titulo + ", questoes=" + questoes + '}';
+    }
+    
+    
 }
