@@ -1,6 +1,6 @@
 package model.VO;
 
-public class QuestaoSubjetivaVO {
+public class QuestaoSubjetivaVO extends QuestaoVO {
     private String gabarito;
 
     public String getGabarito() {
