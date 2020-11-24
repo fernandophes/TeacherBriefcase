@@ -1,5 +1,8 @@
 package model.BO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import model.VO.AlternativaVO;
 
 public class AlternativaBO {
@@ -10,10 +13,10 @@ public class AlternativaBO {
         // DAO
     }
 
-    public AlternativaVO[] listar() {
+    public List<AlternativaVO> listar() {
         // lista todas as alternativas
 
-        AlternativaVO[] lista = {};
+        List<AlternativaVO> lista = new ArrayList<AlternativaVO>();
         // DAO
         // ajusta
         return lista;

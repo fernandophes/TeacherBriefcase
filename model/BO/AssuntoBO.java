@@ -1,5 +1,6 @@
 package model.BO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.VO.AssuntoVO;
@@ -13,10 +14,10 @@ public class AssuntoBO {
         // DAO
     }
 
-    public AssuntoVO[] listar() {
+    public List<AssuntoVO> listar() {
         // lista todos os assuntos
 
-        AssuntoVO[] lista = {};
+        List<AssuntoVO> lista = new ArrayList<AssuntoVO>();
         // DAO
         // ajusta
         return lista;

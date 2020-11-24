@@ -16,10 +16,10 @@ public abstract class QuestaoBO {
         // DAO
     }
 
-    public static QuestaoVO[] listar() {
+    public static List<QuestaoVO> listar() {
         // lista todas as questoes
 
-        QuestaoVO[] lista = {};
+        List<QuestaoVO> lista = new ArrayList<QuestaoVO>();
         // DAO
         // ajusta
         return lista;
@@ -27,10 +27,10 @@ public abstract class QuestaoBO {
 
     public abstract QuestaoVO buscar(QuestaoVO questao);
 
-    public static QuestaoVO[] buscar(DisciplinaVO disciplina) {
+    public static List<QuestaoVO> buscar(DisciplinaVO disciplina) {
         // busca todas as questoes desta disciplina
 
-        QuestaoVO[] lista = {};
+        List<QuestaoVO> lista = new ArrayList<QuestaoVO>();
         // DAO
         // ajusta
         return lista;

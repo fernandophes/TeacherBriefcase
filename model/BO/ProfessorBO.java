@@ -1,5 +1,6 @@
 package model.BO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.VO.DisciplinaVO;
@@ -13,10 +14,10 @@ public class ProfessorBO {
         // DAO
     }
 
-    public ProfessorVO[] listar() {
+    public List<ProfessorVO> listar() {
         // lista todos os professores
 
-        ProfessorVO[] lista = {};
+        List<ProfessorVO> lista = new ArrayList<ProfessorVO>();
         // analisa
         // DAO
         return lista;

@@ -1,5 +1,6 @@
 package model.BO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.VO.ProvaVO;
@@ -13,10 +14,10 @@ public class ProvaBO {
         // DAO
     }
 
-    public ProvaVO[] listar() {
+    public List<ProvaVO> listar() {
         // lista todas as provas
 
-        ProvaVO[] lista = {};
+        List<ProvaVO> lista = new ArrayList<ProvaVO>();
         // DAO
         // ajusta
         return lista;

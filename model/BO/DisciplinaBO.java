@@ -1,5 +1,6 @@
 package model.BO;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -17,10 +18,10 @@ public class DisciplinaBO {
         // DAO
     }
 
-    public DisciplinaVO[] listar() {
+    public List<DisciplinaVO> listar() {
         // lista todas as disciplinas
 
-        DisciplinaVO[] lista = {};
+        List<DisciplinaVO> lista = new ArrayList<DisciplinaVO>();
         // DAO
         // ajusta
         return lista;
