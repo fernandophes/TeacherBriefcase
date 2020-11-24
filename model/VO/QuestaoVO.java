@@ -2,7 +2,7 @@ package model.VO;
 
 import java.util.Calendar;
 
-public class QuestaoVO {
+public abstract class QuestaoVO {
     private String enunciado;
     private DisciplinaVO disciplina;
     private int dificuldade;
