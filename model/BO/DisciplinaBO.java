@@ -79,7 +79,8 @@ public class DisciplinaBO implements DisciplinaInterBO {
             List<QuestaoVO> questoes = assunto.getQuestoes();
             Iterator<QuestaoVO> iterator = questoes.iterator();
             while (iterator.hasNext()) {
-                QuestaoBO.remover(iterator.next(), assunto);
+                QuestaoBO questaoBO = new QuestaoBO();
+                questaoBO.remover(iterator.next(), assunto);
             }
 
             // atualiza o assunto (exclui, pois o assunto depende da ligação com a
@@ -141,7 +142,7 @@ public class DisciplinaBO implements DisciplinaInterBO {
     }
 
     public void remover(DisciplinaVO disciplina, QuestaoVO questao) {
-        
+
         List<QuestaoVO> lista = disciplina.getQuestoes();
 
         // Se esta questão estiver na lista desta disciplina, será removida

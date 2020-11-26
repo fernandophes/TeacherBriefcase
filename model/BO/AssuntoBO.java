@@ -61,7 +61,8 @@ public class AssuntoBO implements AssuntoInterBO {
                 assunto.setQuestoes(lista);
 
                 // Atualiza a questão
-                QuestaoBO.adicionar(questao, assunto);
+                QuestaoBO questaoBO = new QuestaoBO();
+                questaoBO.adicionar(questao, assunto);
 
                 // DAO
             }
@@ -76,7 +77,8 @@ public class AssuntoBO implements AssuntoInterBO {
             assunto.setQuestoes(lista);
 
             // Atualiza a questão
-            QuestaoBO.remover(questao, assunto);
+            QuestaoBO questaoBO = new QuestaoBO();
+            questaoBO.remover(questao, assunto);
         }
     }
 }
