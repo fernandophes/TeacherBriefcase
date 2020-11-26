@@ -10,7 +10,7 @@ public abstract class QuestaoVO {
     private DisciplinaVO disciplina;
     private int dificuldade;
     private Calendar dataCriacao;
-    private List<AssuntoVO> assuntos;
+    private List<String> assuntos;
     private List<ProvaVO> provas;
 
     public static final int FACIL = 0;
@@ -64,11 +64,11 @@ public abstract class QuestaoVO {
             this.dataCriacao = dataCriacao;
     }
 
-    public List<AssuntoVO> getAssuntos() {
+    public List<String> getAssuntos() {
         return assuntos;
     }
 
-    public void setAssuntos(List<AssuntoVO> assuntos) {
+    public void setAssuntos(List<String> assuntos) {
         this.assuntos = assuntos;
     }
 

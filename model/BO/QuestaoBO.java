@@ -3,7 +3,6 @@ package model.BO;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.VO.AssuntoVO;
 import model.VO.DisciplinaVO;
 import model.VO.ProvaVO;
 import model.VO.QuestaoSubjetivaVO;
@@ -39,7 +38,7 @@ public class QuestaoBO {
         return lista;
     }
 
-    public List<QuestaoVO> buscar(AssuntoVO assunto) {
+    public List<QuestaoVO> buscar(String assunto) {
         // busca todas as questoes deste assunto
 
         List<QuestaoVO> lista = new ArrayList<QuestaoVO>();
@@ -66,7 +65,7 @@ public class QuestaoBO {
         return lista;
     }
 
-    public List<QuestaoVO> buscar(AssuntoVO assunto, int dificuldade) {
+    public List<QuestaoVO> buscar(String assunto, int dificuldade) {
         // busca todas as questoes deste assunto neste nível de dificuldade
 
         List<QuestaoVO> lista = new ArrayList<QuestaoVO>();
@@ -90,38 +89,30 @@ public class QuestaoBO {
         // DAO
     }
 
-    public void adicionar(QuestaoVO questao, AssuntoVO assunto) {
+    public void adicionar(QuestaoVO questao, String assunto) {
 
-        List<AssuntoVO> lista = questao.getAssuntos();
+        List<String> lista = questao.getAssuntos();
 
         // Se este assunto não estiver na lista desta questão, poderá ou não ser
         // adicionado
         if (!lista.contains(assunto))
             // Este assunto só será adicionado a esta questão se ambos pertencerem à mesma
             // disciplina
-            if (assunto.getDisciplina().equals(questao.getDisciplina())) {
+            if (questao.getDisciplina().getAssuntos().contains(assunto)) {
                 lista.add(assunto);
                 questao.setAssuntos(lista);
-
-                // atualiza o assunto
-                AssuntoBO assuntoBO = new AssuntoBO();
-                assuntoBO.adicionar(assunto, questao);
 
                 // DAO
             }
     }
 
-    public void remover(QuestaoVO questao, AssuntoVO assunto) {
+    public void remover(QuestaoVO questao, String assunto) {
 
-        List<AssuntoVO> lista = questao.getAssuntos();
+        List<String> lista = questao.getAssuntos();
 
         // Se este assunto estiver na lista deste assunto, será removido
         if (lista.remove(assunto)) {
             questao.setAssuntos(lista);
-
-            // atualiza o assunto
-            AssuntoBO assuntoBO = new AssuntoBO();
-            assuntoBO.remover(assunto, questao);
 
             // DAO
         }

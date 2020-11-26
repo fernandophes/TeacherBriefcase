@@ -8,7 +8,7 @@ public class DisciplinaVO {
     private String nome;
     private Calendar dataCriacao;
     private List<ProfessorVO> professores;
-    private List<AssuntoVO> assuntos;
+    private List<String> assuntos;
     private List<QuestaoVO> questoes;
     private List<ProvaVO> provas;
 
@@ -47,11 +47,11 @@ public class DisciplinaVO {
         this.professores = professores;
     }
 
-    public List<AssuntoVO> getAssuntos() {
+    public List<String> getAssuntos() {
         return assuntos;
     }
 
-    public void setAssuntos(List<AssuntoVO> assuntos) {
+    public void setAssuntos(List<String> assuntos) {
         this.assuntos = assuntos;
     }
 

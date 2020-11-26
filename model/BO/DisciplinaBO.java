@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import model.VO.AssuntoVO;
 import model.VO.DisciplinaVO;
 import model.VO.ProfessorVO;
 import model.VO.ProvaVO;
@@ -51,42 +50,34 @@ public class DisciplinaBO implements DisciplinaInterBO {
         // DAO
     }
 
-    public void adicionar(DisciplinaVO disciplina, AssuntoVO assunto) {
+    public void adicionar(DisciplinaVO disciplina, String assunto) {
 
-        List<AssuntoVO> lista = disciplina.getAssuntos();
+        List<String> lista = disciplina.getAssuntos();
 
         // Se este assunto não estiver na lista desta disciplina, ele será adicionado
         if (!lista.contains(assunto)) {
             lista.add(assunto);
             disciplina.setAssuntos(lista);
 
-            // atualiza o assunto
-            assunto.setDisciplina(disciplina);
-
             // DAO
         }
     }
 
-    public void remover(DisciplinaVO disciplina, AssuntoVO assunto) {
+    public void remover(DisciplinaVO disciplina, String assunto) {
 
-        List<AssuntoVO> lista = disciplina.getAssuntos();
+        List<String> lista = disciplina.getAssuntos();
 
         // Se este assunto estiver na lista desta disciplina, ele será removido
         if (lista.remove(assunto)) {
             disciplina.setAssuntos(lista);
 
             // Atualizar as questões (remover este assunto da lista de cada uma)
-            List<QuestaoVO> questoes = assunto.getQuestoes();
+            List<QuestaoVO> questoes = disciplina.getQuestoes();
             Iterator<QuestaoVO> iterator = questoes.iterator();
             while (iterator.hasNext()) {
                 QuestaoBO questaoBO = new QuestaoBO();
                 questaoBO.remover(iterator.next(), assunto);
             }
-
-            // atualiza o assunto (exclui, pois o assunto depende da ligação com a
-            // disciplina)
-            AssuntoBO assuntoBO = new AssuntoBO();
-            assuntoBO.excluir(assunto);
 
             // DAO
         }

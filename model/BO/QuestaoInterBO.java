@@ -1,14 +1,13 @@
 package model.BO;
 
-import model.VO.AssuntoVO;
 import model.VO.ProvaVO;
 import model.VO.QuestaoVO;
 
 public interface QuestaoInterBO extends BaseInterBO<QuestaoVO> {
 
-    public void adicionar(QuestaoVO questao, AssuntoVO assunto);
+    public void adicionar(QuestaoVO questao, String assunto);
 
-    public void remover(QuestaoVO questao, AssuntoVO assunto);
+    public void remover(QuestaoVO questao, String assunto);
 
     public void adicionar(QuestaoVO questao, ProvaVO prova);
 
