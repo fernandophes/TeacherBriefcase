@@ -1,9 +1,10 @@
 package model.VO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuestaoComAlternativasVO extends QuestaoVO {
-    private List<AlternativaVO> alternativas;
+    private List<AlternativaVO> alternativas = new ArrayList<AlternativaVO>();
 
     public List<AlternativaVO> getAlternativas() {
         return alternativas;

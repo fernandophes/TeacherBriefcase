@@ -5,10 +5,10 @@ import java.util.Calendar;
 import model.BO.QuestaoComAlternativasBO;
 
 public class AlternativaVO {
-    private QuestaoComAlternativasVO questao;
-    private String texto;
-    private boolean verdadeira;
-    private Calendar dataCriacao;
+    private QuestaoComAlternativasVO questao = new QuestaoComAlternativasVO();
+    private String texto = "";
+    private boolean verdadeira = false;
+    private Calendar dataCriacao = Calendar.getInstance();
 
     public QuestaoComAlternativasVO getQuestao() {
         return questao;

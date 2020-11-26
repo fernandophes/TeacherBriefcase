@@ -1,16 +1,17 @@
 package model.VO;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 public class DisciplinaVO {
-    private String codigo;
-    private String nome;
-    private Calendar dataCriacao;
-    private List<ProfessorVO> professores;
-    private List<String> assuntos;
-    private List<QuestaoVO> questoes;
-    private List<ProvaVO> provas;
+    private String codigo = "";
+    private String nome = "";
+    private Calendar dataCriacao = Calendar.getInstance();
+    private List<ProfessorVO> professores = new ArrayList<ProfessorVO>();
+    private List<String> assuntos = new ArrayList<String>();
+    private List<QuestaoVO> questoes = new ArrayList<QuestaoVO>();
+    private List<ProvaVO> provas = new ArrayList<ProvaVO>();
 
     public String getCodigo() {
         return this.codigo;

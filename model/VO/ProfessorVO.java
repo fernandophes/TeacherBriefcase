@@ -1,14 +1,15 @@
 package model.VO;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 public class ProfessorVO {
-    private String nome;
-    private String email;
-    private String senha;
-    private Calendar dataCriacao;
-    private List<DisciplinaVO> disciplinas;
+    private String nome = "";
+    private String email = "";
+    private String senha = "";
+    private Calendar dataCriacao = Calendar.getInstance();
+    private List<DisciplinaVO> disciplinas = new ArrayList<DisciplinaVO>();
 
     public String getNome() {
         return nome;

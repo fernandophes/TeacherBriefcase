@@ -1,17 +1,18 @@
 package model.VO;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import model.BO.DisciplinaBO;
 
 public abstract class QuestaoVO {
-    private String enunciado;
-    private DisciplinaVO disciplina;
+    private String enunciado = "";
+    private DisciplinaVO disciplina = new DisciplinaVO();
     private int dificuldade;
     private Calendar dataCriacao;
-    private List<String> assuntos;
-    private List<ProvaVO> provas;
+    private List<String> assuntos = new ArrayList<String>();
+    private List<ProvaVO> provas = new ArrayList<ProvaVO>();
 
     public static final int FACIL = 0;
     public static final int MEDIA = 1;
