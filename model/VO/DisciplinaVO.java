@@ -70,4 +70,10 @@ public class DisciplinaVO {
     public void setProvas(List<ProvaVO> provas) {
         this.provas = provas;
     }
+
+    @Override
+    public String toString() {
+        return "DisciplinaVO{" + "codigo=" + codigo + ", nome=" + nome + ", professores=" + professores + ", assuntos=" + assuntos + ", questoes=" + questoes + ", provas=" + provas + '}';
+    }
+    
 }

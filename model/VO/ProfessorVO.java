@@ -54,4 +54,11 @@ public class ProfessorVO {
     public void setDisciplinas(List<DisciplinaVO> disciplinas) {
         this.disciplinas = disciplinas;
     }
+
+    @Override
+    public String toString() {
+        return "ProfessorVO{" + "nome=" + nome + ", email=" + email + ", senha=" + senha + ", disciplinas=" + disciplinas + '}';
+    }
+    
+    
 }

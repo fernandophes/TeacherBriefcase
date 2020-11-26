@@ -10,4 +10,10 @@ public class QuestaoSubjetivaVO extends QuestaoVO {
     public void setGabarito(String gabarito) {
         this.gabarito = gabarito;
     }
+
+    @Override
+    public String toString() {
+        return "QuestaoSubjetivaVO{" + "gabarito=" + gabarito + '}';
+    }    
+    
 }

@@ -56,4 +56,9 @@ public class AlternativaVO {
             this.dataCriacao = dataCriacao;
     }
 
+    @Override
+    public String toString() {
+        return "AlternativaVO{" + "texto=" + texto + ", verdadeira=" + verdadeira + '}';
+    }
+    
 }

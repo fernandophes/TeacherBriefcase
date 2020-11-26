@@ -79,4 +79,10 @@ public abstract class QuestaoVO {
     public void setProvas(List<ProvaVO> provas) {
         this.provas = provas;
     }
+
+    @Override
+    public String toString() {
+        return "QuestaoVO{" + "enunciado=" + enunciado + ", disciplina=" + disciplina + ", dificuldade=" + dificuldade + ", assuntos=" + assuntos + ", provas=" + provas + '}';
+    }
+    
 }

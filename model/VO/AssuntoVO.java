@@ -54,4 +54,10 @@ public class AssuntoVO {
     public void setQuestoes(List<QuestaoVO> questoes) {
         this.questoes = questoes;
     }
+
+    @Override
+    public String toString() {
+        return "AssuntoVO{" + "nome=" + nome + ", disciplina=" + disciplina + ", questoes=" + questoes + '}';
+    }
+    
 }

@@ -12,4 +12,11 @@ public class QuestaoComAlternativasVO extends QuestaoVO {
     public void setAlternativas(List<AlternativaVO> alternativas) {
         this.alternativas = alternativas;
     }
+
+    @Override
+    public String toString() {
+        return "QuestaoComAlternativasVO{" + "alternativas=" + alternativas + '}';
+    }
+    
+    
 }
