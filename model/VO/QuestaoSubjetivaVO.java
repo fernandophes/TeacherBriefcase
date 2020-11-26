@@ -11,9 +11,9 @@ public class QuestaoSubjetivaVO extends QuestaoVO {
         this.gabarito = gabarito;
     }
 
-    @Override
-    public String toString() {
-        return "QuestaoSubjetivaVO{" + "gabarito=" + gabarito + '}';
-    }    
+    public String getQuestaoRespondida() {
+        String resposta = toString() + "\nResposta: " + getGabarito();
+        return resposta;
+    }
     
 }

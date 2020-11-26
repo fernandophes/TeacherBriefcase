@@ -58,7 +58,12 @@ public class AlternativaVO {
 
     @Override
     public String toString() {
-        return "AlternativaVO{" + "texto=" + texto + ", verdadeira=" + verdadeira + '}';
+        return texto;
+    }
+
+    public String getGabarito() {
+        String resposta = toString() + " (" + (verdadeira ? "V" : "F") + ")";
+        return resposta;
     }
     
 }

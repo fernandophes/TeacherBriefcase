@@ -15,8 +15,31 @@ public class QuestaoComAlternativasVO extends QuestaoVO {
 
     @Override
     public String toString() {
-        return "QuestaoComAlternativasVO{" + "alternativas=" + alternativas + '}';
+        String saida = toString();
+        List<AlternativaVO> alternativas = getAlternativas();
+        char item = 'a';
+
+        // Listar as alternativas
+        while (alternativas.iterator().hasNext()) {
+            saida = "\n" + item + ") " + alternativas.iterator().next();
+            item++;
+        }
+
+        return saida;
     }
     
+    public String getQuestaoRespondida() {
+        String saida = toString();
+        List<AlternativaVO> alternativas = getAlternativas();
+        char item = 'a';
+
+        // Listar as alternativas
+        while (alternativas.iterator().hasNext()) {
+            saida += "\n" + item + ") " + alternativas.iterator().next().getGabarito();
+            item++;
+        }
+
+        return saida;
+    }
     
 }

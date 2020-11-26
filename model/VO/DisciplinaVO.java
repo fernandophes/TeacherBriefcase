@@ -73,7 +73,8 @@ public class DisciplinaVO {
 
     @Override
     public String toString() {
-        return "DisciplinaVO{" + "codigo=" + codigo + ", nome=" + nome + ", professores=" + professores + ", assuntos=" + assuntos + ", questoes=" + questoes + ", provas=" + provas + '}';
+        String saida = nome + "(" + codigo + ")";
+        return saida;
     }
     
 }

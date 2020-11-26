@@ -57,7 +57,8 @@ public class ProfessorVO {
 
     @Override
     public String toString() {
-        return "ProfessorVO{" + "nome=" + nome + ", email=" + email + ", senha=" + senha + ", disciplinas=" + disciplinas + '}';
+        String saida = "Prof. " + nome + " (" + email + ")";
+        return saida;
     }
     
     

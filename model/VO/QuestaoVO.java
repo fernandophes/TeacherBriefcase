@@ -35,7 +35,7 @@ public abstract class QuestaoVO {
             // Atualizar a disciplina antiga
             DisciplinaBO antiga = new DisciplinaBO();
             antiga.remover(disciplina, this);
-            
+
             // Atualizar a questão
             this.disciplina = disciplina;
 
@@ -80,9 +80,34 @@ public abstract class QuestaoVO {
         this.provas = provas;
     }
 
+    public String getDificuldadeRotulo() {
+        String saida;
+
+        switch (dificuldade) {
+            case FACIL:
+                saida = "Fácil";
+                break;
+
+            case MEDIA:
+                saida = "Média";
+                break;
+
+            case DIFICIL:
+                saida = "Difícil";
+                break;
+
+            default:
+                saida = "Nível desconhecido";
+                break;
+        }
+
+        return saida;
+    }
+
     @Override
     public String toString() {
-        return "QuestaoVO{" + "enunciado=" + enunciado + ", disciplina=" + disciplina + ", dificuldade=" + dificuldade + ", assuntos=" + assuntos + ", provas=" + provas + '}';
+        String saida = enunciado + "[" + getDificuldadeRotulo().toLowerCase() + "]";
+        return saida;
     }
-    
+
 }

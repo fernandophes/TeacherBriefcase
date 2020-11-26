@@ -47,7 +47,16 @@ public class ProvaVO {
 
     @Override
     public String toString() {
-        return "ProvaVO{" + "disciplina=" + disciplina + ", titulo=" + titulo + ", questoes=" + questoes + '}';
+        String saida = titulo + "\n| " + disciplina;
+        List<QuestaoVO> questoes = getQuestoes();
+        int ordem = 1;
+
+        // Listar as questões
+        while (questoes.iterator().hasNext()) {
+            saida += "\n\n" + ordem + ". " + questoes.iterator().next();
+        }
+
+        return saida;
     }
     
     
