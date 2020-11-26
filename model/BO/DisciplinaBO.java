@@ -1,7 +1,6 @@
 package model.BO;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import model.VO.DisciplinaVO;
@@ -73,10 +72,10 @@ public class DisciplinaBO implements DisciplinaInterBO {
 
             // Atualizar as questões (remover este assunto da lista de cada uma)
             List<QuestaoVO> questoes = disciplina.getQuestoes();
-            Iterator<QuestaoVO> iterator = questoes.iterator();
-            while (iterator.hasNext()) {
+            
+            while (questoes.iterator().hasNext()) {
                 QuestaoBO questaoBO = new QuestaoBO();
-                questaoBO.remover(iterator.next(), assunto);
+                questaoBO.remover(questoes.iterator().next(), assunto);
             }
 
             // DAO
