@@ -46,17 +46,14 @@ public class ProvaBO implements ProvaInterBO {
         // DAO
     }
 
-    /*
     public ProvaVO gerar(int quaisquer, int faceis, int medias, int dificeis) {
-        // Gera uma prova com questões aleatórias
-        ProvaVO resultado = new ProvaVO();
+        // Gera uma prova com questões aleatórias ProvaVO resultado = new ProvaVO();
 
         // DAO
 
-        return resultado;
+        return new ProvaVO();
     }
-    */
-    
+
     public void adicionar(ProvaVO prova, QuestaoVO questao) {
 
         List<QuestaoVO> lista = prova.getQuestoes();
@@ -71,7 +68,8 @@ public class ProvaBO implements ProvaInterBO {
                 prova.setQuestoes(lista);
 
                 // Atualizar a questão
-                QuestaoBO.adicionar(questao, prova);
+                QuestaoBO questaoBO = new QuestaoBO();
+                questaoBO.adicionar(questao, prova);
 
                 // DAO
             }
@@ -86,7 +84,8 @@ public class ProvaBO implements ProvaInterBO {
             prova.setQuestoes(lista);
 
             // Atualizar a questão
-            QuestaoBO.remover(questao, prova);
+            QuestaoBO questaoBO = new QuestaoBO();
+            questaoBO.remover(questao, prova);
 
             // DAO
         }
