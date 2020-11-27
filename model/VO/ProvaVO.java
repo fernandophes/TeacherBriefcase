@@ -2,6 +2,7 @@ package model.VO;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 
 public class ProvaVO {
@@ -9,6 +10,14 @@ public class ProvaVO {
     private String titulo = "";
     private Calendar dataCriacao = Calendar.getInstance();
     private List<QuestaoVO> questoes = new ArrayList<QuestaoVO>();
+
+    public ProvaVO() {
+
+    }
+
+    public ProvaVO(String titulo) {
+        setTitulo(titulo);
+    }
 
     public DisciplinaVO getDisciplina() {
         return disciplina;
@@ -48,17 +57,31 @@ public class ProvaVO {
 
     @Override
     public String toString() {
-        String saida = titulo + "\n| " + disciplina;
+        String saida = titulo + "\n> " + disciplina + " <";
         List<QuestaoVO> questoes = getQuestoes();
         int ordem = 1;
 
         // Listar as questões
-        while (questoes.iterator().hasNext()) {
-            saida += "\n\n" + ordem + ". " + questoes.iterator().next();
+        Iterator<QuestaoVO> questoesIt = questoes.iterator();
+        while (questoesIt.hasNext()) {
+            saida += "\n\n" + ordem++ + ". " + questoesIt.next();
         }
 
         return saida;
     }
     
+    public String getProvaRespondida() {
+        String saida = "PROVA RESPONDIDA\n" + titulo + "\n> " + disciplina + " <";
+        List<QuestaoVO> questoes = getQuestoes();
+        int ordem = 1;
+
+        // Listar as questões
+        Iterator<QuestaoVO> questoesIt = questoes.iterator();
+        while (questoesIt.hasNext()) {
+            saida += "\n\n" + ordem++ + ". " + questoesIt.next().getQuestaoRespondida();
+        }
+
+        return saida;
+    }
     
 }

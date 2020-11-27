@@ -13,12 +13,22 @@ public class DisciplinaVO {
     private List<QuestaoVO> questoes = new ArrayList<QuestaoVO>();
     private List<ProvaVO> provas = new ArrayList<ProvaVO>();
 
+    public DisciplinaVO() {
+
+    }
+
+    public DisciplinaVO(String nome, String codigo) {
+        setNome(nome);
+        setCodigo(codigo);
+    }
+
     public String getCodigo() {
         return this.codigo;
     }
 
     public void setCodigo(String codigo) {
-        this.codigo = codigo;
+        if (codigo != null && !codigo.isEmpty())
+            this.codigo = codigo;
     }
 
     public String getNome() {
@@ -74,8 +84,8 @@ public class DisciplinaVO {
 
     @Override
     public String toString() {
-        String saida = nome + "(" + codigo + ")";
+        String saida = nome + " (" + codigo + ")";
         return saida;
     }
-    
+
 }

@@ -11,6 +11,16 @@ public class ProfessorVO {
     private Calendar dataCriacao = Calendar.getInstance();
     private List<DisciplinaVO> disciplinas = new ArrayList<DisciplinaVO>();
 
+    public ProfessorVO() {
+
+    }
+
+    public ProfessorVO(String nome, String email, String senha) {
+        setNome(nome);
+        setEmail(email);
+        setSenha(senha);
+    }
+
     public String getNome() {
         return nome;
     }
@@ -25,7 +35,7 @@ public class ProfessorVO {
     }
 
     public void setEmail(String email) {
-        if (email != null && !email.isEmpty())
+        if (email != null && email.contains("@"))
             this.email = email;
     }
 
@@ -34,7 +44,7 @@ public class ProfessorVO {
     }
 
     public void setSenha(String senha) {
-        if (senha != null && !senha.isEmpty())
+        if (senha != null && senha.length() >= 8 && senha.length() <= 20)
             this.senha = senha;
     }
 

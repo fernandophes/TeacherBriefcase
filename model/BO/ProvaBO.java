@@ -72,6 +72,8 @@ public class ProvaBO implements ProvaInterBO {
                 questaoBO.adicionar(questao, prova);
 
                 // DAO
+            } else {
+                System.out.println("A prova e a questão não pertencem à mesma disciplina");
             }
     }
 

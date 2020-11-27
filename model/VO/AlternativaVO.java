@@ -10,6 +10,15 @@ public class AlternativaVO {
     private boolean verdadeira = false;
     private Calendar dataCriacao = Calendar.getInstance();
 
+    public AlternativaVO() {
+
+    }
+
+    public AlternativaVO(String texto, boolean verdadeira) {
+        setTexto(texto);
+        setVerdadeira(verdadeira);
+    }
+
     public QuestaoComAlternativasVO getQuestao() {
         return questao;
     }
@@ -18,7 +27,7 @@ public class AlternativaVO {
         // Atualiza a questão antiga, se existir uma
         if (this.questao != null) {
             QuestaoComAlternativasBO antiga = new QuestaoComAlternativasBO();
-            antiga.remover(questao, this);
+            antiga.remover(this.questao, this);
         }
 
         // Atualiza a alternativa
