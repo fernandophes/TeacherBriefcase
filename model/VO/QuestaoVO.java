@@ -18,6 +18,21 @@ public abstract class QuestaoVO {
     public static final int MEDIA = 1;
     public static final int DIFICIL = 2;
 
+    public QuestaoVO() {
+
+    }
+
+    public QuestaoVO(int dificuldade, String enunciado) {
+        setDificuldade(dificuldade);
+        setEnunciado(enunciado);
+    }
+
+    public QuestaoVO(int dificuldade, List<String> assuntos, String enunciado) {
+        setDificuldade(dificuldade);
+        setEnunciado(enunciado);
+        setAssuntos(assuntos);
+    }
+
     public String getEnunciado() {
         return enunciado;
     }
@@ -35,7 +50,7 @@ public abstract class QuestaoVO {
         if (disciplina != null) {
             // Atualizar a disciplina antiga
             DisciplinaBO antiga = new DisciplinaBO();
-            antiga.remover(disciplina, this);
+            antiga.remover(this.disciplina, this);
 
             // Atualizar a questão
             this.disciplina = disciplina;
@@ -107,7 +122,11 @@ public abstract class QuestaoVO {
 
     @Override
     public String toString() {
-        String saida = enunciado + "[" + getDificuldadeRotulo().toLowerCase() + "]";
+        return enunciado;
+    }
+
+    public String getQuestaoRespondida() {
+        String saida = enunciado + " [" + getDificuldadeRotulo().toLowerCase() + "]";
         return saida;
     }
 

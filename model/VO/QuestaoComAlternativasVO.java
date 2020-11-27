@@ -1,10 +1,23 @@
 package model.VO;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class QuestaoComAlternativasVO extends QuestaoVO {
     private List<AlternativaVO> alternativas = new ArrayList<AlternativaVO>();
+
+    public QuestaoComAlternativasVO() {
+        
+    }
+    
+    public QuestaoComAlternativasVO(int dificuldade, String enunciado) {
+        super(dificuldade, enunciado);
+    }
+    
+    public QuestaoComAlternativasVO(int dificuldade, List<String> assuntos, String enunciado) {
+        super(dificuldade, assuntos, enunciado);
+    }
 
     public List<AlternativaVO> getAlternativas() {
         return alternativas;
@@ -16,28 +29,28 @@ public class QuestaoComAlternativasVO extends QuestaoVO {
 
     @Override
     public String toString() {
-        String saida = toString();
+        String saida = super.toString();
         List<AlternativaVO> alternativas = getAlternativas();
         char item = 'a';
 
         // Listar as alternativas
-        while (alternativas.iterator().hasNext()) {
-            saida = "\n" + item + ") " + alternativas.iterator().next();
-            item++;
+        Iterator<AlternativaVO> alternativasIt = alternativas.iterator();
+        while (alternativasIt.hasNext()) {
+            saida += "\n" + item++ + ") " + alternativasIt.next();
         }
 
         return saida;
     }
     
     public String getQuestaoRespondida() {
-        String saida = toString();
+        String saida = super.getQuestaoRespondida();
         List<AlternativaVO> alternativas = getAlternativas();
         char item = 'a';
 
         // Listar as alternativas
-        while (alternativas.iterator().hasNext()) {
-            saida += "\n" + item + ") " + alternativas.iterator().next().getGabarito();
-            item++;
+        Iterator<AlternativaVO> alternativasIt = alternativas.iterator();
+        while (alternativasIt.hasNext()) {
+            saida += "\n" + item++ + ") " + alternativasIt.next().getGabarito();
         }
 
         return saida;
