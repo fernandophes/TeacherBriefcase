@@ -93,14 +93,39 @@ public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInter
 
     @Override
     public void editar(ProfessorVO vo) {
-        // TODO Auto-generated method stub
+        String sql = "update professor set nome = ?, email = ?, senha = ? where id = ?";
+        PreparedStatement statement;
 
+        try {
+            statement = getConnection().prepareStatement(sql);
+            statement.setString(1, vo.getNome());
+            statement.setString(2, vo.getEmail());
+            statement.setString(3, vo.getSenha());
+            statement.setLong(4, vo.getId());
+
+            if (statement.executeUpdate() == 0)
+                throw new SQLException("Não foi possível realizar esta atualização.");
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void excluir(ProfessorVO vo) {
-        // TODO Auto-generated method stub
+        String sql = "delete from professor where id = ?";
+        PreparedStatement statement;
 
+        try {
+            statement = getConnection().prepareStatement(sql);
+            statement.setLong(1, vo.getId());
+
+            if (statement.executeUpdate() == 0)
+                throw new SQLException("Não foi possível realizar esta exclusão.");
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
 }
