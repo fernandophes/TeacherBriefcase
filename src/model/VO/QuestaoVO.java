@@ -1,10 +1,10 @@
-package model.VO;
+package src.model.VO;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import model.BO.DisciplinaBO;
+import src.model.BO.DisciplinaBO;
 
 public abstract class QuestaoVO {
     private String enunciado = "";

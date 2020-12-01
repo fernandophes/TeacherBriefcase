@@ -1,13 +1,13 @@
-package model.BO;
+package src.model.BO;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import model.VO.DisciplinaVO;
-import model.VO.ProfessorVO;
-import model.VO.ProvaVO;
-import model.VO.QuestaoVO;
+import src.model.VO.DisciplinaVO;
+import src.model.VO.ProfessorVO;
+import src.model.VO.ProvaVO;
+import src.model.VO.QuestaoVO;
 
 public class DisciplinaBO implements DisciplinaInterBO {
     public void cadastrar(DisciplinaVO disciplina) {

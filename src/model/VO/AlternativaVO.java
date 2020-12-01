@@ -1,8 +1,8 @@
-package model.VO;
+package src.model.VO;
 
 import java.util.Calendar;
 
-import model.BO.QuestaoComAlternativasBO;
+import src.model.BO.QuestaoComAlternativasBO;
 
 public class AlternativaVO {
     private QuestaoComAlternativasVO questao = new QuestaoComAlternativasVO();

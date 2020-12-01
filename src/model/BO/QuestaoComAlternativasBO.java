@@ -1,10 +1,10 @@
-package model.BO;
+package src.model.BO;
 
 import java.util.List;
 
-import model.VO.AlternativaVO;
-import model.VO.QuestaoComAlternativasVO;
-import model.VO.QuestaoVO;
+import src.model.VO.AlternativaVO;
+import src.model.VO.QuestaoComAlternativasVO;
+import src.model.VO.QuestaoVO;
 
 public class QuestaoComAlternativasBO extends QuestaoBO {
 

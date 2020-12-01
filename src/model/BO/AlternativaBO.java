@@ -1,9 +1,9 @@
-package model.BO;
+package src.model.BO;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import model.VO.AlternativaVO;
+import src.model.VO.AlternativaVO;
 
 public class AlternativaBO implements AlternativaInterBO {
     public void cadastrar(AlternativaVO alternativa) {

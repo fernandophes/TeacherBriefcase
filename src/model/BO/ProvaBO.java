@@ -1,10 +1,10 @@
-package model.BO;
+package src.model.BO;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import model.VO.ProvaVO;
-import model.VO.QuestaoVO;
+import src.model.VO.ProvaVO;
+import src.model.VO.QuestaoVO;
 
 public class ProvaBO implements ProvaInterBO {
     public void cadastrar(ProvaVO prova) {
