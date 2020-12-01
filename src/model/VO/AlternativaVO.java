@@ -5,6 +5,7 @@ import java.util.Calendar;
 import src.model.BO.QuestaoComAlternativasBO;
 
 public class AlternativaVO {
+    private long id;
     private QuestaoComAlternativasVO questao = new QuestaoComAlternativasVO();
     private String texto = "";
     private boolean verdadeira = false;
@@ -17,6 +18,15 @@ public class AlternativaVO {
     public AlternativaVO(String texto, boolean verdadeira) {
         setTexto(texto);
         setVerdadeira(verdadeira);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        if (id > 0)
+            this.id = id;
     }
 
     public QuestaoComAlternativasVO getQuestao() {

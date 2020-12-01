@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class DisciplinaVO {
+    private long id;
     private String codigo = "";
     private String nome = "";
     private Calendar dataCriacao = Calendar.getInstance();
@@ -20,6 +21,15 @@ public class DisciplinaVO {
     public DisciplinaVO(String nome, String codigo) {
         setNome(nome);
         setCodigo(codigo);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        if (id > 0)
+            this.id = id;
     }
 
     public String getCodigo() {

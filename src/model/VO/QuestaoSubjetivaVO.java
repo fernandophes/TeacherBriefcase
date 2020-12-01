@@ -3,6 +3,7 @@ package src.model.VO;
 import java.util.List;
 
 public class QuestaoSubjetivaVO extends QuestaoVO {
+    private long id;
     private String gabarito = "";
 
     public QuestaoSubjetivaVO() {
@@ -11,6 +12,15 @@ public class QuestaoSubjetivaVO extends QuestaoVO {
 
     public QuestaoSubjetivaVO(int dificuldade, String enunciado) {
         super(dificuldade, enunciado);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        if (id > 0)
+            this.id = id;
     }
 
     public QuestaoSubjetivaVO(int dificuldade, List<String> assuntos, String enunciado) {

@@ -7,6 +7,7 @@ import java.util.List;
 import src.model.BO.DisciplinaBO;
 
 public abstract class QuestaoVO {
+    private long id;
     private String enunciado = "";
     private DisciplinaVO disciplina = new DisciplinaVO();
     private int dificuldade;
@@ -25,6 +26,15 @@ public abstract class QuestaoVO {
     public QuestaoVO(int dificuldade, String enunciado) {
         setDificuldade(dificuldade);
         setEnunciado(enunciado);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        if (id > 0)
+            this.id = id;
     }
 
     public QuestaoVO(int dificuldade, List<String> assuntos, String enunciado) {

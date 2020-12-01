@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class ProfessorVO {
+    private long id;
     private String nome = "";
     private String email = "";
     private String senha = "";
@@ -19,6 +20,15 @@ public class ProfessorVO {
         setNome(nome);
         setEmail(email);
         setSenha(senha);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        if (id > 0)
+            this.id = id;
     }
 
     public String getNome() {
@@ -53,7 +63,8 @@ public class ProfessorVO {
     }
 
     public void setDataCriacao(Calendar dataCriacao) {
-        // A data de criação (cadastro) do professor pode ser passada ou atual, mas não futura
+        // A data de criação (cadastro) do professor pode ser passada ou atual, mas não
+        // futura
         if (dataCriacao != null && (dataCriacao.compareTo(Calendar.getInstance()) <= 0))
             this.dataCriacao = dataCriacao;
     }
@@ -71,6 +82,5 @@ public class ProfessorVO {
         String saida = "Prof. " + nome + " (" + email + ")";
         return saida;
     }
-    
-    
+
 }
