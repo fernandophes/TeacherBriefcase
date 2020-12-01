@@ -3,7 +3,6 @@ package src.controller;
 import src.model.BO.DisciplinaBO;
 import src.model.BO.ProvaBO;
 import src.model.BO.QuestaoComAlternativasBO;
-import src.model.DAO.BaseDAO;
 import src.model.VO.AlternativaVO;
 import src.model.VO.DisciplinaVO;
 import src.model.VO.ProfessorVO;
@@ -15,8 +14,6 @@ import src.model.VO.QuestaoVO;
 public class Teste {
 
     public static void main(String[] args) {
-
-        System.out.println(BaseDAO.getConnection());
 
         ProfessorVO professor = new ProfessorVO("Helihelcio", "helihelcio@ufersa.edu.br", "valendo10");
 
@@ -33,7 +30,7 @@ public class Teste {
 
         AlternativaVO alt1 = new AlternativaVO("2019", false);
         questao2BO.adicionar(questao2, alt1);
-        
+
         AlternativaVO alt2 = new AlternativaVO("2020", true);
         questao2BO.adicionar(questao2, alt2);
 
