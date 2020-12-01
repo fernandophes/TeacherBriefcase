@@ -3,6 +3,7 @@ package controller;
 import model.BO.DisciplinaBO;
 import model.BO.ProvaBO;
 import model.BO.QuestaoComAlternativasBO;
+import model.DAO.BaseDAO;
 import model.VO.AlternativaVO;
 import model.VO.DisciplinaVO;
 import model.VO.ProfessorVO;
@@ -14,6 +15,9 @@ import model.VO.QuestaoVO;
 public class Teste {
 
     public static void main(String[] args) {
+
+        System.out.println(BaseDAO.getConnection());
+
         ProfessorVO professor = new ProfessorVO("Helihelcio", "helihelcio@ufersa.edu.br", "valendo10");
 
         DisciplinaVO disciplina = new DisciplinaVO("Redes de Computadores", "CC1234M");
