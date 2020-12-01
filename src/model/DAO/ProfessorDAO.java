@@ -1,28 +1,37 @@
 package src.model.DAO;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 
 import src.model.VO.ProfessorVO;
 
-public class ProfessorDAO extends BaseDAO<ProfessorVO> {
+public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInterDAO {
 
     @Override
     public void cadastrar(ProfessorVO vo) {
-        Connection conn = getConnection();
         String sql = "insert into professor (nome, email, senha, data_criacao) values (?, ?, ?, ?)";
         PreparedStatement statement;
 
         try {
-            statement = conn.prepareStatement(sql);
+            statement = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, vo.getNome());
             statement.setString(2, vo.getEmail());
             statement.setString(3, vo.getSenha());
             statement.setTimestamp(4, new Timestamp(vo.getDataCriacao().getTimeInMillis()));
-            statement.execute();
+            
+            int affectedRows = statement.executeUpdate();
+
+            if (affectedRows == 0)
+                throw new SQLException("Não foi possível realizar este cadastro.");
+
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+
+            if (generatedKeys.next()) {}
+                vo.setId(generatedKeys.getLong("id"));
+
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -31,26 +40,55 @@ public class ProfessorDAO extends BaseDAO<ProfessorVO> {
 
     @Override
     public ResultSet listar() {
-        Connection conn = getConnection();
         String sql = "select * from professor";
-        PreparedStatement statement;
+        Statement statement;
+        ResultSet result = null;
 
         try {
-            statement = conn.prepareStatement(sql);
-            statement.execute();
-            return statement.getResultSet();
+            statement = getConnection().createStatement();
+            result = statement.executeQuery(sql);
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
-        return null;
+        return result;
     }
 
     @Override
     public ResultSet buscar(ProfessorVO vo) {
-        // TODO Auto-generated method stub
-        return null;
+        String sql = "select * from professor where id = ?";
+        PreparedStatement statement;
+        ResultSet result = null;
+
+        try {
+            statement = getConnection().prepareStatement(sql);
+            statement.setLong(1, vo.getId());
+            result = statement.executeQuery();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    @Override
+    public ResultSet buscarPorEmail(ProfessorVO vo) {
+        String sql = "select * from professor where email = ?";
+        PreparedStatement statement;
+        ResultSet result = null;
+
+        try {
+            statement = getConnection().prepareStatement(sql);
+            statement.setString(1, vo.getEmail());
+            result = statement.executeQuery();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     @Override
