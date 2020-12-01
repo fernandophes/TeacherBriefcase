@@ -1,7 +1,7 @@
-package model.BO;
+package src.model.BO;
 
-import model.VO.DisciplinaVO;
-import model.VO.ProfessorVO;
+import src.model.VO.DisciplinaVO;
+import src.model.VO.ProfessorVO;
 
 public interface ProfessorInterBO extends BaseInterBO<ProfessorVO> {
 

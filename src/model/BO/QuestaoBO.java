@@ -1,12 +1,12 @@
-package model.BO;
+package src.model.BO;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import model.VO.DisciplinaVO;
-import model.VO.ProvaVO;
-import model.VO.QuestaoSubjetivaVO;
-import model.VO.QuestaoVO;
+import src.model.VO.DisciplinaVO;
+import src.model.VO.ProvaVO;
+import src.model.VO.QuestaoSubjetivaVO;
+import src.model.VO.QuestaoVO;
 
 public class QuestaoBO {
     public void cadastrar(QuestaoVO questao) {

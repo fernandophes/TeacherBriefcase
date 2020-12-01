@@ -1,4 +1,4 @@
-package model.VO;
+package src.model.VO;
 
 import java.util.List;
 

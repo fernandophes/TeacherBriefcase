@@ -1,7 +1,7 @@
-package model.BO;
+package src.model.BO;
 
-import model.VO.QuestaoSubjetivaVO;
-import model.VO.QuestaoVO;
+import src.model.VO.QuestaoSubjetivaVO;
+import src.model.VO.QuestaoVO;
 
 public class QuestaoSubjetivaBO extends QuestaoBO {
 

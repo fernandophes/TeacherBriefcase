@@ -1,19 +1,20 @@
-package controller;
+package src.controller;
 
-import model.BO.DisciplinaBO;
-import model.BO.ProvaBO;
-import model.BO.QuestaoComAlternativasBO;
-import model.VO.AlternativaVO;
-import model.VO.DisciplinaVO;
-import model.VO.ProfessorVO;
-import model.VO.ProvaVO;
-import model.VO.QuestaoComAlternativasVO;
-import model.VO.QuestaoSubjetivaVO;
-import model.VO.QuestaoVO;
+import src.model.BO.DisciplinaBO;
+import src.model.BO.ProvaBO;
+import src.model.BO.QuestaoComAlternativasBO;
+import src.model.VO.AlternativaVO;
+import src.model.VO.DisciplinaVO;
+import src.model.VO.ProfessorVO;
+import src.model.VO.ProvaVO;
+import src.model.VO.QuestaoComAlternativasVO;
+import src.model.VO.QuestaoSubjetivaVO;
+import src.model.VO.QuestaoVO;
 
 public class Teste {
 
     public static void main(String[] args) {
+
         ProfessorVO professor = new ProfessorVO("Helihelcio", "helihelcio@ufersa.edu.br", "valendo10");
 
         DisciplinaVO disciplina = new DisciplinaVO("Redes de Computadores", "CC1234M");
@@ -29,7 +30,7 @@ public class Teste {
 
         AlternativaVO alt1 = new AlternativaVO("2019", false);
         questao2BO.adicionar(questao2, alt1);
-        
+
         AlternativaVO alt2 = new AlternativaVO("2020", true);
         questao2BO.adicionar(questao2, alt2);
 

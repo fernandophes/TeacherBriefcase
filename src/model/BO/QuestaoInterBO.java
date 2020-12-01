@@ -1,7 +1,7 @@
-package model.BO;
+package src.model.BO;
 
-import model.VO.ProvaVO;
-import model.VO.QuestaoVO;
+import src.model.VO.ProvaVO;
+import src.model.VO.QuestaoVO;
 
 public interface QuestaoInterBO extends BaseInterBO<QuestaoVO> {
 

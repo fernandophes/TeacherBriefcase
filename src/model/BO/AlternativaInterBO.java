@@ -1,6 +1,6 @@
-package model.BO;
+package src.model.BO;
 
-import model.VO.AlternativaVO;
+import src.model.VO.AlternativaVO;
 
 public interface AlternativaInterBO extends BaseInterBO<AlternativaVO> {
     

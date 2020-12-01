@@ -1,4 +1,4 @@
-package model.BO;
+package src.model.BO;
 
 import java.util.List;
 
