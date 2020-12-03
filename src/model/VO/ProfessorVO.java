@@ -16,6 +16,10 @@ public class ProfessorVO {
 
     }
 
+    public ProfessorVO(String email) {
+        setEmail(email);
+    }
+
     public ProfessorVO(String nome, String email, String senha) {
         setNome(nome);
         setEmail(email);
