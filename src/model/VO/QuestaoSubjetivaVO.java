@@ -43,7 +43,7 @@ public class QuestaoSubjetivaVO extends QuestaoVO {
 
     public void setGabarito(String gabarito) {
         if (gabarito != null && !gabarito.isEmpty())
-            this.gabarito = gabarito;
+            this.gabarito = gabarito.trim();
     }
 
     public String getQuestaoRespondida() {

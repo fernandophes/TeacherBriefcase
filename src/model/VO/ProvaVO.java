@@ -44,7 +44,7 @@ public class ProvaVO {
 
     public void setTitulo(String titulo) {
         if (titulo != null && !titulo.isEmpty())
-            this.titulo = titulo;
+            this.titulo = titulo.trim();
     }
 
     public Calendar getDataCriacao() {

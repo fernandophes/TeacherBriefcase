@@ -49,7 +49,7 @@ public abstract class QuestaoVO {
 
     public void setEnunciado(String enunciado) {
         if (enunciado != null && !enunciado.isEmpty())
-            this.enunciado = enunciado;
+            this.enunciado = enunciado.trim();
     }
 
     public DisciplinaVO getDisciplina() {

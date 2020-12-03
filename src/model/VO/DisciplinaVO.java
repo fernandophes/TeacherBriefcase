@@ -38,7 +38,7 @@ public class DisciplinaVO {
 
     public void setCodigo(String codigo) {
         if (codigo != null && !codigo.isEmpty())
-            this.codigo = codigo;
+            this.codigo = codigo.trim();
     }
 
     public String getNome() {
@@ -47,7 +47,7 @@ public class DisciplinaVO {
 
     public void setNome(String nome) {
         if (nome != null && !nome.isEmpty())
-            this.nome = nome;
+            this.nome = nome.trim();
     }
 
     public Calendar getDataCriacao() {

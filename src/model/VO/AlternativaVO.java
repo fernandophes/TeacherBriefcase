@@ -54,7 +54,7 @@ public class AlternativaVO {
 
     public void setTexto(String texto) {
         if (texto != null && !texto.isEmpty())
-            this.texto = texto;
+            this.texto = texto.trim();
     }
 
     public boolean isVerdadeira() {
