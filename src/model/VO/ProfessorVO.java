@@ -41,7 +41,7 @@ public class ProfessorVO {
 
     public void setNome(String nome) {
         if (nome != null && !nome.isEmpty())
-            this.nome = nome;
+            this.nome = nome.trim();
     }
 
     public String getEmail() {
@@ -50,7 +50,7 @@ public class ProfessorVO {
 
     public void setEmail(String email) {
         if (email != null && email.contains("@"))
-            this.email = email;
+            this.email = email.trim();
     }
 
     public String getSenha() {
@@ -58,8 +58,22 @@ public class ProfessorVO {
     }
 
     public void setSenha(String senha) {
-        if (senha != null && senha.length() >= 8 && senha.length() <= 20)
-            this.senha = senha;
+        try {
+            if (senha != null) {
+                senha = senha.trim();
+                if (senha.length() >= 8)
+                    if (senha.length() <= 20)
+                        this.senha = senha;
+                    else
+                        throw new Exception("A senha precisa ter 20 caracteres ou menos");
+                else
+                    throw new Exception("A senha precisa ter 8 caracteres ou mais");
+            } else
+                throw new Exception("A senha não pode ser nula");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public Calendar getDataCriacao() {
