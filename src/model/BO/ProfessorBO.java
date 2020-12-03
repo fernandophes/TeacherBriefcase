@@ -39,7 +39,7 @@ public class ProfessorBO implements ProfessorInterBO {
                 professor.setEmail(resultado.getString("email"));
                 professor.setSenha(resultado.getString("senha"));
                 Calendar criacao = Calendar.getInstance();
-                criacao.setTimeInMillis(resultado.getDate("data_criacao").getTime());
+                criacao.setTime(resultado.getDate("data_criacao"));
                 professor.setDataCriacao(criacao);
             } else {
                 throw new SQLException("A busca não retornou nenhum resultado.");
@@ -63,7 +63,7 @@ public class ProfessorBO implements ProfessorInterBO {
                 professor.setId(resultado.getLong("id"));
                 professor.setSenha(resultado.getString("senha"));
                 Calendar criacao = Calendar.getInstance();
-                criacao.setTimeInMillis(resultado.getDate("data_criacao").getTime());
+                criacao.setTime(resultado.getDate("data_criacao"));
                 professor.setDataCriacao(criacao);
             } else {
                 throw new SQLException("A busca não retornou nenhum resultado.");
