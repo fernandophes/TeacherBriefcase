@@ -1,6 +1,7 @@
 package src.controller;
 
 import src.model.BO.DisciplinaBO;
+import src.model.BO.ProfessorBO;
 import src.model.BO.ProvaBO;
 import src.model.BO.QuestaoComAlternativasBO;
 import src.model.VO.AlternativaVO;
@@ -15,7 +16,12 @@ public class Teste {
 
     public static void main(String[] args) {
 
-        ProfessorVO professor = new ProfessorVO("Helihelcio", "helihelcio@ufersa.edu.br", "valendo10");
+        ProfessorVO professor = new ProfessorVO("helihelcio@ufersa.edu.br");
+        professor.setSenha("valendo10");
+
+        ProfessorBO professorBO = new ProfessorBO();
+        System.out.println(professorBO.autenticar(professor) ? "Entrou" : "Não entrou");
+        System.out.println(professor);
 
         DisciplinaVO disciplina = new DisciplinaVO("Redes de Computadores", "CC1234M");
 
@@ -42,7 +48,7 @@ public class Teste {
         prova1BO.adicionar(prova1, questao1);
         prova1BO.adicionar(prova1, questao2);
 
-        System.out.println(prova1.getProvaRespondida());
+        // System.out.println(prova1.getProvaRespondida());
     }
 
 }
