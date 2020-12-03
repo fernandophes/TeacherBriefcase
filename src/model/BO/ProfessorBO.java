@@ -60,7 +60,7 @@ public class ProfessorBO implements ProfessorInterBO {
         try {
             if (resultado != null && resultado.next()) {
                 professor.setNome(resultado.getString("nome"));
-                professor.setEmail(resultado.getString("email"));
+                professor.setId(resultado.getLong("id"));
                 professor.setSenha(resultado.getString("senha"));
                 Calendar criacao = Calendar.getInstance();
                 criacao.setTimeInMillis(resultado.getDate("data_criacao").getTime());
@@ -90,11 +90,10 @@ public class ProfessorBO implements ProfessorInterBO {
     public boolean autenticar(ProfessorVO professor) {
         // verifica se o e-mail e a senha do Professor correspondem ao BD
 
-        String senhaFornecida = professor.getSenha();
+        ProfessorVO busca = new ProfessorVO(professor.getEmail());
+        busca = buscarPorEmail(busca);
 
-        ProfessorVO original = buscarPorEmail(professor);
-
-        return senhaFornecida.equals(original.getSenha());
+        return busca.getSenha().equals(professor.getSenha());
     }
 
     public void adicionar(ProfessorVO professor, DisciplinaVO disciplina) {
