@@ -23,6 +23,12 @@ public class QuestaoSubjetivaDAO extends QuestaoDAO<QuestaoSubjetivaVO> implemen
 
             if (statement.executeUpdate() == 0)
                 throw new SQLException("Não foi possível completar este cadastro.");
+
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+
+            if (generatedKeys.next())
+                vo.setId(generatedKeys.getLong("id"));
+
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -53,6 +59,7 @@ public class QuestaoSubjetivaDAO extends QuestaoDAO<QuestaoSubjetivaVO> implemen
         ResultSet result = null;
 
         try {
+            super.buscar(vo);
             statement = getConnection().prepareStatement(sql);
             statement.setLong(1, vo.getId());
             result = statement.executeQuery();
@@ -92,7 +99,7 @@ public class QuestaoSubjetivaDAO extends QuestaoDAO<QuestaoSubjetivaVO> implemen
         try {
             statement = getConnection().prepareStatement(sql);
             statement.setLong(1, vo.getId());
-            
+
             if (statement.executeUpdate() == 0) {
                 throw new SQLException("Não foi possível realizar esta exclusão.");
             } else {
@@ -104,5 +111,5 @@ public class QuestaoSubjetivaDAO extends QuestaoDAO<QuestaoSubjetivaVO> implemen
         }
 
     }
-    
+
 }
