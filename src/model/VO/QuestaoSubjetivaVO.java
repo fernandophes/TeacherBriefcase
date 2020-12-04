@@ -14,15 +14,6 @@ public class QuestaoSubjetivaVO extends QuestaoVO {
         super(dificuldade, enunciado);
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        if (id > 0)
-            this.id = id;
-    }
-
     public QuestaoSubjetivaVO(int dificuldade, List<String> assuntos, String enunciado) {
         super(dificuldade, assuntos, enunciado);
     }
@@ -35,6 +26,19 @@ public class QuestaoSubjetivaVO extends QuestaoVO {
     public QuestaoSubjetivaVO(int dificuldade, List<String> assuntos, String enunciado, String gabarito) {
         super(dificuldade, assuntos, enunciado);
         setGabarito(gabarito);
+    }
+
+	public long getIdQuestao() {
+		return super.getId();
+	}
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        if (id > 0)
+            this.id = id;
     }
 
     public String getGabarito() {

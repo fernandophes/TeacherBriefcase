@@ -20,6 +20,10 @@ public class QuestaoComAlternativasVO extends QuestaoVO {
         super(dificuldade, assuntos, enunciado);
     }
 
+	public long getIdQuestao() {
+		return super.getId();
+	}
+
     public long getId() {
         return id;
     }
