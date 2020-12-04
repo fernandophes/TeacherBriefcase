@@ -8,10 +8,10 @@ import java.sql.Timestamp;
 
 import src.model.VO.QuestaoVO;
 
-public class QuestaoDAO extends BaseDAO<QuestaoVO> implements QuestaoInterDAO {
+public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> implements QuestaoInterDAO<VO> {
 
     @Override
-    public void cadastrar(QuestaoVO vo) {
+    public void cadastrar(VO vo) {
         String sql = "insert into questao (enunciado, dificuldade, data_criacao) values (?, ?, ?)";
         PreparedStatement statement;
 
@@ -24,7 +24,7 @@ public class QuestaoDAO extends BaseDAO<QuestaoVO> implements QuestaoInterDAO {
             int affectedRows = statement.executeUpdate();
 
             if (affectedRows == 0)
-                throw new SQLException("Não foi possível realizar este cadastro");
+                throw new SQLException("Não foi possível realizar este cadastro.");
 
             ResultSet generatedKeys = statement.getGeneratedKeys();
 
@@ -55,7 +55,7 @@ public class QuestaoDAO extends BaseDAO<QuestaoVO> implements QuestaoInterDAO {
     }
 
     @Override
-    public ResultSet buscar(QuestaoVO vo) {
+    public ResultSet buscar(VO vo) {
         String sql = "select * from questao where id = ?";
         PreparedStatement statement;
         ResultSet result = null;
@@ -73,7 +73,7 @@ public class QuestaoDAO extends BaseDAO<QuestaoVO> implements QuestaoInterDAO {
     }
 
     @Override
-    public ResultSet buscarPorDificuldade(QuestaoVO vo) {
+    public ResultSet buscarPorDificuldade(VO vo) {
         String sql = "select * from questao where dificuldade = ?";
         PreparedStatement statement;
         ResultSet result = null;
@@ -91,7 +91,7 @@ public class QuestaoDAO extends BaseDAO<QuestaoVO> implements QuestaoInterDAO {
     }
 
     @Override
-    public void editar(QuestaoVO vo) {
+    public void editar(VO vo) {
         String sql = "update questao set enunciado = ?, dificuldade = ?, data_criacao = ? where id = ?";
         PreparedStatement statement;
 
@@ -112,7 +112,7 @@ public class QuestaoDAO extends BaseDAO<QuestaoVO> implements QuestaoInterDAO {
     }
 
     @Override
-    public void excluir(QuestaoVO vo) {
+    public void excluir(VO vo) {
         String sql = "delete from questao where id = ?";
         PreparedStatement statement;
 

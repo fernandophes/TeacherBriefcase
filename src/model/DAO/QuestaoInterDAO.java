@@ -4,8 +4,8 @@ import java.sql.ResultSet;
 
 import src.model.VO.QuestaoVO;
 
-public interface QuestaoInterDAO extends BaseInterDAO<QuestaoVO> {
+public interface QuestaoInterDAO<VO extends QuestaoVO> extends BaseInterDAO<VO> {
     
-    public ResultSet buscarPorDificuldade(QuestaoVO vo);
+    public ResultSet buscarPorDificuldade(VO vo);
 
 }
