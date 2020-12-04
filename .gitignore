@@ -24,3 +24,7 @@ hs_err_pid*
 
 # Visual Studio Code Files #
 .vscode/
+
+# Arquivos temporários do Dia #
+*.dia~
+*.dia.autosave

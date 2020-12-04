@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class QuestaoComAlternativasVO extends QuestaoVO {
+    private long id;
     private List<AlternativaVO> alternativas = new ArrayList<AlternativaVO>();
 
     public QuestaoComAlternativasVO() {
@@ -17,6 +18,19 @@ public class QuestaoComAlternativasVO extends QuestaoVO {
     
     public QuestaoComAlternativasVO(int dificuldade, List<String> assuntos, String enunciado) {
         super(dificuldade, assuntos, enunciado);
+    }
+
+	public long getIdQuestao() {
+		return super.getId();
+	}
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        if (id > 0)
+            this.id = id;
     }
 
     public List<AlternativaVO> getAlternativas() {

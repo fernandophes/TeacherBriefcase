@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class ProvaVO {
+    private long id;
     private DisciplinaVO disciplina = new DisciplinaVO();
     private String titulo = "";
     private Calendar dataCriacao = Calendar.getInstance();
@@ -17,6 +18,15 @@ public class ProvaVO {
 
     public ProvaVO(String titulo) {
         setTitulo(titulo);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        if (id > 0)
+            this.id = id;
     }
 
     public DisciplinaVO getDisciplina() {
@@ -34,7 +44,7 @@ public class ProvaVO {
 
     public void setTitulo(String titulo) {
         if (titulo != null && !titulo.isEmpty())
-            this.titulo = titulo;
+            this.titulo = titulo.trim();
     }
 
     public Calendar getDataCriacao() {

@@ -1,13 +1,17 @@
 package src.model.BO;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import src.model.DAO.ProfessorDAO;
 import src.model.VO.DisciplinaVO;
 import src.model.VO.ProfessorVO;
 
 public class ProfessorBO implements ProfessorInterBO {
-    
+
     public void cadastrar(ProfessorVO professor) {
         // cadastra um novo Professor
 
@@ -25,35 +29,71 @@ public class ProfessorBO implements ProfessorInterBO {
     }
 
     public ProfessorVO buscar(ProfessorVO professor) {
-        // busca um professor
 
-        ProfessorVO resultado = new ProfessorVO();
-        // DAO
-        // ajusta
-        return resultado;
+        ProfessorDAO professorDAO = new ProfessorDAO();
+        ResultSet resultado = professorDAO.buscar(professor);
+
+        try {
+            if (resultado != null && resultado.next()) {
+                professor.setNome(resultado.getString("nome"));
+                professor.setEmail(resultado.getString("email"));
+                professor.setSenha(resultado.getString("senha"));
+                Calendar criacao = Calendar.getInstance();
+                criacao.setTime(resultado.getDate("data_criacao"));
+                professor.setDataCriacao(criacao);
+            } else {
+                throw new SQLException("A busca não retornou nenhum resultado.");
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return professor;
+    }
+    
+    public ProfessorVO buscarPorEmail(ProfessorVO professor) {
+
+        ProfessorDAO professorDAO = new ProfessorDAO();
+        ResultSet resultado = professorDAO.buscarPorEmail(professor);
+
+        try {
+            if (resultado != null && resultado.next()) {
+                professor.setNome(resultado.getString("nome"));
+                professor.setId(resultado.getLong("id"));
+                professor.setSenha(resultado.getString("senha"));
+                Calendar criacao = Calendar.getInstance();
+                criacao.setTime(resultado.getDate("data_criacao"));
+                professor.setDataCriacao(criacao);
+            } else {
+                throw new SQLException("A busca não retornou nenhum resultado.");
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return professor;
     }
 
     public void editar(ProfessorVO professor) {
-        // edita os dados de um professor
-
-        // analisa
-        // DAO
+        ProfessorDAO professorDAO = new ProfessorDAO();
+        // TODO Fazer verificações
+        professorDAO.editar(professor);
     }
 
     public void excluir(ProfessorVO professor) {
-        // exclui um professor
-
-        // analisa
-        // DAO
+        ProfessorDAO professorDAO = new ProfessorDAO();
+        professorDAO.excluir(professor);
     }
 
     public boolean autenticar(ProfessorVO professor) {
         // verifica se o e-mail e a senha do Professor correspondem ao BD
 
-        // analisa
-        // DAO
-        // ajusta
-        return true;
+        ProfessorVO busca = new ProfessorVO(professor.getEmail());
+        busca = buscarPorEmail(busca);
+
+        return busca.getSenha().equals(professor.getSenha());
     }
 
     public void adicionar(ProfessorVO professor, DisciplinaVO disciplina) {

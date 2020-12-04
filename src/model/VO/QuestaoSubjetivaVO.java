@@ -3,6 +3,7 @@ package src.model.VO;
 import java.util.List;
 
 public class QuestaoSubjetivaVO extends QuestaoVO {
+    private long id;
     private String gabarito = "";
 
     public QuestaoSubjetivaVO() {
@@ -27,13 +28,26 @@ public class QuestaoSubjetivaVO extends QuestaoVO {
         setGabarito(gabarito);
     }
 
+	public long getIdQuestao() {
+		return super.getId();
+	}
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        if (id > 0)
+            this.id = id;
+    }
+
     public String getGabarito() {
         return gabarito;
     }
 
     public void setGabarito(String gabarito) {
         if (gabarito != null && !gabarito.isEmpty())
-            this.gabarito = gabarito;
+            this.gabarito = gabarito.trim();
     }
 
     public String getQuestaoRespondida() {

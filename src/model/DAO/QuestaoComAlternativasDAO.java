@@ -4,32 +4,29 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
+import java.util.List;
 
-import src.model.VO.ProfessorVO;
+import src.model.VO.AlternativaVO;
+import src.model.VO.QuestaoComAlternativasVO;
 
-public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInterDAO {
+public class QuestaoComAlternativasDAO extends QuestaoDAO<QuestaoComAlternativasVO>
+        implements QuestaoComAlternativasInterDAO {
 
     @Override
-    public void cadastrar(ProfessorVO vo) {
-        String sql = "insert into professor (nome, email, senha, data_criacao) values (?, ?, ?, ?)";
+    public void cadastrar(QuestaoComAlternativasVO vo) {
+        String sql = "insert into questao_com_alternativas (questao) values (?)";
         PreparedStatement statement;
 
         try {
-            statement = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, vo.getNome());
-            statement.setString(2, vo.getEmail());
-            statement.setString(3, vo.getSenha());
-            statement.setTimestamp(4, new Timestamp(vo.getDataCriacao().getTimeInMillis()));
-            
-            int affectedRows = statement.executeUpdate();
+            statement = getConnection().prepareStatement(sql);
+            statement.setLong(1, vo.getIdQuestao());
 
-            if (affectedRows == 0)
-                throw new SQLException("Não foi possível realizar este cadastro.");
+            if (statement.executeUpdate() == 0)
+                throw new SQLException("Não foi possível realizar o cadastro.");
 
             ResultSet generatedKeys = statement.getGeneratedKeys();
 
-            if (generatedKeys.next()) {}
+            if (generatedKeys.next())
                 vo.setId(generatedKeys.getLong("id"));
 
         } catch (SQLException e) {
@@ -40,7 +37,7 @@ public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInter
 
     @Override
     public ResultSet listar() {
-        String sql = "select * from professor";
+        String sql = "select * from questao_com_alternativas";
         Statement statement;
         ResultSet result = null;
 
@@ -51,17 +48,17 @@ public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInter
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
         return result;
     }
 
     @Override
-    public ResultSet buscar(ProfessorVO vo) {
-        String sql = "select * from professor where id = ?";
+    public ResultSet buscar(QuestaoComAlternativasVO vo) {
+        String sql = "select * from questao_com_alternativas where id = ?";
         PreparedStatement statement;
         ResultSet result = null;
 
         try {
+            super.buscar(vo);
             statement = getConnection().prepareStatement(sql);
             statement.setLong(1, vo.getId());
             result = statement.executeQuery();
@@ -69,51 +66,45 @@ public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInter
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
         return result;
     }
 
     @Override
-    public ResultSet buscarPorEmail(ProfessorVO vo) {
-        String sql = "select * from professor where email = ?";
+    public ResultSet buscarPorDificuldade(QuestaoComAlternativasVO vo) {
+        String sql = "select * from questao_com_alternativas where dificuldade = ?";
         PreparedStatement statement;
         ResultSet result = null;
 
         try {
+            super.buscar(vo);
             statement = getConnection().prepareStatement(sql);
-            statement.setString(1, vo.getEmail());
+            statement.setInt(1, vo.getDificuldade());
             result = statement.executeQuery();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
         return result;
     }
 
     @Override
-    public void editar(ProfessorVO vo) {
-        String sql = "update professor set nome = ?, email = ?, senha = ? where id = ?";
-        PreparedStatement statement;
+    public void editar(QuestaoComAlternativasVO vo) {
+        // A tabela em si só possui duas chaves que não devem ser alteradas.
+        super.editar(vo);
 
-        try {
-            statement = getConnection().prepareStatement(sql);
-            statement.setString(1, vo.getNome());
-            statement.setString(2, vo.getEmail());
-            statement.setString(3, vo.getSenha());
-            statement.setLong(4, vo.getId());
-
-            if (statement.executeUpdate() == 0)
-                throw new SQLException("Não foi possível realizar esta atualização.");
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
     @Override
-    public void excluir(ProfessorVO vo) {
-        String sql = "delete from professor where id = ?";
+    public void excluir(QuestaoComAlternativasVO vo) {
+        // Primeiro, excluir as alternativas
+        AlternativaDAO alternativaDAO = new AlternativaDAO();
+        List<AlternativaVO> alternativas = vo.getAlternativas();
+        while (alternativas.iterator().hasNext()) {
+            alternativaDAO.excluir(alternativas.iterator().next());
+        }
+
+        // E então excluir a questão
+        String sql = "delete from questao_com_alternativa where id = ?";
         PreparedStatement statement;
 
         try {
@@ -126,6 +117,7 @@ public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInter
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
     }
 
 }

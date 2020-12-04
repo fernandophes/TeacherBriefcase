@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class DisciplinaVO {
+    private long id;
     private String codigo = "";
     private String nome = "";
     private Calendar dataCriacao = Calendar.getInstance();
@@ -22,13 +23,22 @@ public class DisciplinaVO {
         setCodigo(codigo);
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        if (id > 0)
+            this.id = id;
+    }
+
     public String getCodigo() {
         return this.codigo;
     }
 
     public void setCodigo(String codigo) {
         if (codigo != null && !codigo.isEmpty())
-            this.codigo = codigo;
+            this.codigo = codigo.trim();
     }
 
     public String getNome() {
@@ -37,7 +47,7 @@ public class DisciplinaVO {
 
     public void setNome(String nome) {
         if (nome != null && !nome.isEmpty())
-            this.nome = nome;
+            this.nome = nome.trim();
     }
 
     public Calendar getDataCriacao() {

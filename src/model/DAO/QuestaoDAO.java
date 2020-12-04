@@ -6,22 +6,21 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 
-import src.model.VO.ProfessorVO;
+import src.model.VO.QuestaoVO;
 
-public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInterDAO {
+public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> implements QuestaoInterDAO<VO> {
 
     @Override
-    public void cadastrar(ProfessorVO vo) {
-        String sql = "insert into professor (nome, email, senha, data_criacao) values (?, ?, ?, ?)";
+    public void cadastrar(VO vo) {
+        String sql = "insert into questao (enunciado, dificuldade, data_criacao) values (?, ?, ?)";
         PreparedStatement statement;
 
         try {
-            statement = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, vo.getNome());
-            statement.setString(2, vo.getEmail());
-            statement.setString(3, vo.getSenha());
-            statement.setTimestamp(4, new Timestamp(vo.getDataCriacao().getTimeInMillis()));
-            
+            statement = getConnection().prepareStatement(sql);
+            statement.setString(1, vo.getEnunciado());
+            statement.setInt(2, vo.getDificuldade());
+            statement.setTimestamp(3, new Timestamp(vo.getDataCriacao().getTimeInMillis()));
+
             int affectedRows = statement.executeUpdate();
 
             if (affectedRows == 0)
@@ -29,7 +28,7 @@ public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInter
 
             ResultSet generatedKeys = statement.getGeneratedKeys();
 
-            if (generatedKeys.next()) {}
+            if (generatedKeys.next())
                 vo.setId(generatedKeys.getLong("id"));
 
         } catch (SQLException e) {
@@ -40,7 +39,7 @@ public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInter
 
     @Override
     public ResultSet listar() {
-        String sql = "select * from professor";
+        String sql = "select * from questao";
         Statement statement;
         ResultSet result = null;
 
@@ -56,8 +55,8 @@ public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInter
     }
 
     @Override
-    public ResultSet buscar(ProfessorVO vo) {
-        String sql = "select * from professor where id = ?";
+    public ResultSet buscar(VO vo) {
+        String sql = "select * from questao where id = ?";
         PreparedStatement statement;
         ResultSet result = null;
 
@@ -74,14 +73,14 @@ public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInter
     }
 
     @Override
-    public ResultSet buscarPorEmail(ProfessorVO vo) {
-        String sql = "select * from professor where email = ?";
+    public ResultSet buscarPorDificuldade(VO vo) {
+        String sql = "select * from questao where dificuldade = ?";
         PreparedStatement statement;
         ResultSet result = null;
 
         try {
             statement = getConnection().prepareStatement(sql);
-            statement.setString(1, vo.getEmail());
+            statement.setInt(1, vo.getDificuldade());
             result = statement.executeQuery();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -92,16 +91,15 @@ public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInter
     }
 
     @Override
-    public void editar(ProfessorVO vo) {
-        String sql = "update professor set nome = ?, email = ?, senha = ? where id = ?";
+    public void editar(VO vo) {
+        String sql = "update questao set enunciado = ?, dificuldade = ? where id = ?";
         PreparedStatement statement;
 
         try {
             statement = getConnection().prepareStatement(sql);
-            statement.setString(1, vo.getNome());
-            statement.setString(2, vo.getEmail());
-            statement.setString(3, vo.getSenha());
-            statement.setLong(4, vo.getId());
+            statement.setString(1, vo.getEnunciado());
+            statement.setInt(2, vo.getDificuldade());
+            statement.setLong(3, vo.getId());
 
             if (statement.executeUpdate() == 0)
                 throw new SQLException("Não foi possível realizar esta atualização.");
@@ -109,11 +107,12 @@ public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInter
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
     }
 
     @Override
-    public void excluir(ProfessorVO vo) {
-        String sql = "delete from professor where id = ?";
+    public void excluir(VO vo) {
+        String sql = "delete from questao where id = ?";
         PreparedStatement statement;
 
         try {
@@ -126,6 +125,7 @@ public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInter
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-    }
 
+    }
+    
 }
