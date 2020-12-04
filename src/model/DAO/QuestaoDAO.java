@@ -92,15 +92,14 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> implements Que
 
     @Override
     public void editar(VO vo) {
-        String sql = "update questao set enunciado = ?, dificuldade = ?, data_criacao = ? where id = ?";
+        String sql = "update questao set enunciado = ?, dificuldade = ? where id = ?";
         PreparedStatement statement;
 
         try {
             statement = getConnection().prepareStatement(sql);
             statement.setString(1, vo.getEnunciado());
             statement.setInt(2, vo.getDificuldade());
-            statement.setTimestamp(3, new Timestamp(vo.getDataCriacao().getTimeInMillis()));
-            statement.setLong(4, vo.getId());
+            statement.setLong(3, vo.getId());
 
             if (statement.executeUpdate() == 0)
                 throw new SQLException("Não foi possível realizar esta atualização.");
