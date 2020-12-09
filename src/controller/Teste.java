@@ -14,7 +14,7 @@ import src.model.VO.QuestaoVO;
 
 public class Teste {
 
-    public static void main(String[] args) {
+    public static void main2(String[] args) {
 
         ProfessorVO professor = new ProfessorVO("helihelcio@ufersa.edu.br");
         professor.setSenha("valendo10");
