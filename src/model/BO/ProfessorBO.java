@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import src.exception.AuthenticationException;
 import src.model.DAO.ProfessorDAO;
 import src.model.VO.DisciplinaVO;
 import src.model.VO.ProfessorVO;
@@ -28,7 +29,7 @@ public class ProfessorBO implements ProfessorInterBO {
         return lista;
     }
 
-    public ProfessorVO buscar(ProfessorVO professor) {
+    public ProfessorVO buscar(ProfessorVO professor) throws AuthenticationException {
 
         ProfessorDAO professorDAO = new ProfessorDAO();
         ResultSet resultado = professorDAO.buscar(professor);
@@ -51,8 +52,8 @@ public class ProfessorBO implements ProfessorInterBO {
 
         return professor;
     }
-    
-    public ProfessorVO buscarPorEmail(ProfessorVO professor) {
+
+    public ProfessorVO buscarPorEmail(ProfessorVO professor) throws AuthenticationException {
 
         ProfessorDAO professorDAO = new ProfessorDAO();
         ResultSet resultado = professorDAO.buscarPorEmail(professor);
@@ -87,13 +88,16 @@ public class ProfessorBO implements ProfessorInterBO {
         professorDAO.excluir(professor);
     }
 
-    public boolean autenticar(ProfessorVO professor) {
+    public ProfessorVO autenticar(ProfessorVO professor) throws AuthenticationException {
         // verifica se o e-mail e a senha do Professor correspondem ao BD
 
         ProfessorVO busca = new ProfessorVO(professor.getEmail());
         busca = buscarPorEmail(busca);
 
-        return busca.getSenha().equals(professor.getSenha());
+        if (busca.getSenha().equals(professor.getSenha()))
+            return busca;
+        else
+            throw new AuthenticationException();
     }
 
     public void adicionar(ProfessorVO professor, DisciplinaVO disciplina) {
