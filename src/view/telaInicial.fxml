@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #343330;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.controller.FrontController">
+   <children>
+      <ImageView fitHeight="141.0" fitWidth="342.0" layoutX="474.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@VE/logo.png" />
+         </image>
+      </ImageView>
+      <Separator layoutX="640.0" layoutY="212.0" orientation="VERTICAL" prefHeight="470.0" prefWidth="0.0" style="-fx-background-color: #F5FF90;" />
+      <Label layoutX="918.0" layoutY="197.0" text="Entre" textFill="WHITE">
+         <font>
+            <Font name="Dubai Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="258.0" layoutY="199.0" text="Cadastre-se" textFill="WHITE">
+         <font>
+            <Font name="Dubai Bold" size="25.0" />
+         </font>
+      </Label>
+      <TextField fx:id="loginEmail" layoutX="795.0" layoutY="297.0" prefHeight="37.0" prefWidth="293.0" />
+      <Label layoutX="805.0" layoutY="254.0" text="E-mail" textFill="#bad7f2">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="805.0" layoutY="345.0" text="Senha" textFill="#bad7f2">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <TextField fx:id="loginSenha" layoutX="795.0" layoutY="388.0" prefHeight="37.0" prefWidth="293.0" />
+      <Label layoutX="198.0" layoutY="257.0" text="Nome" textFill="#bad7f2">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <TextField fx:id="cadastroNome" layoutX="188.0" layoutY="300.0" prefHeight="37.0" prefWidth="293.0" />
+      <TextField fx:id="cadastroEmail" layoutX="188.0" layoutY="391.0" prefHeight="37.0" prefWidth="293.0" />
+      <Label layoutX="198.0" layoutY="348.0" text="E-mail" textFill="#bad7f2">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <TextField fx:id="cadastroSenhaConfirm" layoutX="187.0" layoutY="576.0" prefHeight="37.0" prefWidth="293.0" />
+      <TextField fx:id="cadastroSenha" layoutX="187.0" layoutY="485.0" prefHeight="37.0" prefWidth="293.0" />
+      <Label layoutX="197.0" layoutY="533.0" text="Redigite a senha" textFill="#bad7f2">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="197.0" layoutY="442.0" text="Crie uma senha (8-20 caracteres)" textFill="#bad7f2">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Button layoutX="909.0" layoutY="457.0" mnemonicParsing="false" style="-fx-background-color: #F5FF90;" text="Entrar">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="266.0" layoutY="642.0" mnemonicParsing="false" style="-fx-background-color: #F5FF90;" text="Criar conta">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>
