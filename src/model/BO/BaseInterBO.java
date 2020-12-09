@@ -8,7 +8,7 @@ public abstract interface BaseInterBO<VO> {
 
     public List<VO> listar();
 
-    public VO buscar(VO vo);
+    public VO buscar(VO vo) throws Exception;
 
     public void editar(VO vo);
 

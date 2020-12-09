@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import src.exception.AuthenticationException;
+
 public class ProfessorVO {
     private long id;
     private String nome = "";
@@ -16,11 +18,11 @@ public class ProfessorVO {
 
     }
 
-    public ProfessorVO(String email) {
+    public ProfessorVO(String email) throws AuthenticationException {
         setEmail(email);
     }
 
-    public ProfessorVO(String nome, String email, String senha) {
+    public ProfessorVO(String nome, String email, String senha) throws AuthenticationException {
         setNome(nome);
         setEmail(email);
         setSenha(senha);
@@ -48,32 +50,32 @@ public class ProfessorVO {
         return email;
     }
 
-    public void setEmail(String email) {
-        if (email != null && email.contains("@"))
-            this.email = email.trim();
+    public void setEmail(String email) throws AuthenticationException {
+        if (email != null && !email.isEmpty())
+            if (email.contains("@") && email.contains("."))
+                this.email = email.trim();
+            else
+                throw new AuthenticationException("O e-mail precisa conter \"@\" e \".\".");
+        else
+            throw new AuthenticationException("O e-mail não pode ficar em branco.");
     }
 
     public String getSenha() {
         return senha;
     }
 
-    public void setSenha(String senha) {
-        try {
-            if (senha != null) {
-                senha = senha.trim();
-                if (senha.length() >= 8)
-                    if (senha.length() <= 20)
-                        this.senha = senha;
-                    else
-                        throw new Exception("A senha precisa ter 20 caracteres ou menos");
+    public void setSenha(String senha) throws AuthenticationException {
+        if (senha != null && !senha.isEmpty()) {
+            senha = senha.trim();
+            if (senha.length() >= 8)
+                if (senha.length() <= 20)
+                    this.senha = senha;
                 else
-                    throw new Exception("A senha precisa ter 8 caracteres ou mais");
-            } else
-                throw new Exception("A senha não pode ser nula");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+                    throw new AuthenticationException("A senha precisa ter 20 caracteres ou menos");
+            else
+                throw new AuthenticationException("A senha precisa ter 8 caracteres ou mais");
+        } else
+            throw new AuthenticationException("A senha não pode ser ficar em branco");
     }
 
     public Calendar getDataCriacao() {
