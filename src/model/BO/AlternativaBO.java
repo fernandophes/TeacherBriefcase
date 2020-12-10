@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import src.model.VO.AlternativaVO;
+import src.model.VO.QuestaoComAlternativasVO;
 
 public class AlternativaBO implements AlternativaInterBO {
     public void cadastrar(AlternativaVO alternativa) {
@@ -44,5 +45,22 @@ public class AlternativaBO implements AlternativaInterBO {
 
         // analisa
         // DAO
+    }
+
+    @Override
+    public void mudar(AlternativaVO alternativa, QuestaoComAlternativasVO questao) {
+        QuestaoComAlternativasBO questaoComAlternativasBO = new QuestaoComAlternativasBO();
+
+        // Atualizando a questão antiga (removendo a alternativa da lista)
+        if (alternativa.getQuestao() != null) {
+            questaoComAlternativasBO.remover(questao, alternativa);
+        }
+
+        // Atualizando a alternativa
+        alternativa.setQuestao(questao);
+
+        // Atualizando a nova questão (adicionando a alternativa à lista)
+        
+
     }
 }
