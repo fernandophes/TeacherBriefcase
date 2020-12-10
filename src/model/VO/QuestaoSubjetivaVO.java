@@ -39,18 +39,22 @@ public class QuestaoSubjetivaVO extends QuestaoVO {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(long id) throws AuthenticationException {
         if (id > 0)
             this.id = id;
+        else
+            throw new AuthenticationException("O id precisa ser maior que zero");
     }
 
     public String getGabarito() {
         return gabarito;
     }
 
-    public void setGabarito(String gabarito) {
+    public void setGabarito(String gabarito) throws AuthenticationException {
         if (gabarito != null && !gabarito.isEmpty())
             this.gabarito = gabarito.trim();
+        else
+            throw new AuthenticationException("O gabarito não pode ficar em branco");
     }
 
     public String getQuestaoRespondida() {

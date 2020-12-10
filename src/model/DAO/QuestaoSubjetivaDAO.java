@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import src.exception.AuthenticationException;
 import src.model.VO.QuestaoSubjetivaVO;
 
 public class QuestaoSubjetivaDAO extends QuestaoDAO<QuestaoSubjetivaVO> implements QuestaoSubjetivaInterDAO {
@@ -27,10 +28,13 @@ public class QuestaoSubjetivaDAO extends QuestaoDAO<QuestaoSubjetivaVO> implemen
             ResultSet generatedKeys = statement.getGeneratedKeys();
 
             if (generatedKeys.next())
-                vo.setId(generatedKeys.getLong("id"));
+                try {
+                    vo.setId(generatedKeys.getLong("id"));
+                } catch (AuthenticationException e) {
+                    throw new SQLException("O banco de dados retornou um id inválido do cadastro feito.");
+                }
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -45,7 +49,6 @@ public class QuestaoSubjetivaDAO extends QuestaoDAO<QuestaoSubjetivaVO> implemen
             statement = getConnection().createStatement();
             result = statement.executeQuery(sql);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -64,7 +67,6 @@ public class QuestaoSubjetivaDAO extends QuestaoDAO<QuestaoSubjetivaVO> implemen
             statement.setLong(1, vo.getId());
             result = statement.executeQuery();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -85,7 +87,6 @@ public class QuestaoSubjetivaDAO extends QuestaoDAO<QuestaoSubjetivaVO> implemen
             if (statement.executeUpdate() == 0)
                 throw new SQLException("Não foi possível realizar esta atualização.");
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -106,7 +107,6 @@ public class QuestaoSubjetivaDAO extends QuestaoDAO<QuestaoSubjetivaVO> implemen
                 super.excluir(vo);
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

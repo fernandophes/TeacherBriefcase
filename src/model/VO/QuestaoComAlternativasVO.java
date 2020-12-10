@@ -17,28 +17,30 @@ public class QuestaoComAlternativasVO extends QuestaoVO {
     public QuestaoComAlternativasVO(int dificuldade, String enunciado) throws AuthenticationException {
         super(dificuldade, enunciado);
     }
-    
+
     public QuestaoComAlternativasVO(int dificuldade, List<String> assuntos, String enunciado)
             throws AuthenticationException {
         super(dificuldade, assuntos, enunciado);
     }
 
-	public long getIdQuestao() {
-		return super.getId();
-	}
+    public long getIdQuestao() {
+        return super.getId();
+    }
 
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(long id) throws AuthenticationException {
         if (id > 0)
             this.id = id;
+        else
+            throw new AuthenticationException("O id precisa ser maior que zero");
     }
 
     public List<AlternativaVO> getAlternativas() {
         return alternativas;
-    }   
+    }
 
     public void setAlternativas(List<AlternativaVO> alternativas) {
         this.alternativas = alternativas;
@@ -58,7 +60,7 @@ public class QuestaoComAlternativasVO extends QuestaoVO {
 
         return saida;
     }
-    
+
     public String getQuestaoRespondida() {
         String saida = super.getQuestaoRespondida();
         List<AlternativaVO> alternativas = getAlternativas();
@@ -72,5 +74,5 @@ public class QuestaoComAlternativasVO extends QuestaoVO {
 
         return saida;
     }
-    
+
 }
