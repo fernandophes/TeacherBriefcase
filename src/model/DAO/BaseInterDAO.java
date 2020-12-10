@@ -3,7 +3,7 @@ package src.model.DAO;
 import java.sql.ResultSet;
 
 public interface BaseInterDAO<VO> {
-    public void cadastrar(VO vo);
+    public void cadastrar(VO vo) throws Exception;
 
     public ResultSet listar();
 

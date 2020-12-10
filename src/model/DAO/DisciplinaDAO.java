@@ -6,12 +6,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 
+import src.exception.AuthenticationException;
 import src.model.VO.DisciplinaVO;
 
 public class DisciplinaDAO extends BaseDAO<DisciplinaVO> implements DisciplinaInterDAO {
 
 	@Override
-	public void cadastrar(DisciplinaVO vo) {
+	public void cadastrar(DisciplinaVO vo) throws AuthenticationException {
 		String sql = "insert into disciplina (codigo, nome, data_criacao) values (?, ?, ?)";
 		PreparedStatement statement;
 

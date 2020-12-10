@@ -6,12 +6,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 
+import src.exception.AuthenticationException;
 import src.model.VO.ProfessorVO;
 
 public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInterDAO {
 
     @Override
-    public void cadastrar(ProfessorVO vo) {
+    public void cadastrar(ProfessorVO vo) throws AuthenticationException {
         String sql = "insert into professor (nome, email, senha, data_criacao) values (?, ?, ?, ?)";
         PreparedStatement statement;
 
@@ -29,7 +30,7 @@ public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInter
 
             ResultSet generatedKeys = statement.getGeneratedKeys();
 
-            if (generatedKeys.next()) {}
+            if (generatedKeys.next())
                 vo.setId(generatedKeys.getLong("id"));
 
         } catch (SQLException e) {
