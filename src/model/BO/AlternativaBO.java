@@ -11,14 +11,14 @@ public class AlternativaBO implements AlternativaInterBO {
         // cadastra uma nova alternativa no BD
 
         // analisa
-        // DAO
+        // TODO DAO
     }
 
     public List<AlternativaVO> listar() {
         // lista todas as alternativas
 
         List<AlternativaVO> lista = new ArrayList<AlternativaVO>();
-        // DAO
+        // TODO DAO
         // ajusta
         return lista;
     }
@@ -27,7 +27,7 @@ public class AlternativaBO implements AlternativaInterBO {
         // busca uma alternativa
 
         AlternativaVO resultado = new AlternativaVO();
-        // DAO
+        // TODO DAO
         // ajusta
         return resultado;
     }
@@ -36,7 +36,7 @@ public class AlternativaBO implements AlternativaInterBO {
         // edita os dados de uma alternativa
 
         // analisa
-        // DAO
+        // TODO DAO
         // ajusta
     }
 
@@ -44,7 +44,7 @@ public class AlternativaBO implements AlternativaInterBO {
         // exclui uma alternativa
 
         // analisa
-        // DAO
+        // TODO DAO
     }
 
     @Override
@@ -60,7 +60,7 @@ public class AlternativaBO implements AlternativaInterBO {
         alternativa.setQuestao(questao);
 
         // Atualizando a nova questão (adicionando a alternativa à lista)
-        
+
 
     }
 }

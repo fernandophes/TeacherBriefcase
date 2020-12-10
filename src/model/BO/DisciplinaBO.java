@@ -14,14 +14,14 @@ public class DisciplinaBO implements DisciplinaInterBO {
         // cadastra uma nova disciplina
 
         // analisa
-        // DAO
+        // TODO DAO
     }
 
     public List<DisciplinaVO> listar() {
         // lista todas as disciplinas
 
         List<DisciplinaVO> lista = new ArrayList<DisciplinaVO>();
-        // DAO
+        // TODO DAO
         // ajusta
         return lista;
     }
@@ -30,7 +30,7 @@ public class DisciplinaBO implements DisciplinaInterBO {
         // busca uma disciplina
 
         DisciplinaVO resultado = new DisciplinaVO();
-        // DAO
+        // TODO DAO
         // ajusta
         return resultado;
     }
@@ -39,7 +39,7 @@ public class DisciplinaBO implements DisciplinaInterBO {
         // edita os dados de uma disciplina
 
         // analisa
-        // DAO
+        // TODO DAO
         // ajusta
     }
 
@@ -47,7 +47,7 @@ public class DisciplinaBO implements DisciplinaInterBO {
         // exclui uma disciplina
 
         // analisa
-        // DAO
+        // TODO DAO
     }
 
     public void adicionar(DisciplinaVO disciplina, String assunto) {
@@ -59,7 +59,7 @@ public class DisciplinaBO implements DisciplinaInterBO {
             lista.add(assunto);
             disciplina.setAssuntos(lista);
 
-            // DAO
+            // TODO DAO
         }
     }
 
@@ -80,7 +80,7 @@ public class DisciplinaBO implements DisciplinaInterBO {
                 questaoBO.remover(questoesIt.next(), assunto);
             }
 
-            // DAO
+            // TODO DAO
         }
     }
 
@@ -97,7 +97,7 @@ public class DisciplinaBO implements DisciplinaInterBO {
             ProfessorBO professorBO = new ProfessorBO();
             professorBO.adicionar(professor, disciplina);
 
-            // DAO
+            // TODO DAO
         }
     }
 
@@ -113,7 +113,7 @@ public class DisciplinaBO implements DisciplinaInterBO {
             ProfessorBO professorBO = new ProfessorBO();
             professorBO.remover(professor, disciplina);
 
-            // DAO
+            // TODO DAO
         }
     }
 
@@ -143,7 +143,7 @@ public class DisciplinaBO implements DisciplinaInterBO {
             // Atualiza a questão
             questao.setDisciplina(null);
 
-            // DAO
+            // TODO DAO
         }
     }
 
@@ -159,7 +159,7 @@ public class DisciplinaBO implements DisciplinaInterBO {
             // Atualizar a prova
             prova.setDisciplina(disciplina);
 
-            // DAO
+            // TODO DAO
         }
     }
 
@@ -174,7 +174,7 @@ public class DisciplinaBO implements DisciplinaInterBO {
             // Atualizar a prova
             prova.setDisciplina(null);
 
-            // DAO
+            // TODO DAO
         }
     }
 }

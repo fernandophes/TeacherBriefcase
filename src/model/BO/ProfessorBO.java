@@ -13,11 +13,13 @@ import src.model.VO.ProfessorVO;
 
 public class ProfessorBO implements ProfessorInterBO {
 
+    ProfessorDAO professorDAO = new ProfessorDAO();
+
     public void cadastrar(ProfessorVO professor) {
         // cadastra um novo Professor
 
         // analisa
-        // DAO
+        // TODO DAO
     }
 
     public List<ProfessorVO> listar() {
@@ -25,13 +27,12 @@ public class ProfessorBO implements ProfessorInterBO {
 
         List<ProfessorVO> lista = new ArrayList<ProfessorVO>();
         // analisa
-        // DAO
+        // TODO DAO
         return lista;
     }
 
     public ProfessorVO buscar(ProfessorVO professor) throws AuthenticationException {
 
-        ProfessorDAO professorDAO = new ProfessorDAO();
         ResultSet resultado = professorDAO.buscar(professor);
 
         try {
@@ -55,7 +56,6 @@ public class ProfessorBO implements ProfessorInterBO {
 
     public ProfessorVO buscarPorEmail(ProfessorVO professor) throws AuthenticationException {
 
-        ProfessorDAO professorDAO = new ProfessorDAO();
         ResultSet resultado = professorDAO.buscarPorEmail(professor);
 
         try {
@@ -78,7 +78,6 @@ public class ProfessorBO implements ProfessorInterBO {
     }
 
     public void editar(ProfessorVO professor) {
-        ProfessorDAO professorDAO = new ProfessorDAO();
         // TODO Fazer verificações
         professorDAO.editar(professor);
     }
@@ -114,7 +113,7 @@ public class ProfessorBO implements ProfessorInterBO {
             DisciplinaBO disciplinaBO = new DisciplinaBO();
             disciplinaBO.adicionar(disciplina, professor);
 
-            // DAO
+            // TODO DAO
         }
     }
 
@@ -131,7 +130,7 @@ public class ProfessorBO implements ProfessorInterBO {
             DisciplinaBO disciplinaBO = new DisciplinaBO();
             disciplinaBO.remover(disciplina, professor);
 
-            // DAO
+            // TODO DAO
         }
     }
 }
