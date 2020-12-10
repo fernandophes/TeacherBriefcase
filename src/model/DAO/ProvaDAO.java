@@ -74,7 +74,7 @@ public class ProvaDAO extends BaseDAO<ProvaVO> implements ProvaInterDAO {
     }
 
     @Override
-    public void editar(ProvaVO vo) {
+    public void atualizar(ProvaVO vo) {
         String sql = "update prova set titulo = ? where id = ?";
         PreparedStatement statement;
 

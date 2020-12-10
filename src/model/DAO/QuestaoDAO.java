@@ -92,7 +92,7 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> implements Que
     }
 
     @Override
-    public void editar(VO vo) {
+    public void atualizar(VO vo) {
         String sql = "update questao set enunciado = ?, dificuldade = ? where id = ?";
         PreparedStatement statement;
 

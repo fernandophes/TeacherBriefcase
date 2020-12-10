@@ -77,9 +77,9 @@ public class ProfessorBO implements ProfessorInterBO {
         return professor;
     }
 
-    public void editar(ProfessorVO professor) {
+    public void atualizar(ProfessorVO professor) {
         // TODO Fazer verificações
-        professorDAO.editar(professor);
+        professorDAO.atualizar(professor);
     }
 
     public void excluir(ProfessorVO professor) {

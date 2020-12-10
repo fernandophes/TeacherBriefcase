@@ -74,7 +74,7 @@ public class QuestaoBO {
         return lista;
     }
 
-    public void editar(QuestaoVO questao) {
+    public void atualizar(QuestaoVO questao) {
         // edita os dados de uma questão
 
         // analisa

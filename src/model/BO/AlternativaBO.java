@@ -32,7 +32,7 @@ public class AlternativaBO implements AlternativaInterBO {
         return resultado;
     }
 
-    public void editar(AlternativaVO alternativa) {
+    public void atualizar(AlternativaVO alternativa) {
         // edita os dados de uma alternativa
 
         // analisa

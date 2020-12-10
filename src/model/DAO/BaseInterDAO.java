@@ -9,7 +9,7 @@ public interface BaseInterDAO<VO> {
 
     public ResultSet buscar(VO vo);
 
-    public void editar(VO vo);
+    public void atualizar(VO vo);
 
     public void excluir(VO vo);
 }

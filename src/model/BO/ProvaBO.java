@@ -32,7 +32,7 @@ public class ProvaBO implements ProvaInterBO {
         return resultado;
     }
 
-    public void editar(ProvaVO prova) {
+    public void atualizar(ProvaVO prova) {
         // edita os dados da prova
 
         // analisa

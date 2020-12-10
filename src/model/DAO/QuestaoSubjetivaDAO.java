@@ -74,12 +74,12 @@ public class QuestaoSubjetivaDAO extends QuestaoDAO<QuestaoSubjetivaVO> implemen
     }
 
     @Override
-    public void editar(QuestaoSubjetivaVO vo) {
+    public void atualizar(QuestaoSubjetivaVO vo) {
         String sql = "update questao_subjetiva set gabarito = ? where id = ?";
         PreparedStatement statement;
 
         try {
-            super.editar(vo);
+            super.atualizar(vo);
             statement = getConnection().prepareStatement(sql);
             statement.setString(1, vo.getGabarito());
             statement.setLong(2, vo.getId());

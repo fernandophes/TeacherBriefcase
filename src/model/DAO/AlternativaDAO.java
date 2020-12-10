@@ -89,7 +89,7 @@ public class AlternativaDAO extends BaseDAO<AlternativaVO> implements Alternativ
     }
 
     @Override
-    public void editar(AlternativaVO vo) {
+    public void atualizar(AlternativaVO vo) {
         String sql = "update alternativa set texto = ?, verdadeira = ? where id = ?";
         PreparedStatement statement;
 

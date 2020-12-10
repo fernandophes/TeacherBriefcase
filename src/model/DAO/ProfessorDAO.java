@@ -93,7 +93,7 @@ public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInter
     }
 
     @Override
-    public void editar(ProfessorVO vo) {
+    public void atualizar(ProfessorVO vo) {
         String sql = "update professor set nome = ?, email = ?, senha = ? where id = ?";
         PreparedStatement statement;
 

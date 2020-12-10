@@ -35,7 +35,7 @@ public class DisciplinaBO implements DisciplinaInterBO {
         return resultado;
     }
 
-    public void editar(DisciplinaVO disciplina) {
+    public void atualizar(DisciplinaVO disciplina) {
         // edita os dados de uma disciplina
 
         // analisa

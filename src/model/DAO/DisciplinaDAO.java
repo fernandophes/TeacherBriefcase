@@ -110,7 +110,7 @@ public class DisciplinaDAO extends BaseDAO<DisciplinaVO> implements DisciplinaIn
 	}
 
 	@Override
-	public void editar(DisciplinaVO vo) {
+	public void atualizar(DisciplinaVO vo) {
 		String sql = "update disciplina set codigo = ?, nome = ?, data_criacao = ?, where id = ?";
 		PreparedStatement statement;
 

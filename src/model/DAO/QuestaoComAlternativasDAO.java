@@ -89,9 +89,9 @@ public class QuestaoComAlternativasDAO extends QuestaoDAO<QuestaoComAlternativas
     }
 
     @Override
-    public void editar(QuestaoComAlternativasVO vo) {
+    public void atualizar(QuestaoComAlternativasVO vo) {
         // A tabela em si só possui duas chaves que não devem ser alteradas.
-        super.editar(vo);
+        super.atualizar(vo);
 
     }
 
