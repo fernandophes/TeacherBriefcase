@@ -32,18 +32,22 @@ public class ProfessorVO {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(long id) throws AuthenticationException {
         if (id > 0)
             this.id = id;
+        else
+            throw new AuthenticationException("O id precisa ser maior que zero");
     }
 
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
+    public void setNome(String nome) throws AuthenticationException {
         if (nome != null && !nome.isEmpty())
             this.nome = nome.trim();
+        else
+            throw new AuthenticationException("O nome não pode ficar em branco");
     }
 
     public String getEmail() {
@@ -82,11 +86,16 @@ public class ProfessorVO {
         return dataCriacao;
     }
 
-    public void setDataCriacao(Calendar dataCriacao) {
+    public void setDataCriacao(Calendar dataCriacao) throws AuthenticationException {
         // A data de criação (cadastro) do professor pode ser passada ou atual, mas não
         // futura
-        if (dataCriacao != null && (dataCriacao.compareTo(Calendar.getInstance()) <= 0))
-            this.dataCriacao = dataCriacao;
+        if (dataCriacao != null)
+            if (dataCriacao.compareTo(Calendar.getInstance()) <= 0)
+                this.dataCriacao = dataCriacao;
+            else
+                throw new AuthenticationException("A data de criação não pode ser futura");
+        else
+            throw new AuthenticationException("A data de criação não pode ficar em branco");
     }
 
     public List<DisciplinaVO> getDisciplinas() {
