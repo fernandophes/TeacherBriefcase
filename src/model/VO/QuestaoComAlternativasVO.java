@@ -4,19 +4,22 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import src.exception.AuthenticationException;
+
 public class QuestaoComAlternativasVO extends QuestaoVO {
     private long id;
     private List<AlternativaVO> alternativas = new ArrayList<AlternativaVO>();
 
     public QuestaoComAlternativasVO() {
-        
+
     }
-    
-    public QuestaoComAlternativasVO(int dificuldade, String enunciado) {
+
+    public QuestaoComAlternativasVO(int dificuldade, String enunciado) throws AuthenticationException {
         super(dificuldade, enunciado);
     }
     
-    public QuestaoComAlternativasVO(int dificuldade, List<String> assuntos, String enunciado) {
+    public QuestaoComAlternativasVO(int dificuldade, List<String> assuntos, String enunciado)
+            throws AuthenticationException {
         super(dificuldade, assuntos, enunciado);
     }
 

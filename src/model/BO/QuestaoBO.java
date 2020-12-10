@@ -151,4 +151,18 @@ public class QuestaoBO {
             // DAO
         }
     }
+
+    public void mudar(QuestaoVO questao, DisciplinaVO disciplina) {
+        if (disciplina != null) {
+            // Atualizar a disciplina antiga, removendo a questão da sua lista
+            DisciplinaBO disciplinaBO = new DisciplinaBO();
+            disciplinaBO.remover(questao.getDisciplina(), questao);
+
+            // Atualizar a questão
+            questao.setDisciplina(disciplina);
+
+            // Atualizar a nova disciplina, adicionando a questão à sua lista
+            disciplinaBO.adicionar(disciplina, questao);
+        }
+    }
 }

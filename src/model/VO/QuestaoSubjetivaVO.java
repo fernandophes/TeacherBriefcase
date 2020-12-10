@@ -2,6 +2,8 @@ package src.model.VO;
 
 import java.util.List;
 
+import src.exception.AuthenticationException;
+
 public class QuestaoSubjetivaVO extends QuestaoVO {
     private long id;
     private String gabarito = "";
@@ -10,27 +12,28 @@ public class QuestaoSubjetivaVO extends QuestaoVO {
 
     }
 
-    public QuestaoSubjetivaVO(int dificuldade, String enunciado) {
+    public QuestaoSubjetivaVO(int dificuldade, String enunciado) throws AuthenticationException {
         super(dificuldade, enunciado);
     }
 
-    public QuestaoSubjetivaVO(int dificuldade, List<String> assuntos, String enunciado) {
+    public QuestaoSubjetivaVO(int dificuldade, List<String> assuntos, String enunciado) throws AuthenticationException {
         super(dificuldade, assuntos, enunciado);
     }
 
-    public QuestaoSubjetivaVO(int dificuldade, String enunciado, String gabarito) {
+    public QuestaoSubjetivaVO(int dificuldade, String enunciado, String gabarito) throws AuthenticationException {
         super(dificuldade, enunciado);
         setGabarito(gabarito);
     }
 
-    public QuestaoSubjetivaVO(int dificuldade, List<String> assuntos, String enunciado, String gabarito) {
+    public QuestaoSubjetivaVO(int dificuldade, List<String> assuntos, String enunciado, String gabarito)
+            throws AuthenticationException {
         super(dificuldade, assuntos, enunciado);
         setGabarito(gabarito);
     }
 
-	public long getIdQuestao() {
-		return super.getId();
-	}
+    public long getIdQuestao() {
+        return super.getId();
+    }
 
     public long getId() {
         return id;

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import src.model.BO.DisciplinaBO;
+import src.exception.AuthenticationException;
 
 public abstract class QuestaoVO {
     private long id;
@@ -23,7 +23,7 @@ public abstract class QuestaoVO {
 
     }
 
-    public QuestaoVO(int dificuldade, String enunciado) {
+    public QuestaoVO(int dificuldade, String enunciado) throws AuthenticationException {
         setDificuldade(dificuldade);
         setEnunciado(enunciado);
     }
@@ -32,12 +32,14 @@ public abstract class QuestaoVO {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(long id) throws AuthenticationException {
         if (id > 0)
             this.id = id;
+        else
+            throw new AuthenticationException("O id precisa ser maior que zero");
     }
 
-    public QuestaoVO(int dificuldade, List<String> assuntos, String enunciado) {
+    public QuestaoVO(int dificuldade, List<String> assuntos, String enunciado) throws AuthenticationException {
         setDificuldade(dificuldade);
         setEnunciado(enunciado);
         setAssuntos(assuntos);
@@ -47,9 +49,11 @@ public abstract class QuestaoVO {
         return enunciado;
     }
 
-    public void setEnunciado(String enunciado) {
+    public void setEnunciado(String enunciado) throws AuthenticationException {
         if (enunciado != null && !enunciado.isEmpty())
             this.enunciado = enunciado.trim();
+        else
+            throw new AuthenticationException("O enunciado não pode ficar em branco");
     }
 
     public DisciplinaVO getDisciplina() {
@@ -57,18 +61,8 @@ public abstract class QuestaoVO {
     }
 
     public void setDisciplina(DisciplinaVO disciplina) {
-        if (disciplina != null) {
-            // Atualizar a disciplina antiga
-            DisciplinaBO antiga = new DisciplinaBO();
-            antiga.remover(this.disciplina, this);
-
-            // Atualizar a questão
-            this.disciplina = disciplina;
-
-            // Atualizar a nova disciplina
-            DisciplinaBO nova = new DisciplinaBO();
-            nova.adicionar(disciplina, this);
-        }
+        // Atualizar a questão
+        this.disciplina = disciplina;
     }
 
     public int getDificuldade() {

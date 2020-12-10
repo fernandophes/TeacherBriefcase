@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 
+import src.exception.AuthenticationException;
 import src.model.VO.QuestaoVO;
 
 public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> implements QuestaoInterDAO<VO> {
@@ -29,10 +30,13 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> implements Que
             ResultSet generatedKeys = statement.getGeneratedKeys();
 
             if (generatedKeys.next())
-                vo.setId(generatedKeys.getLong("id"));
+                try {
+                    vo.setId(generatedKeys.getLong("id"));
+                } catch (AuthenticationException e) {
+                    throw new SQLException("O banco de dados retornou um id inválido do cadastro feito.");
+                }
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -47,7 +51,6 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> implements Que
             statement = getConnection().createStatement();
             result = statement.executeQuery(sql);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -65,7 +68,6 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> implements Que
             statement.setLong(1, vo.getId());
             result = statement.executeQuery();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -83,7 +85,6 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> implements Que
             statement.setInt(1, vo.getDificuldade());
             result = statement.executeQuery();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -122,7 +123,6 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> implements Que
             if (statement.executeUpdate() == 0)
                 throw new SQLException("Não foi possível realizar esta exclusão.");
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
