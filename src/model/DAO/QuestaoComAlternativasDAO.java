@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import src.exception.AuthenticationException;
 import src.model.VO.AlternativaVO;
 import src.model.VO.QuestaoComAlternativasVO;
 
@@ -27,10 +28,13 @@ public class QuestaoComAlternativasDAO extends QuestaoDAO<QuestaoComAlternativas
             ResultSet generatedKeys = statement.getGeneratedKeys();
 
             if (generatedKeys.next())
-                vo.setId(generatedKeys.getLong("id"));
+                try {
+                    vo.setId(generatedKeys.getLong("id"));
+                } catch (AuthenticationException e) {
+                    throw new SQLException("O banco de dados retornou um id inválido do cadastro feito.");
+                }
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -45,7 +49,6 @@ public class QuestaoComAlternativasDAO extends QuestaoDAO<QuestaoComAlternativas
             statement = getConnection().createStatement();
             result = statement.executeQuery(sql);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return result;
@@ -63,7 +66,6 @@ public class QuestaoComAlternativasDAO extends QuestaoDAO<QuestaoComAlternativas
             statement.setLong(1, vo.getId());
             result = statement.executeQuery();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return result;
@@ -81,7 +83,6 @@ public class QuestaoComAlternativasDAO extends QuestaoDAO<QuestaoComAlternativas
             statement.setInt(1, vo.getDificuldade());
             result = statement.executeQuery();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return result;
@@ -114,7 +115,6 @@ public class QuestaoComAlternativasDAO extends QuestaoDAO<QuestaoComAlternativas
             if (statement.executeUpdate() == 0)
                 throw new SQLException("Não foi possível realizar esta exclusão.");
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
