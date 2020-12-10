@@ -8,9 +8,6 @@ public interface ProfessorInterBO extends BaseInterBO<ProfessorVO> {
 
     public ProfessorVO autenticar(ProfessorVO professor) throws AuthenticationException;
 
-    @Override
-    public ProfessorVO buscar(ProfessorVO professor) throws AuthenticationException;
-
     public ProfessorVO buscarPorEmail(ProfessorVO professor) throws AuthenticationException;
 
     public void adicionar(ProfessorVO professor, DisciplinaVO disciplina);
