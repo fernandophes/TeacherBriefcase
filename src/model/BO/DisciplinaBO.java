@@ -35,6 +35,12 @@ public class DisciplinaBO implements DisciplinaInterBO {
         return resultado;
     }
 
+    @Override
+    public List<DisciplinaVO> buscar(ProfessorVO professor) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
     public void atualizar(DisciplinaVO disciplina) {
         // edita os dados de uma disciplina
 
