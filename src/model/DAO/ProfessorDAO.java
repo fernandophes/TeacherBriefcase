@@ -11,13 +11,13 @@ import src.model.VO.ProfessorVO;
 
 public class ProfessorDAO extends BaseDAO implements ProfessorInterDAO {
 
-    // TODO criar constante tabela em todos os DAO
+    public final String tabela = "professor";
 
     ProfessorDisciplinaDAO professorDisciplinaDAO = new ProfessorDisciplinaDAO();
 
     @Override
     public void cadastrar(ProfessorVO vo) {
-        String sql = "insert into professor (nome, email, senha, data_criacao) values (?, ?, ?, ?)";
+        String sql = "insert into " + tabela + " (nome, email, senha, data_criacao) values (?, ?, ?, ?)";
         PreparedStatement statement;
 
         try {
@@ -48,7 +48,7 @@ public class ProfessorDAO extends BaseDAO implements ProfessorInterDAO {
 
     @Override
     public ResultSet listar() {
-        String sql = "select * from professor";
+        String sql = "select * from " + tabela;
         Statement statement;
         ResultSet result = null;
 
@@ -64,7 +64,7 @@ public class ProfessorDAO extends BaseDAO implements ProfessorInterDAO {
 
     @Override
     public ResultSet buscar(ProfessorVO vo) {
-        String sql = "select * from professor where id = ?";
+        String sql = "select * from " + tabela + " where id = ?";
         PreparedStatement statement;
         ResultSet result = null;
 
@@ -84,7 +84,7 @@ public class ProfessorDAO extends BaseDAO implements ProfessorInterDAO {
         ResultSet busca = professorDisciplinaDAO.buscar(disciplina);
         String lista = "";
 
-        String sql = "select * from professor where id in (?)";
+        String sql = "select * from " + tabela + " where id in (?)";
         ResultSet resultado = null;
 
         try {
@@ -102,7 +102,7 @@ public class ProfessorDAO extends BaseDAO implements ProfessorInterDAO {
 
     @Override
     public ResultSet buscarPorEmail(ProfessorVO vo) {
-        String sql = "select * from professor where email = ?";
+        String sql = "select * from " + tabela + " where email = ?";
         PreparedStatement statement;
         ResultSet result = null;
 
@@ -119,7 +119,7 @@ public class ProfessorDAO extends BaseDAO implements ProfessorInterDAO {
 
     @Override
     public void atualizar(ProfessorVO vo) {
-        String sql = "update professor set nome = ?, email = ?, senha = ? where id = ?";
+        String sql = "update " + tabela + " set nome = ?, email = ?, senha = ? where id = ?";
         PreparedStatement statement;
 
         try {
@@ -138,7 +138,7 @@ public class ProfessorDAO extends BaseDAO implements ProfessorInterDAO {
 
     @Override
     public void excluir(ProfessorVO vo) {
-        String sql = "delete from professor where id = ?";
+        String sql = "delete from " + tabela + " where id = ?";
         PreparedStatement statement;
 
         try {

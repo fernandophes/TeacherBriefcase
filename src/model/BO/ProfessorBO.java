@@ -15,6 +15,7 @@ public class ProfessorBO implements ProfessorInterBO {
 
     ProfessorDAO professorDAO = new ProfessorDAO();
 
+    @Override
     public void cadastrar(ProfessorVO professor) {
 
         // As verificações de segurança são feitas nos setters
@@ -23,6 +24,7 @@ public class ProfessorBO implements ProfessorInterBO {
 
     }
 
+    @Override
     public List<ProfessorVO> listar() throws AuthenticationException {
 
         List<ProfessorVO> lista = new ArrayList<ProfessorVO>();
@@ -44,6 +46,7 @@ public class ProfessorBO implements ProfessorInterBO {
         return lista;
     }
 
+    @Override
     public ProfessorVO buscar(ProfessorVO professor) throws AuthenticationException {
 
         ResultSet resultado = professorDAO.buscar(professor);
@@ -70,11 +73,27 @@ public class ProfessorBO implements ProfessorInterBO {
     }
 
     @Override
-    public List<ProfessorVO> buscar(DisciplinaVO disciplina) {
-        // TODO Fazer a busca no DAO
-        return null;
+    public List<ProfessorVO> buscar(DisciplinaVO disciplina) throws AuthenticationException {
+        List<ProfessorVO> lista = new ArrayList<ProfessorVO>();
+
+        ResultSet resultado = professorDAO.buscar(disciplina);
+
+        try {
+            if (resultado != null)
+                while (resultado.next()) {
+                    ProfessorVO atual = new ProfessorVO();
+                    atual.setId(resultado.getLong("id"));
+                    atual = buscar(atual);
+                    lista.add(atual);
+                }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
     }
 
+    @Override
     public ProfessorVO buscarPorEmail(ProfessorVO professor) throws AuthenticationException {
 
         ResultSet resultado = professorDAO.buscarPorEmail(professor);
@@ -97,14 +116,17 @@ public class ProfessorBO implements ProfessorInterBO {
         return professor;
     }
 
+    @Override
     public void atualizar(ProfessorVO professor) {
         professorDAO.atualizar(professor);
     }
 
+    @Override
     public void excluir(ProfessorVO professor) {
         professorDAO.excluir(professor);
     }
 
+    @Override
     public ProfessorVO autenticar(ProfessorVO professor) throws AuthenticationException {
         // Verifica se o e-mail e a senha do Professor correspondem ao BD
 
@@ -117,6 +139,7 @@ public class ProfessorBO implements ProfessorInterBO {
             throw new AuthenticationException();
     }
 
+    @Override
     public void adicionar(ProfessorVO professor, DisciplinaVO disciplina) {
         List<DisciplinaVO> lista = professor.getDisciplinas();
 
@@ -135,6 +158,7 @@ public class ProfessorBO implements ProfessorInterBO {
         }
     }
 
+    @Override
     public void remover(ProfessorVO professor, DisciplinaVO disciplina) {
         List<DisciplinaVO> lista = professor.getDisciplinas();
 

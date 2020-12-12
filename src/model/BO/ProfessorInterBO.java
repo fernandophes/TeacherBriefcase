@@ -12,7 +12,7 @@ public interface ProfessorInterBO extends BaseInterBO<ProfessorVO> {
 
     public ProfessorVO buscarPorEmail(ProfessorVO professor) throws AuthenticationException;
 
-    public List<ProfessorVO> buscar(DisciplinaVO disciplina);
+    public List<ProfessorVO> buscar(DisciplinaVO disciplina) throws AuthenticationException;
 
     public void adicionar(ProfessorVO professor, DisciplinaVO disciplina);
 
