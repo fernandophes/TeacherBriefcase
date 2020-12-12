@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 
 import src.model.VO.ProvaVO;
 
-public class ProvaDAO extends BaseDAO<ProvaVO> implements ProvaInterDAO {
+public class ProvaDAO extends BaseDAO implements ProvaInterDAO {
 
     @Override
     public void cadastrar(ProvaVO vo) {

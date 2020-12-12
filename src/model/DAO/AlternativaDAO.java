@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 import src.model.VO.AlternativaVO;
 
-public class AlternativaDAO extends BaseDAO<AlternativaVO> implements AlternativaInterDAO {
+public class AlternativaDAO extends BaseDAO implements AlternativaInterDAO {
 
     @Override
     public void cadastrar(AlternativaVO vo) {

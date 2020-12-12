@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import src.exception.AuthenticationException;
 import src.model.VO.QuestaoVO;
 
-public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> implements QuestaoInterDAO<VO> {
+public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO implements QuestaoInterDAO<VO> {
 
     @Override
     public void cadastrar(VO vo) {

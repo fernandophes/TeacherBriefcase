@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import src.exception.AuthenticationException;
 import src.model.VO.DisciplinaVO;
 
-public class DisciplinaDAO extends BaseDAO<DisciplinaVO> implements DisciplinaInterDAO {
+public class DisciplinaDAO extends BaseDAO implements DisciplinaInterDAO {
 
 	@Override
 	public void cadastrar(DisciplinaVO vo) throws AuthenticationException {
