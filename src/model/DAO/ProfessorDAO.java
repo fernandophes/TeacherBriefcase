@@ -5,14 +5,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-
 import src.exception.AuthenticationException;
+import src.model.VO.DisciplinaVO;
 import src.model.VO.ProfessorVO;
 
-public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInterDAO {
+public class ProfessorDAO extends BaseDAO implements ProfessorInterDAO {
+
+    // TODO criar constante tabela em todos os DAO
+
+    ProfessorDisciplinaDAO professorDisciplinaDAO = new ProfessorDisciplinaDAO();
 
     @Override
-    public void cadastrar(ProfessorVO vo) throws AuthenticationException {
+    public void cadastrar(ProfessorVO vo) {
         String sql = "insert into professor (nome, email, senha, data_criacao) values (?, ?, ?, ?)";
         PreparedStatement statement;
 
@@ -22,7 +26,7 @@ public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInter
             statement.setString(2, vo.getEmail());
             statement.setString(3, vo.getSenha());
             statement.setTimestamp(4, new Timestamp(vo.getDataCriacao().getTimeInMillis()));
-            
+
             int affectedRows = statement.executeUpdate();
 
             if (affectedRows == 0)
@@ -31,10 +35,13 @@ public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInter
             ResultSet generatedKeys = statement.getGeneratedKeys();
 
             if (generatedKeys.next())
-                vo.setId(generatedKeys.getLong("id"));
+                try {
+                    vo.setId(generatedKeys.getLong("id"));
+                } catch (AuthenticationException e) {
+                    throw new SQLException("O banco de dados forneceu um id inválido");
+                }
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -49,7 +56,6 @@ public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInter
             statement = getConnection().createStatement();
             result = statement.executeQuery(sql);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -67,11 +73,31 @@ public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInter
             statement.setLong(1, vo.getId());
             result = statement.executeQuery();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
         return result;
+    }
+
+    @Override
+    public ResultSet buscar(DisciplinaVO disciplina) {
+        ResultSet busca = professorDisciplinaDAO.buscar(disciplina);
+        String lista = "";
+
+        String sql = "select * from professor where id in (?)";
+        ResultSet resultado = null;
+
+        try {
+            while (busca.next())
+                lista = String.join(" ,", lista, Long.toString(busca.getLong("id")));
+
+            PreparedStatement statement = getConnection().prepareStatement(sql);
+            statement.setString(1, lista);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return resultado;
     }
 
     @Override
@@ -85,7 +111,6 @@ public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInter
             statement.setString(1, vo.getEmail());
             result = statement.executeQuery();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -107,7 +132,6 @@ public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInter
             if (statement.executeUpdate() == 0)
                 throw new SQLException("Não foi possível realizar esta atualização.");
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -124,9 +148,18 @@ public class ProfessorDAO extends BaseDAO<ProfessorVO> implements ProfessorInter
             if (statement.executeUpdate() == 0)
                 throw new SQLException("Não foi possível realizar esta exclusão.");
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void adicionar(ProfessorVO professor, DisciplinaVO disciplina) {
+        professorDisciplinaDAO.adicionar(professor, disciplina);
+    }
+
+    @Override
+    public void remover(ProfessorVO professor, DisciplinaVO disciplina) {
+        professorDisciplinaDAO.remover(professor, disciplina);
     }
 
 }

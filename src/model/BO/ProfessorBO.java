@@ -16,18 +16,31 @@ public class ProfessorBO implements ProfessorInterBO {
     ProfessorDAO professorDAO = new ProfessorDAO();
 
     public void cadastrar(ProfessorVO professor) {
-        // cadastra um novo Professor
 
-        // analisa
-        // TODO DAO
+        // As verificações de segurança são feitas nos setters
+
+        professorDAO.cadastrar(professor);
+
     }
 
-    public List<ProfessorVO> listar() {
-        // lista todos os professores
+    public List<ProfessorVO> listar() throws AuthenticationException {
 
         List<ProfessorVO> lista = new ArrayList<ProfessorVO>();
-        // analisa
-        // TODO DAO
+
+        ResultSet resultado = professorDAO.listar();
+
+        try {
+            if (resultado != null)
+                while (resultado.next()) {
+                    ProfessorVO atual = new ProfessorVO();
+                    atual.setId(resultado.getLong("id"));
+                    atual = buscar(atual);
+                    lista.add(atual);
+                }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return lista;
     }
 
@@ -43,15 +56,23 @@ public class ProfessorBO implements ProfessorInterBO {
                 Calendar criacao = Calendar.getInstance();
                 criacao.setTime(resultado.getDate("data_criacao"));
                 professor.setDataCriacao(criacao);
+
+                DisciplinaBO disciplinaBO = new DisciplinaBO();
+                professor.setDisciplinas(disciplinaBO.buscar(professor));
             } else {
                 throw new SQLException("A busca não retornou nenhum resultado.");
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
         return professor;
+    }
+
+    @Override
+    public List<ProfessorVO> buscar(DisciplinaVO disciplina) {
+        // TODO Fazer a busca no DAO
+        return null;
     }
 
     public ProfessorVO buscarPorEmail(ProfessorVO professor) throws AuthenticationException {
@@ -70,7 +91,6 @@ public class ProfessorBO implements ProfessorInterBO {
                 throw new SQLException("A busca não retornou nenhum resultado.");
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -78,17 +98,15 @@ public class ProfessorBO implements ProfessorInterBO {
     }
 
     public void atualizar(ProfessorVO professor) {
-        // TODO Fazer verificações
         professorDAO.atualizar(professor);
     }
 
     public void excluir(ProfessorVO professor) {
-        ProfessorDAO professorDAO = new ProfessorDAO();
         professorDAO.excluir(professor);
     }
 
     public ProfessorVO autenticar(ProfessorVO professor) throws AuthenticationException {
-        // verifica se o e-mail e a senha do Professor correspondem ao BD
+        // Verifica se o e-mail e a senha do Professor correspondem ao BD
 
         ProfessorVO busca = new ProfessorVO(professor.getEmail());
         busca = buscarPorEmail(busca);
@@ -100,8 +118,6 @@ public class ProfessorBO implements ProfessorInterBO {
     }
 
     public void adicionar(ProfessorVO professor, DisciplinaVO disciplina) {
-        // adiciona a disciplina à lista, caso ainda não exista
-
         List<DisciplinaVO> lista = professor.getDisciplinas();
 
         // Se esta disciplina não estiver na lista deste professor, será adicionada
@@ -113,13 +129,13 @@ public class ProfessorBO implements ProfessorInterBO {
             DisciplinaBO disciplinaBO = new DisciplinaBO();
             disciplinaBO.adicionar(disciplina, professor);
 
-            // TODO DAO
+            // Se a disciplina ainda NÃO estiver adicionada no BD (pode ocorrer de estar)
+            if (disciplinaBO.buscar(professor).contains(disciplina))
+                professorDAO.adicionar(professor, disciplina);
         }
     }
 
     public void remover(ProfessorVO professor, DisciplinaVO disciplina) {
-        // remove a disciplina deste professor
-
         List<DisciplinaVO> lista = professor.getDisciplinas();
 
         // Se esta disciplina estiver na lista deste professor, será removida
@@ -130,7 +146,9 @@ public class ProfessorBO implements ProfessorInterBO {
             DisciplinaBO disciplinaBO = new DisciplinaBO();
             disciplinaBO.remover(disciplina, professor);
 
-            // TODO DAO
+            // Se a disciplina ainda REALMENTE estiver adicionada no BD (pode ocorrer de não estar)
+            if (disciplinaBO.buscar(professor).contains(disciplina))
+                professorDAO.remover(professor, disciplina);
         }
     }
 }
