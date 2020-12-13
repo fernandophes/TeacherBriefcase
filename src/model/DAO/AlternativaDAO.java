@@ -9,9 +9,11 @@ import src.model.VO.AlternativaVO;
 
 public class AlternativaDAO extends BaseDAO implements AlternativaInterDAO {
 
+    public final String tabela = "alternativa";
+
     @Override
     public void cadastrar(AlternativaVO vo) {
-        String sql = "insert into alternativa (questao, texto, verdadeira) values (?, ?, ?)";
+        String sql = "insert into " + tabela + " (questao, texto, verdadeira) values (?, ?, ?)";
         PreparedStatement statement;
 
         try {
@@ -29,7 +31,6 @@ public class AlternativaDAO extends BaseDAO implements AlternativaInterDAO {
                 vo.setId(generatedKeys.getLong("id"));
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -37,7 +38,7 @@ public class AlternativaDAO extends BaseDAO implements AlternativaInterDAO {
 
     @Override
     public ResultSet listar() {
-        String sql = "select * from alternativa";
+        String sql = "select * from " + tabela;
         Statement statement;
         ResultSet result = null;
 
@@ -45,7 +46,6 @@ public class AlternativaDAO extends BaseDAO implements AlternativaInterDAO {
             statement = getConnection().createStatement();
             result = statement.executeQuery(sql);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -54,7 +54,7 @@ public class AlternativaDAO extends BaseDAO implements AlternativaInterDAO {
 
     @Override
     public ResultSet buscar(AlternativaVO vo) {
-        String sql = "select * from alternativa where id = ?";
+        String sql = "select * from " + tabela + " where id = ?";
         PreparedStatement statement;
         ResultSet result = null;
 
@@ -63,7 +63,6 @@ public class AlternativaDAO extends BaseDAO implements AlternativaInterDAO {
             statement.setLong(1, vo.getId());
             result = statement.executeQuery();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		};
 
@@ -72,7 +71,7 @@ public class AlternativaDAO extends BaseDAO implements AlternativaInterDAO {
 
     @Override
     public ResultSet buscarPorQuestao(AlternativaVO vo) {
-        String sql = "select * from alternativa where questao = ?";
+        String sql = "select * from " + tabela + " where questao = ?";
         PreparedStatement statement;
         ResultSet result = null;
 
@@ -81,7 +80,6 @@ public class AlternativaDAO extends BaseDAO implements AlternativaInterDAO {
             statement.setLong(1, vo.getQuestao().getId());
             result = statement.executeQuery();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -90,7 +88,7 @@ public class AlternativaDAO extends BaseDAO implements AlternativaInterDAO {
 
     @Override
     public void atualizar(AlternativaVO vo) {
-        String sql = "update alternativa set texto = ?, verdadeira = ? where id = ?";
+        String sql = "update " + tabela + " set texto = ?, verdadeira = ? where id = ?";
         PreparedStatement statement;
 
         try {
@@ -102,7 +100,6 @@ public class AlternativaDAO extends BaseDAO implements AlternativaInterDAO {
             if (statement.executeUpdate() == 0)
                 throw new SQLException("Não foi possível realizar a atualização.");
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -110,7 +107,7 @@ public class AlternativaDAO extends BaseDAO implements AlternativaInterDAO {
 
     @Override
     public void excluir(AlternativaVO vo) {
-        String sql = "alternativa where id = ?";
+        String sql = "delete from " + tabela + " where id = ?";
         PreparedStatement statement;
 
         try {
@@ -120,7 +117,6 @@ public class AlternativaDAO extends BaseDAO implements AlternativaInterDAO {
             if (statement.executeUpdate() == 0)
                 throw new SQLException("Não foi possível realizar a exclusão.");
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

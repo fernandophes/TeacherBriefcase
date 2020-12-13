@@ -13,9 +13,11 @@ import src.model.VO.QuestaoComAlternativasVO;
 public class QuestaoComAlternativasDAO extends QuestaoDAO<QuestaoComAlternativasVO>
         implements QuestaoComAlternativasInterDAO {
 
+    public final String tabela = "questao_com_alternativas";
+
     @Override
     public void cadastrar(QuestaoComAlternativasVO vo) {
-        String sql = "insert into questao_com_alternativas (questao) values (?)";
+        String sql = "insert into " + tabela + " (questao) values (?)";
         PreparedStatement statement;
 
         try {
@@ -41,7 +43,7 @@ public class QuestaoComAlternativasDAO extends QuestaoDAO<QuestaoComAlternativas
 
     @Override
     public ResultSet listar() {
-        String sql = "select * from questao_com_alternativas";
+        String sql = "select * from " + tabela;
         Statement statement;
         ResultSet result = null;
 
@@ -56,7 +58,7 @@ public class QuestaoComAlternativasDAO extends QuestaoDAO<QuestaoComAlternativas
 
     @Override
     public ResultSet buscar(QuestaoComAlternativasVO vo) {
-        String sql = "select * from questao_com_alternativas where id = ?";
+        String sql = "select * from " + tabela + " where id = ?";
         PreparedStatement statement;
         ResultSet result = null;
 
@@ -73,7 +75,7 @@ public class QuestaoComAlternativasDAO extends QuestaoDAO<QuestaoComAlternativas
 
     @Override
     public ResultSet buscarPorDificuldade(QuestaoComAlternativasVO vo) {
-        String sql = "select * from questao_com_alternativas where dificuldade = ?";
+        String sql = "select * from " + tabela + " where dificuldade = ?";
         PreparedStatement statement;
         ResultSet result = null;
 

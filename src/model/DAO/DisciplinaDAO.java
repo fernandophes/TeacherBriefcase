@@ -11,9 +11,11 @@ import src.model.VO.DisciplinaVO;
 
 public class DisciplinaDAO extends BaseDAO implements DisciplinaInterDAO {
 
+	public final String tabela = "disciplina";
+
 	@Override
 	public void cadastrar(DisciplinaVO vo) throws AuthenticationException {
-		String sql = "insert into disciplina (codigo, nome, data_criacao) values (?, ?, ?)";
+		String sql = "insert into " + tabela + " (codigo, nome, data_criacao) values (?, ?, ?)";
 		PreparedStatement statement;
 
 		try {
@@ -33,14 +35,13 @@ public class DisciplinaDAO extends BaseDAO implements DisciplinaInterDAO {
 				vo.setId(generatedKeys.getLong("id"));
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public ResultSet listar() {
-		String sql = "select * from disciplina";
+		String sql = "select * from " + tabela;
 		Statement statement;
 		ResultSet result = null;
 
@@ -48,7 +49,6 @@ public class DisciplinaDAO extends BaseDAO implements DisciplinaInterDAO {
 			statement = getConnection().createStatement();
 			result = statement.executeQuery(sql);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -57,7 +57,7 @@ public class DisciplinaDAO extends BaseDAO implements DisciplinaInterDAO {
 
 	@Override
 	public ResultSet buscar(DisciplinaVO vo) {
-		String sql = "select * from disciplina where id = ?";
+		String sql = "select * from " + tabela + " where id = ?";
 		PreparedStatement statement;
 		ResultSet result = null;
 
@@ -66,7 +66,6 @@ public class DisciplinaDAO extends BaseDAO implements DisciplinaInterDAO {
 			statement.setLong(1, vo.getId());
 			result = statement.executeQuery();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -75,7 +74,7 @@ public class DisciplinaDAO extends BaseDAO implements DisciplinaInterDAO {
 
 	@Override
 	public ResultSet buscarPorCodigo(DisciplinaVO vo) {
-		String sql = "select * from disciplina where codigo = ?";
+		String sql = "select * from " + tabela + " where codigo = ?";
 		PreparedStatement statement;
 		ResultSet result = null;
 
@@ -84,7 +83,6 @@ public class DisciplinaDAO extends BaseDAO implements DisciplinaInterDAO {
 			statement.setString(1, vo.getCodigo());
 			result = statement.executeQuery();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -93,7 +91,7 @@ public class DisciplinaDAO extends BaseDAO implements DisciplinaInterDAO {
 
 	@Override
 	public ResultSet buscarPorNome(DisciplinaVO vo) {
-		String sql = "select * from disciplina where nome = ?";
+		String sql = "select * from " + tabela + " where nome = ?";
 		PreparedStatement statement;
 		ResultSet result = null;
 
@@ -102,7 +100,6 @@ public class DisciplinaDAO extends BaseDAO implements DisciplinaInterDAO {
 			statement.setString(1, vo.getNome());
 			result = statement.executeQuery();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -111,7 +108,7 @@ public class DisciplinaDAO extends BaseDAO implements DisciplinaInterDAO {
 
 	@Override
 	public void atualizar(DisciplinaVO vo) {
-		String sql = "update disciplina set codigo = ?, nome = ?, data_criacao = ?, where id = ?";
+		String sql = "update " + tabela + " set codigo = ?, nome = ?, data_criacao = ?, where id = ?";
 		PreparedStatement statement;
 
 		try {
@@ -124,14 +121,13 @@ public class DisciplinaDAO extends BaseDAO implements DisciplinaInterDAO {
 			if (statement.executeUpdate() == 0)
 				throw new SQLException("Não foi possível realizar esta atualização.");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public void excluir(DisciplinaVO vo) {
-		String sql = "delete from disciplina where id = ?";
+		String sql = "delete from " + tabela + " where id = ?";
         PreparedStatement statement;
 
         try {
@@ -141,7 +137,6 @@ public class DisciplinaDAO extends BaseDAO implements DisciplinaInterDAO {
             if (statement.executeUpdate() == 0)
                 throw new SQLException("Não foi possível realizar esta exclusão.");
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 	}

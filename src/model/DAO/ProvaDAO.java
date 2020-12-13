@@ -10,9 +10,11 @@ import src.model.VO.ProvaVO;
 
 public class ProvaDAO extends BaseDAO implements ProvaInterDAO {
 
+    public final String tabela = "prova";
+
     @Override
     public void cadastrar(ProvaVO vo) {
-        String sql = "insert into prova (disciplina, titulo, data_criacao) values (?, ?, ?)";
+        String sql = "insert into " + tabela + " (disciplina, titulo, data_criacao) values (?, ?, ?)";
         PreparedStatement statement;
 
         try {
@@ -32,7 +34,6 @@ public class ProvaDAO extends BaseDAO implements ProvaInterDAO {
                 vo.setId(generatedKeys.getLong("id"));
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -40,7 +41,7 @@ public class ProvaDAO extends BaseDAO implements ProvaInterDAO {
 
     @Override
     public ResultSet listar() {
-        String sql = "select * from prova";
+        String sql = "select * from " + tabela;
         Statement statement;
         ResultSet result = null;
 
@@ -48,7 +49,6 @@ public class ProvaDAO extends BaseDAO implements ProvaInterDAO {
             statement = getConnection().createStatement();
             result = statement.executeQuery(sql);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -57,7 +57,7 @@ public class ProvaDAO extends BaseDAO implements ProvaInterDAO {
 
     @Override
     public ResultSet buscar(ProvaVO vo) {
-        String sql = "select * from prova where id = ?";
+        String sql = "select * from " + tabela + " where id = ?";
         PreparedStatement statement;
         ResultSet result = null;
 
@@ -66,7 +66,6 @@ public class ProvaDAO extends BaseDAO implements ProvaInterDAO {
             statement.setLong(1, vo.getId());
             result = statement.executeQuery();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -75,7 +74,7 @@ public class ProvaDAO extends BaseDAO implements ProvaInterDAO {
 
     @Override
     public void atualizar(ProvaVO vo) {
-        String sql = "update prova set titulo = ? where id = ?";
+        String sql = "update " + tabela + " set titulo = ? where id = ?";
         PreparedStatement statement;
 
         try {
@@ -86,14 +85,13 @@ public class ProvaDAO extends BaseDAO implements ProvaInterDAO {
             if (statement.executeUpdate() == 0)
                 throw new SQLException("Não foi possível realizar esta atualização.");
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
     @Override
     public void excluir(ProvaVO vo) {
-        String sql = "delete from prova where id = ?";
+        String sql = "delete from " + tabela + " where id = ?";
         PreparedStatement statement;
 
         try {
@@ -103,7 +101,6 @@ public class ProvaDAO extends BaseDAO implements ProvaInterDAO {
             if (statement.executeUpdate() == 0)
                 throw new SQLException("Não foi possível realizar esta exclusão.");
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

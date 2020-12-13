@@ -10,9 +10,11 @@ import src.model.VO.QuestaoSubjetivaVO;
 
 public class QuestaoSubjetivaDAO extends QuestaoDAO<QuestaoSubjetivaVO> implements QuestaoSubjetivaInterDAO {
 
+    public final String tabela = "questao_subjetiva";
+
     @Override
     public void cadastrar(QuestaoSubjetivaVO vo) {
-        String sql = "insert into questao_subjetiva (questao, gabarito) values (?, ?)";
+        String sql = "insert into " + tabela + " (questao, gabarito) values (?, ?)";
         PreparedStatement statement;
 
         try {
@@ -41,7 +43,7 @@ public class QuestaoSubjetivaDAO extends QuestaoDAO<QuestaoSubjetivaVO> implemen
 
     @Override
     public ResultSet listar() {
-        String sql = "select * from questao_subjetiva";
+        String sql = "select * from " + tabela;
         Statement statement;
         ResultSet result = null;
 
@@ -57,7 +59,7 @@ public class QuestaoSubjetivaDAO extends QuestaoDAO<QuestaoSubjetivaVO> implemen
 
     @Override
     public ResultSet buscar(QuestaoSubjetivaVO vo) {
-        String sql = "select * from questao_subjetiva where id = ?";
+        String sql = "select * from " + tabela + " where id = ?";
         PreparedStatement statement;
         ResultSet result = null;
 
@@ -75,7 +77,7 @@ public class QuestaoSubjetivaDAO extends QuestaoDAO<QuestaoSubjetivaVO> implemen
 
     @Override
     public void atualizar(QuestaoSubjetivaVO vo) {
-        String sql = "update questao_subjetiva set gabarito = ? where id = ?";
+        String sql = "update " + tabela + " set gabarito = ? where id = ?";
         PreparedStatement statement;
 
         try {
@@ -94,7 +96,7 @@ public class QuestaoSubjetivaDAO extends QuestaoDAO<QuestaoSubjetivaVO> implemen
 
     @Override
     public void excluir(QuestaoSubjetivaVO vo) {
-        String sql = "delete from questao_subjetiva where id = ?";
+        String sql = "delete from " + tabela + " where id = ?";
         PreparedStatement statement;
 
         try {
