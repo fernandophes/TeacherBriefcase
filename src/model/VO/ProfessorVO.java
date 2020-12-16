@@ -7,12 +7,15 @@ import java.util.List;
 import src.exception.AuthenticationException;
 
 public class ProfessorVO {
+
     private long id;
     private String nome = "";
     private String email = "";
     private String senha = "";
     private Calendar dataCriacao = Calendar.getInstance();
     private List<DisciplinaVO> disciplinas = new ArrayList<DisciplinaVO>();
+
+    public static ProfessorVO logado = null;
 
     public ProfessorVO() {
 

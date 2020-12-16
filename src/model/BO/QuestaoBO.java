@@ -40,8 +40,7 @@ public class QuestaoBO implements QuestaoInterBO<QuestaoVO> {
         return lista;
     }
 
-    @Override
-    public QuestaoVO buscar(QuestaoVO questao) throws OperationException {
+    public QuestaoVO buscarRaiz(QuestaoVO questao) throws OperationException {
         if (questao != null) {
             ResultSet consulta = questaoDAO.buscar(questao);
 
@@ -75,6 +74,20 @@ public class QuestaoBO implements QuestaoInterBO<QuestaoVO> {
     }
 
     @Override
+    public QuestaoVO buscar(QuestaoVO questao) throws OperationException {
+
+        if (questao instanceof QuestaoSubjetivaVO) {
+            questao = questaoSubjetivaBO.buscar((QuestaoSubjetivaVO) questao);
+        } else if (questao instanceof QuestaoComAlternativasVO) {
+            questao = questaoComAlternativasBO.buscar((QuestaoComAlternativasVO) questao);
+        } else {
+            questao = buscarRaiz(questao);
+        }
+
+        return questao;
+    }
+
+    @Override
     public List<QuestaoVO> buscar(DisciplinaVO disciplina) throws OperationException {
         // busca todas as questoes desta disciplina
 
@@ -88,7 +101,7 @@ public class QuestaoBO implements QuestaoInterBO<QuestaoVO> {
 
         return lista;
     }
-    
+
     @Override
     public List<QuestaoVO> buscar(ProvaVO prova) throws OperationException {
         // busca todas as questoes desta disciplina
@@ -124,13 +137,8 @@ public class QuestaoBO implements QuestaoInterBO<QuestaoVO> {
         // busca todas as questoes neste nível de dificuldade
 
         List<QuestaoVO> lista = new ArrayList<QuestaoVO>();
-        QuestaoSubjetivaVO questaoSubjetiva = new QuestaoSubjetivaVO();
-        questaoSubjetiva.setDificuldade(questao.getDificuldade());
-        lista.addAll(questaoSubjetivaBO.buscarPorDificuldade(questaoSubjetiva));
-
-        QuestaoComAlternativasVO questaoComAlternativas = new QuestaoComAlternativasVO();
-        questaoComAlternativas.setDificuldade(questao.getDificuldade());
-        lista.addAll(questaoComAlternativasBO.buscarPorDificuldade(questaoComAlternativas));
+        lista.addAll(questaoSubjetivaBO.buscarPorDificuldade((QuestaoSubjetivaVO)questao));
+        lista.addAll(questaoComAlternativasBO.buscarPorDificuldade((QuestaoComAlternativasVO)questao));
 
         return lista;
     }
@@ -142,13 +150,8 @@ public class QuestaoBO implements QuestaoInterBO<QuestaoVO> {
         List<QuestaoVO> lista = new ArrayList<QuestaoVO>();
 
         if (assunto != null && !assunto.isEmpty()) {
-            QuestaoSubjetivaVO questaoSubjetiva = new QuestaoSubjetivaVO();
-            questaoSubjetiva.setDificuldade(questao.getDificuldade());
-            lista.addAll(questaoSubjetivaBO.buscarPorDificuldade(questaoSubjetiva, assunto));
-
-            QuestaoComAlternativasVO questaoComAlternativas = new QuestaoComAlternativasVO();
-            questaoComAlternativas.setDificuldade(questao.getDificuldade());
-            lista.addAll(questaoComAlternativasBO.buscarPorDificuldade(questaoComAlternativas, assunto));
+            lista.addAll(questaoSubjetivaBO.buscarPorDificuldade((QuestaoSubjetivaVO)questao, assunto));
+            lista.addAll(questaoComAlternativasBO.buscarPorDificuldade((QuestaoComAlternativasVO)questao, assunto));
         } else
             throw new OperationException("O assunto fornecido não pode ser nulo ou vazio.");
 
@@ -162,15 +165,8 @@ public class QuestaoBO implements QuestaoInterBO<QuestaoVO> {
         List<QuestaoVO> lista = new ArrayList<QuestaoVO>();
 
         if (questao != null && questao.getDisciplina() != null) {
-            QuestaoSubjetivaVO questaoSubjetiva = new QuestaoSubjetivaVO();
-            questaoSubjetiva.setDificuldade(questao.getDificuldade());
-            questaoSubjetiva.setDisciplina(questao.getDisciplina());
-            lista.addAll(questaoSubjetivaBO.buscarPorDificuldadeEDisciplina(questaoSubjetiva));
-
-            QuestaoComAlternativasVO questaoComAlternativas = new QuestaoComAlternativasVO();
-            questaoSubjetiva.setDificuldade(questao.getDificuldade());
-            questaoComAlternativas.setDisciplina(questao.getDisciplina());
-            lista.addAll(questaoComAlternativasBO.buscarPorDificuldadeEDisciplina(questaoComAlternativas));
+            lista.addAll(questaoSubjetivaBO.buscarPorDificuldadeEDisciplina((QuestaoSubjetivaVO)questao));
+            lista.addAll(questaoComAlternativasBO.buscarPorDificuldadeEDisciplina((QuestaoComAlternativasVO)questao));
         } else
             throw new OperationException("A disciplina fornecida não pode ser nula.");
 
@@ -180,7 +176,12 @@ public class QuestaoBO implements QuestaoInterBO<QuestaoVO> {
     @Override
     public void atualizar(QuestaoVO questao) throws OperationException {
         if (questao != null) {
-            questaoDAO.atualizar(questao);
+            if (questao instanceof QuestaoSubjetivaVO)
+                questaoSubjetivaBO.atualizar((QuestaoSubjetivaVO) questao);
+            else if (questao instanceof QuestaoComAlternativasVO)
+                questaoComAlternativasBO.atualizar((QuestaoComAlternativasVO) questao);
+            else
+                questaoDAO.atualizar(questao);
         } else
             throw new OperationException("A questão não pode ser nula.");
     }
@@ -188,7 +189,12 @@ public class QuestaoBO implements QuestaoInterBO<QuestaoVO> {
     @Override
     public void excluir(QuestaoVO questao) throws OperationException {
         if (questao != null) {
-            questaoDAO.excluir(questao);
+            if (questao instanceof QuestaoSubjetivaVO)
+                questaoSubjetivaBO.excluir((QuestaoSubjetivaVO) questao);
+            else if (questao instanceof QuestaoComAlternativasVO)
+                questaoComAlternativasBO.excluir((QuestaoComAlternativasVO) questao);
+            else
+                questaoDAO.excluir(questao);
         } else
             throw new OperationException("A questão não pode ser nula.");
     }

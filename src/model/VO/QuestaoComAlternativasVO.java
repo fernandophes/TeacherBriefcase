@@ -13,6 +13,18 @@ public class QuestaoComAlternativasVO extends QuestaoVO {
 
     }
 
+    public QuestaoComAlternativasVO(QuestaoVO questao) throws OperationException {
+        if (questao != null) {
+            setAssuntos(questao.getAssuntos());
+            setDataCriacao(questao.getDataCriacao());
+            setDificuldade(questao.getDificuldade());
+            setDisciplina(questao.getDisciplina());
+            setEnunciado(questao.getEnunciado());
+            setId(questao.getId());
+        } else
+            throw new OperationException("A questão fornecida não pode ser nula");
+    }
+
     public QuestaoComAlternativasVO(int dificuldade, String enunciado) throws OperationException {
         super(dificuldade, enunciado);
     }

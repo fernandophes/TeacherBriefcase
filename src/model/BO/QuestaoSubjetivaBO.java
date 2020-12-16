@@ -55,7 +55,7 @@ public class QuestaoSubjetivaBO implements QuestaoInterBO<QuestaoSubjetivaVO> {
             try {
                 if (consulta != null)
                     if (consulta.next()) {
-                        QuestaoVO raiz = questaoBO.buscar(questao);
+                        QuestaoVO raiz = questaoBO.buscarRaiz(questao);
                         questao.setAssuntos(raiz.getAssuntos());
                         questao.setDataCriacao(raiz.getDataCriacao());
                         questao.setDificuldade(raiz.getDificuldade());
