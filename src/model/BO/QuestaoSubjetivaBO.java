@@ -9,7 +9,7 @@ public class QuestaoSubjetivaBO extends QuestaoBO {
     public QuestaoSubjetivaVO buscar(QuestaoVO questao) {
 
         QuestaoSubjetivaVO resultado = new QuestaoSubjetivaVO();
-        // DAO
+        // TODO DAO
         // ajusta
 
         return resultado;

@@ -6,13 +6,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 
+import src.exception.AuthenticationException;
 import src.model.VO.QuestaoVO;
 
-public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> implements QuestaoInterDAO<VO> {
+public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO implements QuestaoInterDAO<VO> {
+
+    public final String tabela = "questao";
 
     @Override
     public void cadastrar(VO vo) {
-        String sql = "insert into questao (enunciado, dificuldade, data_criacao) values (?, ?, ?)";
+        String sql = "insert into " + tabela + " (enunciado, dificuldade, data_criacao) values (?, ?, ?)";
         PreparedStatement statement;
 
         try {
@@ -29,17 +32,20 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> implements Que
             ResultSet generatedKeys = statement.getGeneratedKeys();
 
             if (generatedKeys.next())
-                vo.setId(generatedKeys.getLong("id"));
+                try {
+                    vo.setId(generatedKeys.getLong("id"));
+                } catch (AuthenticationException e) {
+                    throw new SQLException("O banco de dados retornou um id inválido do cadastro feito.");
+                }
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
     @Override
     public ResultSet listar() {
-        String sql = "select * from questao";
+        String sql = "select * from " + tabela;
         Statement statement;
         ResultSet result = null;
 
@@ -47,7 +53,6 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> implements Que
             statement = getConnection().createStatement();
             result = statement.executeQuery(sql);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -56,7 +61,7 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> implements Que
 
     @Override
     public ResultSet buscar(VO vo) {
-        String sql = "select * from questao where id = ?";
+        String sql = "select * from " + tabela + " where id = ?";
         PreparedStatement statement;
         ResultSet result = null;
 
@@ -65,7 +70,6 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> implements Que
             statement.setLong(1, vo.getId());
             result = statement.executeQuery();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -74,7 +78,7 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> implements Que
 
     @Override
     public ResultSet buscarPorDificuldade(VO vo) {
-        String sql = "select * from questao where dificuldade = ?";
+        String sql = "select * from " + tabela + " where dificuldade = ?";
         PreparedStatement statement;
         ResultSet result = null;
 
@@ -83,7 +87,6 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> implements Que
             statement.setInt(1, vo.getDificuldade());
             result = statement.executeQuery();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -91,8 +94,8 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> implements Que
     }
 
     @Override
-    public void editar(VO vo) {
-        String sql = "update questao set enunciado = ?, dificuldade = ? where id = ?";
+    public void atualizar(VO vo) {
+        String sql = "update " + tabela + " set enunciado = ?, dificuldade = ? where id = ?";
         PreparedStatement statement;
 
         try {
@@ -104,7 +107,6 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> implements Que
             if (statement.executeUpdate() == 0)
                 throw new SQLException("Não foi possível realizar esta atualização.");
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -112,7 +114,7 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> implements Que
 
     @Override
     public void excluir(VO vo) {
-        String sql = "delete from questao where id = ?";
+        String sql = "delete from " + tabela + " where id = ?";
         PreparedStatement statement;
 
         try {
@@ -122,7 +124,6 @@ public class QuestaoDAO<VO extends QuestaoVO> extends BaseDAO<VO> implements Que
             if (statement.executeUpdate() == 0)
                 throw new SQLException("Não foi possível realizar esta exclusão.");
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

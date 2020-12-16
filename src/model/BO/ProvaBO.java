@@ -11,14 +11,14 @@ public class ProvaBO implements ProvaInterBO {
         // cadastra uma prova no BD
 
         // analisa
-        // DAO
+        // TODO DAO
     }
 
     public List<ProvaVO> listar() {
         // lista todas as provas
 
         List<ProvaVO> lista = new ArrayList<ProvaVO>();
-        // DAO
+        // TODO DAO
         // ajusta
         return lista;
     }
@@ -27,29 +27,29 @@ public class ProvaBO implements ProvaInterBO {
         // busca uma prova
 
         ProvaVO resultado = new ProvaVO();
-        // DAO
+        // TODO DAO
         // ajusta
         return resultado;
     }
 
-    public void editar(ProvaVO prova) {
+    public void atualizar(ProvaVO prova) {
         // edita os dados da prova
 
         // analisa
-        // DAO
+        // TODO DAO
     }
 
     public void excluir(ProvaVO prova) {
         // exclui a prova do BD
 
         // analisa
-        // DAO
+        // TODO DAO
     }
 
     public ProvaVO gerar(int quaisquer, int faceis, int medias, int dificeis) {
         // Gera uma prova com questões aleatórias ProvaVO resultado = new ProvaVO();
 
-        // DAO
+        // TODO DAO
 
         return new ProvaVO();
     }
@@ -71,7 +71,7 @@ public class ProvaBO implements ProvaInterBO {
                 QuestaoBO questaoBO = new QuestaoBO();
                 questaoBO.adicionar(questao, prova);
 
-                // DAO
+                // TODO DAO
             } else {
                 System.out.println("A prova e a questão não pertencem à mesma disciplina");
             }
@@ -89,7 +89,7 @@ public class ProvaBO implements ProvaInterBO {
             QuestaoBO questaoBO = new QuestaoBO();
             questaoBO.remover(questao, prova);
 
-            // DAO
+            // TODO DAO
         }
     }
 }

@@ -6,31 +6,49 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import src.exception.AuthenticationException;
 import src.model.DAO.ProfessorDAO;
 import src.model.VO.DisciplinaVO;
 import src.model.VO.ProfessorVO;
 
 public class ProfessorBO implements ProfessorInterBO {
 
-    public void cadastrar(ProfessorVO professor) {
-        // cadastra um novo Professor
+    ProfessorDAO professorDAO = new ProfessorDAO();
 
-        // analisa
-        // DAO
+    @Override
+    public void cadastrar(ProfessorVO professor) {
+
+        // As verificações de segurança são feitas nos setters
+
+        professorDAO.cadastrar(professor);
+
     }
 
-    public List<ProfessorVO> listar() {
-        // lista todos os professores
+    @Override
+    public List<ProfessorVO> listar() throws AuthenticationException {
 
         List<ProfessorVO> lista = new ArrayList<ProfessorVO>();
-        // analisa
-        // DAO
+
+        ResultSet resultado = professorDAO.listar();
+
+        try {
+            if (resultado != null)
+                while (resultado.next()) {
+                    ProfessorVO atual = new ProfessorVO();
+                    atual.setId(resultado.getLong("id"));
+                    atual = buscar(atual);
+                    lista.add(atual);
+                }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return lista;
     }
 
-    public ProfessorVO buscar(ProfessorVO professor) {
+    @Override
+    public ProfessorVO buscar(ProfessorVO professor) throws AuthenticationException {
 
-        ProfessorDAO professorDAO = new ProfessorDAO();
         ResultSet resultado = professorDAO.buscar(professor);
 
         try {
@@ -41,20 +59,43 @@ public class ProfessorBO implements ProfessorInterBO {
                 Calendar criacao = Calendar.getInstance();
                 criacao.setTime(resultado.getDate("data_criacao"));
                 professor.setDataCriacao(criacao);
+
+                DisciplinaBO disciplinaBO = new DisciplinaBO();
+                professor.setDisciplinas(disciplinaBO.buscar(professor));
             } else {
                 throw new SQLException("A busca não retornou nenhum resultado.");
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
         return professor;
     }
-    
-    public ProfessorVO buscarPorEmail(ProfessorVO professor) {
 
-        ProfessorDAO professorDAO = new ProfessorDAO();
+    @Override
+    public List<ProfessorVO> buscar(DisciplinaVO disciplina) throws AuthenticationException {
+        List<ProfessorVO> lista = new ArrayList<ProfessorVO>();
+
+        ResultSet resultado = professorDAO.buscar(disciplina);
+
+        try {
+            if (resultado != null)
+                while (resultado.next()) {
+                    ProfessorVO atual = new ProfessorVO();
+                    atual.setId(resultado.getLong("id"));
+                    atual = buscar(atual);
+                    lista.add(atual);
+                }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
+    @Override
+    public ProfessorVO buscarPorEmail(ProfessorVO professor) throws AuthenticationException {
+
         ResultSet resultado = professorDAO.buscarPorEmail(professor);
 
         try {
@@ -69,36 +110,37 @@ public class ProfessorBO implements ProfessorInterBO {
                 throw new SQLException("A busca não retornou nenhum resultado.");
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
         return professor;
     }
 
-    public void editar(ProfessorVO professor) {
-        ProfessorDAO professorDAO = new ProfessorDAO();
-        // TODO Fazer verificações
-        professorDAO.editar(professor);
+    @Override
+    public void atualizar(ProfessorVO professor) {
+        professorDAO.atualizar(professor);
     }
 
+    @Override
     public void excluir(ProfessorVO professor) {
-        ProfessorDAO professorDAO = new ProfessorDAO();
         professorDAO.excluir(professor);
     }
 
-    public boolean autenticar(ProfessorVO professor) {
-        // verifica se o e-mail e a senha do Professor correspondem ao BD
+    @Override
+    public ProfessorVO autenticar(ProfessorVO professor) throws AuthenticationException {
+        // Verifica se o e-mail e a senha do Professor correspondem ao BD
 
         ProfessorVO busca = new ProfessorVO(professor.getEmail());
         busca = buscarPorEmail(busca);
 
-        return busca.getSenha().equals(professor.getSenha());
+        if (busca.getSenha().equals(professor.getSenha()))
+            return busca;
+        else
+            throw new AuthenticationException();
     }
 
+    @Override
     public void adicionar(ProfessorVO professor, DisciplinaVO disciplina) {
-        // adiciona a disciplina à lista, caso ainda não exista
-
         List<DisciplinaVO> lista = professor.getDisciplinas();
 
         // Se esta disciplina não estiver na lista deste professor, será adicionada
@@ -110,13 +152,14 @@ public class ProfessorBO implements ProfessorInterBO {
             DisciplinaBO disciplinaBO = new DisciplinaBO();
             disciplinaBO.adicionar(disciplina, professor);
 
-            // DAO
+            // Se a disciplina ainda NÃO estiver adicionada no BD (pode ocorrer de estar)
+            if (disciplinaBO.buscar(professor).contains(disciplina))
+                professorDAO.adicionar(professor, disciplina);
         }
     }
 
+    @Override
     public void remover(ProfessorVO professor, DisciplinaVO disciplina) {
-        // remove a disciplina deste professor
-
         List<DisciplinaVO> lista = professor.getDisciplinas();
 
         // Se esta disciplina estiver na lista deste professor, será removida
@@ -127,7 +170,9 @@ public class ProfessorBO implements ProfessorInterBO {
             DisciplinaBO disciplinaBO = new DisciplinaBO();
             disciplinaBO.remover(disciplina, professor);
 
-            // DAO
+            // Se a disciplina ainda REALMENTE estiver adicionada no BD (pode ocorrer de não estar)
+            if (disciplinaBO.buscar(professor).contains(disciplina))
+                professorDAO.remover(professor, disciplina);
         }
     }
 }

@@ -13,14 +13,14 @@ public class QuestaoBO {
         // cadastra uma nova questão
 
         // analisa
-        // DAO
+        // TODO DAO
     }
 
     public List<QuestaoVO> listar() {
         // lista todas as questoes
 
         List<QuestaoVO> lista = new ArrayList<QuestaoVO>();
-        // DAO
+        // TODO DAO
         // ajusta
         return lista;
     }
@@ -33,7 +33,7 @@ public class QuestaoBO {
         // busca todas as questoes desta disciplina
 
         List<QuestaoVO> lista = new ArrayList<QuestaoVO>();
-        // DAO
+        // TODO DAO
         // ajusta
         return lista;
     }
@@ -42,7 +42,7 @@ public class QuestaoBO {
         // busca todas as questoes deste assunto
 
         List<QuestaoVO> lista = new ArrayList<QuestaoVO>();
-        // DAO
+        // TODO DAO
         // ajusta
         return lista;
     }
@@ -51,7 +51,7 @@ public class QuestaoBO {
         // busca todas as questoes neste nível de dificuldade
 
         List<QuestaoVO> lista = new ArrayList<QuestaoVO>();
-        // DAO
+        // TODO DAO
         // ajusta
         return lista;
     }
@@ -60,7 +60,7 @@ public class QuestaoBO {
         // busca todas as questoes desta disciplina neste nível de dificuldade
 
         List<QuestaoVO> lista = new ArrayList<QuestaoVO>();
-        // DAO
+        // TODO DAO
         // ajusta
         return lista;
     }
@@ -69,16 +69,16 @@ public class QuestaoBO {
         // busca todas as questoes deste assunto neste nível de dificuldade
 
         List<QuestaoVO> lista = new ArrayList<QuestaoVO>();
-        // DAO
+        // TODO DAO
         // ajusta
         return lista;
     }
 
-    public void editar(QuestaoVO questao) {
+    public void atualizar(QuestaoVO questao) {
         // edita os dados de uma questão
 
         // analisa
-        // DAO
+        // TODO DAO
         // ajusta
     }
 
@@ -86,7 +86,7 @@ public class QuestaoBO {
         // exclui uma questão
 
         // analisa
-        // DAO
+        // TODO DAO
     }
 
     public void adicionar(QuestaoVO questao, String assunto) {
@@ -102,7 +102,7 @@ public class QuestaoBO {
                 lista.add(assunto);
                 questao.setAssuntos(lista);
 
-                // DAO
+                // TODO DAO
             }
     }
 
@@ -114,7 +114,7 @@ public class QuestaoBO {
         if (lista.remove(assunto)) {
             questao.setAssuntos(lista);
 
-            // DAO
+            // TODO DAO
         }
     }
 
@@ -132,7 +132,7 @@ public class QuestaoBO {
                 ProvaBO provaBO = new ProvaBO();
                 provaBO.adicionar(prova, questao);
 
-                // DAO
+                // TODO DAO
             }
     }
 
@@ -148,7 +148,21 @@ public class QuestaoBO {
             ProvaBO provaBO = new ProvaBO();
             provaBO.remover(prova, questao);
 
-            // DAO
+            // TODO DAO
+        }
+    }
+
+    public void mudar(QuestaoVO questao, DisciplinaVO disciplina) {
+        if (disciplina != null) {
+            // Atualizar a disciplina antiga, removendo a questão da sua lista
+            DisciplinaBO disciplinaBO = new DisciplinaBO();
+            disciplinaBO.remover(questao.getDisciplina(), questao);
+
+            // Atualizar a questão
+            questao.setDisciplina(disciplina);
+
+            // Atualizar a nova disciplina, adicionando a questão à sua lista
+            disciplinaBO.adicionar(disciplina, questao);
         }
     }
 }

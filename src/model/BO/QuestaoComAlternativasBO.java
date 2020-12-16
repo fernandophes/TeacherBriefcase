@@ -21,7 +21,7 @@ public class QuestaoComAlternativasBO extends QuestaoBO {
             // atualiza a alternativa
             alternativa.setQuestao(questao);
 
-            // DAO
+            // TODO DAO
         }
     }
 
@@ -38,7 +38,7 @@ public class QuestaoComAlternativasBO extends QuestaoBO {
             AlternativaBO alternativaBO = new AlternativaBO();
             alternativaBO.excluir(alternativa);
 
-            // DAO
+            // TODO DAO
         }
     }
 
@@ -46,7 +46,7 @@ public class QuestaoComAlternativasBO extends QuestaoBO {
     public QuestaoComAlternativasVO buscar(QuestaoVO questao) {
 
         QuestaoComAlternativasVO resultado = new QuestaoComAlternativasVO();
-        // DAO
+        // TODO DAO
         // ajusta
 
         return resultado;

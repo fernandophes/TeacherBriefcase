@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public abstract class BaseDAO<VO> implements BaseInterDAO<VO> {
+public abstract class BaseDAO {
 
     // Configurar acesso ao Banco de Dados
     private static Connection conn = null;

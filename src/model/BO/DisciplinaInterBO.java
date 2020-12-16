@@ -1,11 +1,15 @@
 package src.model.BO;
 
+import java.util.List;
+
 import src.model.VO.DisciplinaVO;
 import src.model.VO.ProfessorVO;
 import src.model.VO.ProvaVO;
 import src.model.VO.QuestaoVO;
 
 public interface DisciplinaInterBO extends BaseInterBO<DisciplinaVO> {
+
+    public List<DisciplinaVO> buscar(ProfessorVO professor);
 
     public void adicionar(DisciplinaVO disciplina, String assunto);
 

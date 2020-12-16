@@ -6,11 +6,11 @@ public abstract interface BaseInterBO<VO> {
     
     public void cadastrar(VO vo);
 
-    public List<VO> listar();
+    public List<VO> listar() throws Exception;
 
-    public VO buscar(VO vo);
+    public VO buscar(VO vo) throws Exception;
 
-    public void editar(VO vo);
+    public void atualizar(VO vo);
 
     public void excluir(VO vo);
 }
