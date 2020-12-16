@@ -6,35 +6,27 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-import src.exception.AuthenticationException;
 import src.model.VO.AlternativaVO;
+import src.model.VO.DisciplinaVO;
+import src.model.VO.ProvaVO;
 import src.model.VO.QuestaoComAlternativasVO;
 
-public class QuestaoComAlternativasDAO extends QuestaoDAO<QuestaoComAlternativasVO>
-        implements QuestaoComAlternativasInterDAO {
+public class QuestaoComAlternativasDAO extends BaseDAO implements QuestaoComAlternativasInterDAO {
 
-    public final String tabela = "questao_com_alternativas";
+    public static final String tabela = "questao_com_alternativas";
+    private QuestaoDAO<QuestaoComAlternativasVO> questaoDAO = new QuestaoDAO<QuestaoComAlternativasVO>();
 
     @Override
     public void cadastrar(QuestaoComAlternativasVO vo) {
-        String sql = "insert into " + tabela + " (questao) values (?)";
+        String sql = "insert into " + tabela + " (id) values (?)";
         PreparedStatement statement;
 
         try {
             statement = getConnection().prepareStatement(sql);
-            statement.setLong(1, vo.getIdQuestao());
+            statement.setLong(1, vo.getId());
 
             if (statement.executeUpdate() == 0)
                 throw new SQLException("Não foi possível realizar o cadastro.");
-
-            ResultSet generatedKeys = statement.getGeneratedKeys();
-
-            if (generatedKeys.next())
-                try {
-                    vo.setId(generatedKeys.getLong("id"));
-                } catch (AuthenticationException e) {
-                    throw new SQLException("O banco de dados retornou um id inválido do cadastro feito.");
-                }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -63,7 +55,7 @@ public class QuestaoComAlternativasDAO extends QuestaoDAO<QuestaoComAlternativas
         ResultSet result = null;
 
         try {
-            super.buscar(vo);
+            questaoDAO.buscar(vo);
             statement = getConnection().prepareStatement(sql);
             statement.setLong(1, vo.getId());
             result = statement.executeQuery();
@@ -74,13 +66,61 @@ public class QuestaoComAlternativasDAO extends QuestaoDAO<QuestaoComAlternativas
     }
 
     @Override
+    public ResultSet buscar(DisciplinaVO disciplina) {
+        String sql = "select * from questao right join " + tabela + " on (questao.id = " + tabela + ".id) where questao.disciplina = ?";
+
+        PreparedStatement statement;
+        ResultSet result = null;
+
+        try {
+            questaoDAO.buscar(disciplina);
+            statement = getConnection().prepareStatement(sql);
+            statement.setLong(1, disciplina.getId());
+            result = statement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    @Override
+    public ResultSet buscar(String assunto) {
+        // TODO _ Assunto _
+        return null;
+    }
+
+    @Override
+    public ResultSet buscar(ProvaVO prova) {
+        String sql = "select * from questao right join " + tabela + " on (questao.id = " + tabela + ".id) where questao.id in (select questao from prova_questao where prova = ?)";
+        PreparedStatement statement;
+        ResultSet result = null;
+
+        try {
+            statement = getConnection().prepareStatement(sql);
+            statement.setLong(1, prova.getId());
+            result = statement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    @Override
+    public ResultSet buscarPorDificuldade(QuestaoComAlternativasVO questao, String assunto) {
+        // TODO _ Assunto _
+        return null;
+    }
+
+    @Override
     public ResultSet buscarPorDificuldade(QuestaoComAlternativasVO vo) {
         String sql = "select * from " + tabela + " where dificuldade = ?";
         PreparedStatement statement;
         ResultSet result = null;
 
         try {
-            super.buscar(vo);
+            questaoDAO.buscar(vo);
             statement = getConnection().prepareStatement(sql);
             statement.setInt(1, vo.getDificuldade());
             result = statement.executeQuery();
@@ -91,9 +131,28 @@ public class QuestaoComAlternativasDAO extends QuestaoDAO<QuestaoComAlternativas
     }
 
     @Override
+    public ResultSet buscarPorDificuldadeEDisciplina(QuestaoComAlternativasVO questao) {
+        String sql = "select * from questao right join " + tabela + " on (questao.id = " + tabela + ".id) where questao.dificuldade = ? and questao.disciplina = ?";
+        PreparedStatement statement;
+        ResultSet result = null;
+
+        try {
+            questaoDAO.buscar(questao);
+            statement = getConnection().prepareStatement(sql);
+            statement.setInt(1, questao.getDificuldade());
+            statement.setLong(2, questao.getDisciplina().getId());
+            result = statement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    @Override
     public void atualizar(QuestaoComAlternativasVO vo) {
         // A tabela em si só possui duas chaves que não devem ser alteradas.
-        super.atualizar(vo);
+        questaoDAO.atualizar(vo);
 
     }
 
@@ -102,9 +161,8 @@ public class QuestaoComAlternativasDAO extends QuestaoDAO<QuestaoComAlternativas
         // Primeiro, excluir as alternativas
         AlternativaDAO alternativaDAO = new AlternativaDAO();
         List<AlternativaVO> alternativas = vo.getAlternativas();
-        while (alternativas.iterator().hasNext()) {
+        while (alternativas.iterator().hasNext())
             alternativaDAO.excluir(alternativas.iterator().next());
-        }
 
         // E então excluir a questão
         String sql = "delete from questao_com_alternativa where id = ?";

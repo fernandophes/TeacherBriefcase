@@ -6,21 +6,22 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import src.model.VO.AlternativaVO;
+import src.model.VO.QuestaoComAlternativasVO;
 
 public class AlternativaDAO extends BaseDAO implements AlternativaInterDAO {
 
-    public final String tabela = "alternativa";
+    public static final String tabela = "alternativa";
 
     @Override
-    public void cadastrar(AlternativaVO vo) {
+    public void cadastrar(AlternativaVO alternativa, QuestaoComAlternativasVO questao) {
         String sql = "insert into " + tabela + " (questao, texto, verdadeira) values (?, ?, ?)";
         PreparedStatement statement;
 
         try {
             statement = getConnection().prepareStatement(sql);
-            statement.setLong(1, vo.getQuestao().getId());
-            statement.setString(2, vo.getTexto());
-            statement.setBoolean(3, vo.isVerdadeira());
+            statement.setLong(1, questao.getId());
+            statement.setString(2, alternativa.getTexto());
+            statement.setBoolean(3, alternativa.isVerdadeira());
 
             if (statement.executeUpdate() == 0)
                 throw new SQLException("Não foi possível realizar este cadastro.");
@@ -28,7 +29,7 @@ public class AlternativaDAO extends BaseDAO implements AlternativaInterDAO {
             ResultSet generatedKeys = statement.getGeneratedKeys();
 
             if (generatedKeys.next())
-                vo.setId(generatedKeys.getLong("id"));
+                alternativa.setId(generatedKeys.getLong("id"));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -70,14 +71,14 @@ public class AlternativaDAO extends BaseDAO implements AlternativaInterDAO {
     }
 
     @Override
-    public ResultSet buscarPorQuestao(AlternativaVO vo) {
+    public ResultSet buscar(QuestaoComAlternativasVO questao) {
         String sql = "select * from " + tabela + " where questao = ?";
         PreparedStatement statement;
         ResultSet result = null;
 
         try {
             statement = getConnection().prepareStatement(sql);
-            statement.setLong(1, vo.getQuestao().getId());
+            statement.setLong(1, questao.getId());
             result = statement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -9,7 +9,7 @@ import src.model.VO.ProfessorVO;
 
 public class ProfessorDisciplinaDAO extends BaseDAO implements ProfessorDisciplinaInterDAO {
 
-    public final String tabela = "professor_disciplina";
+    public static final String tabela = "professor_disciplina";
 
     @Override
     public void adicionar(ProfessorVO professor, DisciplinaVO disciplina) {

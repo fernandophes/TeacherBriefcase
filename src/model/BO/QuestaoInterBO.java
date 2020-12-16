@@ -2,29 +2,28 @@ package src.model.BO;
 
 import java.util.List;
 
+import src.exception.OperationException;
 import src.model.VO.DisciplinaVO;
 import src.model.VO.ProvaVO;
 import src.model.VO.QuestaoVO;
 
-public interface QuestaoInterBO extends BaseInterBO<QuestaoVO> {
+public interface QuestaoInterBO<QuestaoDerivadaVO extends QuestaoVO> extends BaseInterBO<QuestaoDerivadaVO> {
 
-    public List<QuestaoVO> buscar(DisciplinaVO disciplina);
+    public List<QuestaoDerivadaVO> buscar(DisciplinaVO disciplina) throws OperationException;
 
-    public List<QuestaoVO> buscar(String assunto);
+    public List<QuestaoDerivadaVO> buscar(String assunto) throws OperationException;
+    
+    public List<QuestaoDerivadaVO> buscar(ProvaVO prova) throws OperationException;
 
-    public List<QuestaoVO> buscar(int dificuldade);
+    public List<QuestaoDerivadaVO> buscarPorDificuldade(QuestaoDerivadaVO questao) throws OperationException;
 
-    public List<QuestaoVO> buscar(DisciplinaVO disciplina, int dificuldade);
+    public List<QuestaoDerivadaVO> buscarPorDificuldade(QuestaoDerivadaVO questao, String assunto) throws OperationException;
 
-    public List<QuestaoVO> buscar(String assunto, int dificuldade);
+    public List<QuestaoDerivadaVO> buscarPorDificuldadeEDisciplina(QuestaoDerivadaVO questao) throws OperationException;
 
-    public void adicionar(QuestaoVO questao, String assunto);
+    public void adicionar(QuestaoDerivadaVO questao, String assunto);
 
-    public void remover(QuestaoVO questao, String assunto);
+    public void remover(QuestaoDerivadaVO questao, String assunto);
 
-    public void adicionar(QuestaoVO questao, ProvaVO prova);
-
-    public void remover(QuestaoVO questao, ProvaVO prova);
-
-    public void mudar(QuestaoVO questao, DisciplinaVO disciplina);
+    public void atualizar(QuestaoDerivadaVO questao, DisciplinaVO disciplina);
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import src.exception.AuthenticationException;
+import src.exception.OperationException;
 
 public class DisciplinaVO {
     private long id;
@@ -20,7 +20,7 @@ public class DisciplinaVO {
 
     }
 
-    public DisciplinaVO(String nome, String codigo) throws AuthenticationException {
+    public DisciplinaVO(String nome, String codigo) throws OperationException {
         setNome(nome);
         setCodigo(codigo);
     }
@@ -29,47 +29,47 @@ public class DisciplinaVO {
         return id;
     }
 
-    public void setId(long id) throws AuthenticationException {
+    public void setId(long id) throws OperationException {
         if (id > 0)
             this.id = id;
         else
-            throw new AuthenticationException("O id precisa ser maior que zero");
+            throw new OperationException("O id precisa ser maior que zero");
     }
 
     public String getCodigo() {
         return this.codigo;
     }
 
-    public void setCodigo(String codigo) throws AuthenticationException {
+    public void setCodigo(String codigo) throws OperationException {
         if (codigo != null && !codigo.isEmpty())
             this.codigo = codigo.trim();
         else
-            throw new AuthenticationException("O código não pode ficar em branco");
+            throw new OperationException("O código não pode ficar em branco");
     }
 
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) throws AuthenticationException {
+    public void setNome(String nome) throws OperationException {
         if (nome != null && !nome.isEmpty())
             this.nome = nome.trim();
         else
-            throw new AuthenticationException("O nome não pode ficar em branco");
+            throw new OperationException("O nome não pode ficar em branco");
     }
 
     public Calendar getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setDataCriacao(Calendar dataCriacao) throws AuthenticationException {
+    public void setDataCriacao(Calendar dataCriacao) throws OperationException {
         if (dataCriacao != null)
             if (dataCriacao.compareTo(Calendar.getInstance()) <= 0)
                 this.dataCriacao = dataCriacao;
             else
-                throw new AuthenticationException("A data de criação não pode ser futura");
+                throw new OperationException("A data de criação não pode ser futura");
         else
-            throw new AuthenticationException("A data de criação não pode ficar em branco");
+            throw new OperationException("A data de criação não pode ficar em branco");
     }
 
     public List<ProfessorVO> getProfessores() {

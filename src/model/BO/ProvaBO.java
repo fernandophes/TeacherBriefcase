@@ -1,59 +1,130 @@
 package src.model.BO;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import src.exception.OperationException;
+import src.model.DAO.ProvaDAO;
+import src.model.VO.DisciplinaVO;
 import src.model.VO.ProvaVO;
 import src.model.VO.QuestaoVO;
 
 public class ProvaBO implements ProvaInterBO {
-    public void cadastrar(ProvaVO prova) {
-        // cadastra uma prova no BD
 
-        // analisa
-        // TODO DAO
+    private ProvaDAO provaDAO = new ProvaDAO();
+
+    @Override
+    public void cadastrar(ProvaVO prova) throws OperationException {
+        if (prova != null) {
+            provaDAO.cadastrar(prova);
+        } else
+            throw new OperationException("A questão não pode ser nula.");
     }
 
+    @Override
     public List<ProvaVO> listar() {
-        // lista todas as provas
 
         List<ProvaVO> lista = new ArrayList<ProvaVO>();
-        // TODO DAO
-        // ajusta
+
+        ResultSet consulta = provaDAO.listar();
+
+        if (consulta != null)
+            try {
+                while (consulta.next()) {
+                    ProvaVO atual = new ProvaVO();
+                    atual.setId(consulta.getLong("id"));
+                    atual = buscar(atual);
+                    lista.add(atual);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         return lista;
     }
 
-    public ProvaVO buscar(ProvaVO prova) {
-        // busca uma prova
+    @Override
+    public ProvaVO buscar(ProvaVO prova) throws OperationException {
 
-        ProvaVO resultado = new ProvaVO();
-        // TODO DAO
-        // ajusta
-        return resultado;
+        if (prova != null) {
+            ResultSet consulta = provaDAO.buscar(prova);
+
+            if (consulta != null)
+                try {
+                    while (consulta.next()) {
+                        prova.setTitulo(consulta.getString("titulo"));
+
+                        Calendar criacao = Calendar.getInstance();
+                        criacao.setTime(consulta.getDate("data_criacao"));
+                        prova.setDataCriacao(criacao);
+
+                        DisciplinaVO disciplina = new DisciplinaVO();
+                        disciplina.setId(consulta.getLong("disciplina"));
+                        DisciplinaBO disciplinaBO = new DisciplinaBO();
+                        disciplina = disciplinaBO.buscar(disciplina);
+                        prova.setDisciplina(disciplina);
+
+                        QuestaoBO questaoBO = new QuestaoBO();
+                        prova.setQuestoes(questaoBO.buscar(prova));
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+        }
+
+        return prova;
     }
 
-    public void atualizar(ProvaVO prova) {
-        // edita os dados da prova
+    @Override
+    public List<ProvaVO> buscar(DisciplinaVO disciplina) {
+        List<ProvaVO> lista = new ArrayList<ProvaVO>();
 
-        // analisa
-        // TODO DAO
+        ResultSet consulta = provaDAO.buscar(disciplina);
+
+        if (consulta != null)
+            try {
+                while (consulta.next()) {
+                    ProvaVO atual = new ProvaVO();
+                    atual.setId(consulta.getLong("id"));
+                    atual = buscar(atual);
+                    lista.add(atual);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        return lista;
     }
 
-    public void excluir(ProvaVO prova) {
-        // exclui a prova do BD
-
-        // analisa
-        // TODO DAO
+    @Override
+    public void atualizar(ProvaVO prova) throws OperationException {
+        if (prova != null)
+            provaDAO.atualizar(prova);
+        else
+            throw new OperationException("A prova não pode ser nula.");
     }
 
+    @Override
+    public void excluir(ProvaVO prova) throws OperationException {
+        if (prova != null)
+            provaDAO.excluir(prova);
+        else
+            throw new OperationException("A prova não pode ser nula.");
+    }
+
+    @Override
     public ProvaVO gerar(int quaisquer, int faceis, int medias, int dificeis) {
         // Gera uma prova com questões aleatórias ProvaVO resultado = new ProvaVO();
 
-        // TODO DAO
+        // TODO DAO gerar
 
         return new ProvaVO();
     }
 
+    @Override
     public void adicionar(ProvaVO prova, QuestaoVO questao) {
 
         List<QuestaoVO> lista = prova.getQuestoes();
@@ -67,11 +138,7 @@ public class ProvaBO implements ProvaInterBO {
                 lista.add(questao);
                 prova.setQuestoes(lista);
 
-                // Atualizar a questão
-                QuestaoBO questaoBO = new QuestaoBO();
-                questaoBO.adicionar(questao, prova);
-
-                // TODO DAO
+                provaDAO.remover(prova, questao);
             } else {
                 System.out.println("A prova e a questão não pertencem à mesma disciplina");
             }
@@ -85,11 +152,7 @@ public class ProvaBO implements ProvaInterBO {
         if (lista.remove(questao)) {
             prova.setQuestoes(lista);
 
-            // Atualizar a questão
-            QuestaoBO questaoBO = new QuestaoBO();
-            questaoBO.remover(questao, prova);
-
-            // TODO DAO
+            provaDAO.remover(prova, questao);
         }
     }
 }

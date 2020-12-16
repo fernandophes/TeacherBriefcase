@@ -5,36 +5,30 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import src.exception.AuthenticationException;
+import src.model.VO.DisciplinaVO;
+import src.model.VO.ProvaVO;
 import src.model.VO.QuestaoSubjetivaVO;
 
-public class QuestaoSubjetivaDAO extends QuestaoDAO<QuestaoSubjetivaVO> implements QuestaoSubjetivaInterDAO {
+public class QuestaoSubjetivaDAO extends BaseDAO implements QuestaoInterDAO<QuestaoSubjetivaVO> {
 
-    public final String tabela = "questao_subjetiva";
+    public static final String tabela = "questao_subjetiva";
+
+    private QuestaoDAO<QuestaoSubjetivaVO> questaoDAO = new QuestaoDAO<QuestaoSubjetivaVO>();
 
     @Override
-    public void cadastrar(QuestaoSubjetivaVO vo) {
-        String sql = "insert into " + tabela + " (questao, gabarito) values (?, ?)";
+    public void cadastrar(QuestaoSubjetivaVO questao) {
+        String sql = "insert into " + tabela + " (id, gabarito) values (?, ?)";
         PreparedStatement statement;
 
         try {
-            super.cadastrar(vo);
+            questaoDAO.cadastrar(questao);
 
             statement = getConnection().prepareStatement(sql);
-            statement.setLong(1, vo.getIdQuestao());
-            statement.setString(2, vo.getGabarito());
+            statement.setLong(1, questao.getId());
+            statement.setString(2, questao.getGabarito());
 
             if (statement.executeUpdate() == 0)
                 throw new SQLException("Não foi possível completar este cadastro.");
-
-            ResultSet generatedKeys = statement.getGeneratedKeys();
-
-            if (generatedKeys.next())
-                try {
-                    vo.setId(generatedKeys.getLong("id"));
-                } catch (AuthenticationException e) {
-                    throw new SQLException("O banco de dados retornou um id inválido do cadastro feito.");
-                }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -58,15 +52,15 @@ public class QuestaoSubjetivaDAO extends QuestaoDAO<QuestaoSubjetivaVO> implemen
     }
 
     @Override
-    public ResultSet buscar(QuestaoSubjetivaVO vo) {
-        String sql = "select * from " + tabela + " where id = ?";
+    public ResultSet buscar(QuestaoSubjetivaVO questao) {
+        String sql = "select * from questao right join " + tabela + " on (questao.id = " + tabela + ".id) where questao.id = ?";
         PreparedStatement statement;
         ResultSet result = null;
 
         try {
-            super.buscar(vo);
+            questaoDAO.buscar(questao);
             statement = getConnection().prepareStatement(sql);
-            statement.setLong(1, vo.getId());
+            statement.setLong(1, questao.getId());
             result = statement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,15 +70,100 @@ public class QuestaoSubjetivaDAO extends QuestaoDAO<QuestaoSubjetivaVO> implemen
     }
 
     @Override
-    public void atualizar(QuestaoSubjetivaVO vo) {
+    public ResultSet buscar(DisciplinaVO disciplina) {
+        String sql = "select * from questao right join " + tabela + " on (questao.id = " + tabela + ".id) where questao.disciplina = ?";
+
+        PreparedStatement statement;
+        ResultSet result = null;
+
+        try {
+            questaoDAO.buscar(disciplina);
+            statement = getConnection().prepareStatement(sql);
+            statement.setLong(1, disciplina.getId());
+            result = statement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    @Override
+    public ResultSet buscar(String assunto) {
+        // TODO _ Assunto _
+        return null;
+    }
+
+    @Override
+    public ResultSet buscar(ProvaVO prova) {
+        String sql = "select * from questao right join " + tabela + " on (questao.id = " + tabela + ".id) where questao.id in (select questao from prova_questao where prova = ?)";
+        PreparedStatement statement;
+        ResultSet result = null;
+
+        try {
+            statement = getConnection().prepareStatement(sql);
+            statement.setLong(1, prova.getId());
+            result = statement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    @Override
+    public ResultSet buscarPorDificuldade(QuestaoSubjetivaVO questao) {
+        String sql = "select * from questao right join " + tabela + " on (questao.id = " + tabela + ".id) where questao.dificuldade = ?";
+        PreparedStatement statement;
+        ResultSet result = null;
+
+        try {
+            questaoDAO.buscar(questao);
+            statement = getConnection().prepareStatement(sql);
+            statement.setInt(1, questao.getDificuldade());
+            result = statement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    @Override
+    public ResultSet buscarPorDificuldade(QuestaoSubjetivaVO questao, String assunto) {
+        // TODO _ Assunto _
+        return null;
+    }
+
+    @Override
+    public ResultSet buscarPorDificuldadeEDisciplina(QuestaoSubjetivaVO questao) {
+        String sql = "select * from questao right join " + tabela + " on (questao.id = " + tabela + ".id) where questao.dificuldade = ? and questao.disciplina = ?";
+        PreparedStatement statement;
+        ResultSet result = null;
+
+        try {
+            questaoDAO.buscar(questao);
+            statement = getConnection().prepareStatement(sql);
+            statement.setInt(1, questao.getDificuldade());
+            statement.setLong(2, questao.getDisciplina().getId());
+            result = statement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    @Override
+    public void atualizar(QuestaoSubjetivaVO questao) {
         String sql = "update " + tabela + " set gabarito = ? where id = ?";
         PreparedStatement statement;
 
         try {
-            super.atualizar(vo);
+            questaoDAO.atualizar(questao);
             statement = getConnection().prepareStatement(sql);
-            statement.setString(1, vo.getGabarito());
-            statement.setLong(2, vo.getId());
+            statement.setString(1, questao.getGabarito());
+            statement.setLong(2, questao.getId());
 
             if (statement.executeUpdate() == 0)
                 throw new SQLException("Não foi possível realizar esta atualização.");
@@ -95,18 +174,18 @@ public class QuestaoSubjetivaDAO extends QuestaoDAO<QuestaoSubjetivaVO> implemen
     }
 
     @Override
-    public void excluir(QuestaoSubjetivaVO vo) {
+    public void excluir(QuestaoSubjetivaVO questao) {
         String sql = "delete from " + tabela + " where id = ?";
         PreparedStatement statement;
 
         try {
             statement = getConnection().prepareStatement(sql);
-            statement.setLong(1, vo.getId());
+            statement.setLong(1, questao.getId());
 
             if (statement.executeUpdate() == 0) {
                 throw new SQLException("Não foi possível realizar esta exclusão.");
             } else {
-                super.excluir(vo);
+                questaoDAO.excluir(questao);
             }
         } catch (SQLException e) {
             e.printStackTrace();

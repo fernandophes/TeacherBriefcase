@@ -6,33 +6,36 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 
-import src.exception.AuthenticationException;
+import src.exception.OperationException;
 import src.model.VO.DisciplinaVO;
+import src.model.VO.ProfessorVO;
 
 public class DisciplinaDAO extends BaseDAO implements DisciplinaInterDAO {
 
-	public final String tabela = "disciplina";
+	public static final String tabela = "disciplina";
 
 	@Override
-	public void cadastrar(DisciplinaVO vo) throws AuthenticationException {
+	public void cadastrar(DisciplinaVO disciplina) {
 		String sql = "insert into " + tabela + " (codigo, nome, data_criacao) values (?, ?, ?)";
 		PreparedStatement statement;
 
 		try {
 			statement = getConnection().prepareStatement(sql);
-			statement.setString(1, vo.getCodigo());
-			statement.setString(2, vo.getNome());
-			statement.setTimestamp(3, new Timestamp(vo.getDataCriacao().getTimeInMillis()));
+			statement.setString(1, disciplina.getCodigo());
+			statement.setString(2, disciplina.getNome());
+			statement.setTimestamp(3, new Timestamp(disciplina.getDataCriacao().getTimeInMillis()));
 
-			int affectedRows = statement.executeUpdate();
-
-			if (affectedRows == 0)
+			if (statement.executeUpdate() == 0)
 				throw new SQLException("Não foi possível realizar este cadastro.");
 
 			ResultSet generatedKeys = statement.getGeneratedKeys();
 
 			if (generatedKeys.next())
-				vo.setId(generatedKeys.getLong("id"));
+				try {
+					disciplina.setId(generatedKeys.getLong("id"));
+				} catch (OperationException e) {
+					throw new SQLException("O banco de dados forneceu um id inválido");
+				}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -56,14 +59,14 @@ public class DisciplinaDAO extends BaseDAO implements DisciplinaInterDAO {
 	}
 
 	@Override
-	public ResultSet buscar(DisciplinaVO vo) {
+	public ResultSet buscar(DisciplinaVO disciplina) {
 		String sql = "select * from " + tabela + " where id = ?";
 		PreparedStatement statement;
 		ResultSet result = null;
 
 		try {
 			statement = getConnection().prepareStatement(sql);
-			statement.setLong(1, vo.getId());
+			statement.setLong(1, disciplina.getId());
 			result = statement.executeQuery();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -73,14 +76,31 @@ public class DisciplinaDAO extends BaseDAO implements DisciplinaInterDAO {
 	}
 
 	@Override
-	public ResultSet buscarPorCodigo(DisciplinaVO vo) {
+	public ResultSet buscar(ProfessorVO professor) {
+		String sql = "select * from " + tabela + " where professor = ?";
+		PreparedStatement statement;
+		ResultSet result = null;
+
+		try {
+			statement = getConnection().prepareStatement(sql);
+			statement.setLong(1, professor.getId());
+			result = statement.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	@Override
+	public ResultSet buscarPorCodigo(DisciplinaVO disciplina) {
 		String sql = "select * from " + tabela + " where codigo = ?";
 		PreparedStatement statement;
 		ResultSet result = null;
 
 		try {
 			statement = getConnection().prepareStatement(sql);
-			statement.setString(1, vo.getCodigo());
+			statement.setString(1, disciplina.getCodigo());
 			result = statement.executeQuery();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -90,14 +110,14 @@ public class DisciplinaDAO extends BaseDAO implements DisciplinaInterDAO {
 	}
 
 	@Override
-	public ResultSet buscarPorNome(DisciplinaVO vo) {
-		String sql = "select * from " + tabela + " where nome = ?";
+	public ResultSet buscarPorNome(DisciplinaVO disciplina) {
+		String sql = "select * from " + tabela + " where nome like ?";
 		PreparedStatement statement;
 		ResultSet result = null;
 
 		try {
 			statement = getConnection().prepareStatement(sql);
-			statement.setString(1, vo.getNome());
+			statement.setString(1, "%"+ disciplina.getNome() + "%");
 			result = statement.executeQuery();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -107,16 +127,16 @@ public class DisciplinaDAO extends BaseDAO implements DisciplinaInterDAO {
 	}
 
 	@Override
-	public void atualizar(DisciplinaVO vo) {
+	public void atualizar(DisciplinaVO disciplina) {
 		String sql = "update " + tabela + " set codigo = ?, nome = ?, data_criacao = ?, where id = ?";
 		PreparedStatement statement;
 
 		try {
 			statement = getConnection().prepareStatement(sql);
-			statement.setString(1, vo.getCodigo());
-			statement.setString(2, vo.getNome());
-			statement.setTimestamp(3, new Timestamp(vo.getDataCriacao().getTimeInMillis()));
-			statement.setLong(4, vo.getId());
+			statement.setString(1, disciplina.getCodigo());
+			statement.setString(2, disciplina.getNome());
+			statement.setTimestamp(3, new Timestamp(disciplina.getDataCriacao().getTimeInMillis()));
+			statement.setLong(4, disciplina.getId());
 
 			if (statement.executeUpdate() == 0)
 				throw new SQLException("Não foi possível realizar esta atualização.");
@@ -126,19 +146,19 @@ public class DisciplinaDAO extends BaseDAO implements DisciplinaInterDAO {
 	}
 
 	@Override
-	public void excluir(DisciplinaVO vo) {
+	public void excluir(DisciplinaVO disciplina) {
 		String sql = "delete from " + tabela + " where id = ?";
-        PreparedStatement statement;
+		PreparedStatement statement;
 
-        try {
-            statement = getConnection().prepareStatement(sql);
-            statement.setLong(1, vo.getId());
+		try {
+			statement = getConnection().prepareStatement(sql);
+			statement.setLong(1, disciplina.getId());
 
-            if (statement.executeUpdate() == 0)
-                throw new SQLException("Não foi possível realizar esta exclusão.");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+			if (statement.executeUpdate() == 0)
+				throw new SQLException("Não foi possível realizar esta exclusão.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

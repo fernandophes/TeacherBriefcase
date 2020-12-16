@@ -1,66 +1,108 @@
 package src.model.BO;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import src.exception.OperationException;
+import src.model.DAO.AlternativaDAO;
 import src.model.VO.AlternativaVO;
 import src.model.VO.QuestaoComAlternativasVO;
 
-public class AlternativaBO implements AlternativaInterBO {
-    public void cadastrar(AlternativaVO alternativa) {
-        // cadastra uma nova alternativa no BD
+public class AlternativaBO {
 
-        // analisa
-        // TODO DAO
+    private AlternativaDAO alternativaDAO = new AlternativaDAO();
+    
+    public void cadastrar(AlternativaVO alternativa, QuestaoComAlternativasVO questao) throws OperationException {
+        if (alternativa != null) {
+            alternativaDAO.cadastrar(alternativa, questao);
+        } else
+            throw new OperationException("A questão não pode ser nula.");
     }
 
+    
     public List<AlternativaVO> listar() {
-        // lista todas as alternativas
 
         List<AlternativaVO> lista = new ArrayList<AlternativaVO>();
-        // TODO DAO
-        // ajusta
+
+        ResultSet consulta = alternativaDAO.listar();
+
+        if (consulta != null)
+            try {
+                while (consulta.next()) {
+                    AlternativaVO atual = new AlternativaVO();
+                    atual.setId(consulta.getLong("id"));
+                    atual = buscar(atual);
+                    lista.add(atual);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
         return lista;
     }
 
+    
     public AlternativaVO buscar(AlternativaVO alternativa) {
-        // busca uma alternativa
 
-        AlternativaVO resultado = new AlternativaVO();
-        // TODO DAO
-        // ajusta
-        return resultado;
-    }
+        if (alternativa != null) {
+            ResultSet consulta = alternativaDAO.buscar(alternativa);
 
-    public void atualizar(AlternativaVO alternativa) {
-        // edita os dados de uma alternativa
+            if (consulta != null)
+                try {
+                    if (consulta.next()) {
+                        alternativa.setTexto(consulta.getString("texto"));
+                        alternativa.setVerdadeira(consulta.getBoolean("verdadeira"));
 
-        // analisa
-        // TODO DAO
-        // ajusta
-    }
-
-    public void excluir(AlternativaVO alternativa) {
-        // exclui uma alternativa
-
-        // analisa
-        // TODO DAO
-    }
-
-    @Override
-    public void mudar(AlternativaVO alternativa, QuestaoComAlternativasVO questao) {
-        QuestaoComAlternativasBO questaoComAlternativasBO = new QuestaoComAlternativasBO();
-
-        // Atualizando a questão antiga (removendo a alternativa da lista)
-        if (alternativa.getQuestao() != null) {
-            questaoComAlternativasBO.remover(questao, alternativa);
+                        Calendar criacao = Calendar.getInstance();
+                        criacao.setTime(consulta.getDate("data_criacao"));
+                        alternativa.setDataCriacao(criacao);
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
         }
 
-        // Atualizando a alternativa
-        alternativa.setQuestao(questao);
+        return alternativa;
+    }
 
-        // Atualizando a nova questão (adicionando a alternativa à lista)
+    
+    public List<AlternativaVO> buscar(QuestaoComAlternativasVO questao) {
 
+        List<AlternativaVO> lista = new ArrayList<AlternativaVO>();
 
+        ResultSet consulta = alternativaDAO.buscar(questao);
+
+        if (consulta != null)
+            try {
+                while (consulta.next()) {
+                    AlternativaVO atual = new AlternativaVO();
+                    atual.setId(consulta.getLong("id"));
+                    atual = buscar(atual);
+                    lista.add(atual);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        return lista;
+    }
+
+    
+    public void atualizar(AlternativaVO alternativa) throws OperationException {
+        if (alternativa != null) {
+            alternativaDAO.atualizar(alternativa);
+        } else
+            throw new OperationException("A alternativa não pode ser nula.");
+    }
+
+    
+    public void excluir(AlternativaVO alternativa) throws OperationException {
+        if (alternativa != null) {
+            alternativaDAO.excluir(alternativa);
+        } else
+            throw new OperationException("A alternativa não pode ser nula.");
     }
 }

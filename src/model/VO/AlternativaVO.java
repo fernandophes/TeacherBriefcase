@@ -4,7 +4,6 @@ import java.util.Calendar;
 
 public class AlternativaVO {
     private long id;
-    private QuestaoComAlternativasVO questao = new QuestaoComAlternativasVO();
     private String texto = "";
     private boolean verdadeira = false;
     private Calendar dataCriacao = Calendar.getInstance();
@@ -25,25 +24,6 @@ public class AlternativaVO {
     public void setId(long id) {
         if (id > 0)
             this.id = id;
-    }
-
-    public QuestaoComAlternativasVO getQuestao() {
-        return questao;
-    }
-
-    public void setQuestao(QuestaoComAlternativasVO questao) {
-        // Atualiza a questão antiga, se existir uma
-        // if (this.questao != null) {
-        //     QuestaoComAlternativasBO antiga = new QuestaoComAlternativasBO();
-        //     antiga.remover(this.questao, this);
-        // }
-
-        // Atualiza a alternativa
-        this.questao = questao;
-
-        // Atualiza a nova questão
-        // QuestaoComAlternativasBO nova = new QuestaoComAlternativasBO();
-        // nova.adicionar(questao, this);
     }
 
     public String getTexto() {

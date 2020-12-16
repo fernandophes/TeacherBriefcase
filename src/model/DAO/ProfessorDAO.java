@@ -11,7 +11,7 @@ import src.model.VO.ProfessorVO;
 
 public class ProfessorDAO extends BaseDAO implements ProfessorInterDAO {
 
-    public final String tabela = "professor";
+    public static final String tabela = "professor";
 
     ProfessorDisciplinaDAO professorDisciplinaDAO = new ProfessorDisciplinaDAO();
 

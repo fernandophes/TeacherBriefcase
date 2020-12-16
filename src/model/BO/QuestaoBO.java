@@ -62,8 +62,6 @@ public class QuestaoBO implements QuestaoInterBO<QuestaoVO> {
                         DisciplinaBO disciplinaBO = new DisciplinaBO();
                         disciplina = disciplinaBO.buscar(disciplina);
                         questao.setDisciplina(disciplina);
-
-                        // TODO pivô questao.setProvas();
                     }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -85,6 +83,21 @@ public class QuestaoBO implements QuestaoInterBO<QuestaoVO> {
         if (disciplina != null) {
             lista.addAll(questaoSubjetivaBO.buscar(disciplina));
             lista.addAll(questaoComAlternativasBO.buscar(disciplina));
+        } else
+            throw new OperationException("A disciplina fornecida não pode ser nula.");
+
+        return lista;
+    }
+    
+    @Override
+    public List<QuestaoVO> buscar(ProvaVO prova) throws OperationException {
+        // busca todas as questoes desta disciplina
+
+        List<QuestaoVO> lista = new ArrayList<QuestaoVO>();
+
+        if (prova != null) {
+            lista.addAll(questaoSubjetivaBO.buscar(prova));
+            lista.addAll(questaoComAlternativasBO.buscar(prova));
         } else
             throw new OperationException("A disciplina fornecida não pode ser nula.");
 
@@ -194,7 +207,7 @@ public class QuestaoBO implements QuestaoInterBO<QuestaoVO> {
                 lista.add(assunto);
                 questao.setAssuntos(lista);
 
-                // TODO DAO
+                // TODO DAO pivô
             }
     }
 
@@ -207,45 +220,7 @@ public class QuestaoBO implements QuestaoInterBO<QuestaoVO> {
         if (lista.remove(assunto)) {
             questao.setAssuntos(lista);
 
-            // TODO DAO
-        }
-    }
-
-    @Override
-    public void adicionar(QuestaoVO questao, ProvaVO prova) {
-
-        List<ProvaVO> lista = questao.getProvas();
-
-        // Se esta prova não estiver na lista desta questão, poderá ou não ser
-        // adicionada
-        if (!lista.contains(prova))
-            // Esta prova só será adicionada a esta questão se ambas pertencerem à mesma
-            // disciplina
-            if (questao.getDisciplina().equals(prova.getDisciplina())) {
-                lista.add(prova);
-
-                // Atualizar a prova
-                ProvaBO provaBO = new ProvaBO();
-                provaBO.adicionar(prova, questao);
-
-                // TODO DAO
-            }
-    }
-
-    @Override
-    public void remover(QuestaoVO questao, ProvaVO prova) {
-
-        List<ProvaVO> lista = questao.getProvas();
-
-        // Se esta prova estiver na lista desta questão, será removida
-        if (lista.remove(prova)) {
-            questao.setProvas(lista);
-
-            // Atualizar a prova
-            ProvaBO provaBO = new ProvaBO();
-            provaBO.remover(prova, questao);
-
-            // TODO DAO
+            // TODO DAO pivô
         }
     }
 

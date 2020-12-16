@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import src.exception.AuthenticationException;
+import src.exception.OperationException;
 import src.model.DAO.ProfessorDAO;
 import src.model.VO.DisciplinaVO;
 import src.model.VO.ProfessorVO;
@@ -17,25 +18,22 @@ public class ProfessorBO implements ProfessorInterBO {
 
     @Override
     public void cadastrar(ProfessorVO professor) {
-
-        // As verificações de segurança são feitas nos setters
-
+        // Cadastra o professor
         professorDAO.cadastrar(professor);
-
     }
 
     @Override
-    public List<ProfessorVO> listar() throws AuthenticationException {
+    public List<ProfessorVO> listar() throws AuthenticationException, OperationException {
 
         List<ProfessorVO> lista = new ArrayList<ProfessorVO>();
 
-        ResultSet resultado = professorDAO.listar();
+        ResultSet consulta = professorDAO.listar();
 
         try {
-            if (resultado != null)
-                while (resultado.next()) {
+            if (consulta != null)
+                while (consulta.next()) {
                     ProfessorVO atual = new ProfessorVO();
-                    atual.setId(resultado.getLong("id"));
+                    atual.setId(consulta.getLong("id"));
                     atual = buscar(atual);
                     lista.add(atual);
                 }
@@ -47,17 +45,17 @@ public class ProfessorBO implements ProfessorInterBO {
     }
 
     @Override
-    public ProfessorVO buscar(ProfessorVO professor) throws AuthenticationException {
+    public ProfessorVO buscar(ProfessorVO professor) throws AuthenticationException, OperationException {
 
-        ResultSet resultado = professorDAO.buscar(professor);
+        ResultSet consulta = professorDAO.buscar(professor);
 
         try {
-            if (resultado != null && resultado.next()) {
-                professor.setNome(resultado.getString("nome"));
-                professor.setEmail(resultado.getString("email"));
-                professor.setSenha(resultado.getString("senha"));
+            if (consulta != null && consulta.next()) {
+                professor.setNome(consulta.getString("nome"));
+                professor.setEmail(consulta.getString("email"));
+                professor.setSenha(consulta.getString("senha"));
                 Calendar criacao = Calendar.getInstance();
-                criacao.setTime(resultado.getDate("data_criacao"));
+                criacao.setTime(consulta.getDate("data_criacao"));
                 professor.setDataCriacao(criacao);
 
                 DisciplinaBO disciplinaBO = new DisciplinaBO();
@@ -73,16 +71,16 @@ public class ProfessorBO implements ProfessorInterBO {
     }
 
     @Override
-    public List<ProfessorVO> buscar(DisciplinaVO disciplina) throws AuthenticationException {
+    public List<ProfessorVO> buscar(DisciplinaVO disciplina) throws AuthenticationException, OperationException {
         List<ProfessorVO> lista = new ArrayList<ProfessorVO>();
 
-        ResultSet resultado = professorDAO.buscar(disciplina);
+        ResultSet busca = professorDAO.buscar(disciplina);
 
         try {
-            if (resultado != null)
-                while (resultado.next()) {
+            if (busca != null)
+                while (busca.next()) {
                     ProfessorVO atual = new ProfessorVO();
-                    atual.setId(resultado.getLong("id"));
+                    atual.setId(busca.getLong("id"));
                     atual = buscar(atual);
                     lista.add(atual);
                 }
@@ -96,15 +94,15 @@ public class ProfessorBO implements ProfessorInterBO {
     @Override
     public ProfessorVO buscarPorEmail(ProfessorVO professor) throws AuthenticationException {
 
-        ResultSet resultado = professorDAO.buscarPorEmail(professor);
+        ResultSet busca = professorDAO.buscarPorEmail(professor);
 
         try {
-            if (resultado != null && resultado.next()) {
-                professor.setNome(resultado.getString("nome"));
-                professor.setId(resultado.getLong("id"));
-                professor.setSenha(resultado.getString("senha"));
+            if (busca != null && busca.next()) {
+                professor.setNome(busca.getString("nome"));
+                professor.setId(busca.getLong("id"));
+                professor.setSenha(busca.getString("senha"));
                 Calendar criacao = Calendar.getInstance();
-                criacao.setTime(resultado.getDate("data_criacao"));
+                criacao.setTime(busca.getDate("data_criacao"));
                 professor.setDataCriacao(criacao);
             } else {
                 throw new SQLException("A busca não retornou nenhum resultado.");
@@ -152,8 +150,8 @@ public class ProfessorBO implements ProfessorInterBO {
             DisciplinaBO disciplinaBO = new DisciplinaBO();
             disciplinaBO.adicionar(disciplina, professor);
 
-            // Se a disciplina ainda NÃO estiver adicionada no BD (pode ocorrer de estar)
-            if (disciplinaBO.buscar(professor).contains(disciplina))
+            // Se a relação ainda NÃO estiver adicionada no BD (pode ocorrer de estar)
+            if (!disciplinaBO.buscar(professor).contains(disciplina))
                 professorDAO.adicionar(professor, disciplina);
         }
     }
@@ -170,7 +168,8 @@ public class ProfessorBO implements ProfessorInterBO {
             DisciplinaBO disciplinaBO = new DisciplinaBO();
             disciplinaBO.remover(disciplina, professor);
 
-            // Se a disciplina ainda REALMENTE estiver adicionada no BD (pode ocorrer de não estar)
+            // Se a disciplina ainda REALMENTE estiver adicionada no BD (pode ocorrer de não
+            // estar)
             if (disciplinaBO.buscar(professor).contains(disciplina))
                 professorDAO.remover(professor, disciplina);
         }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import src.exception.AuthenticationException;
+import src.exception.OperationException;
 
 public abstract class QuestaoVO {
     private long id;
@@ -13,7 +13,6 @@ public abstract class QuestaoVO {
     private int dificuldade;
     private Calendar dataCriacao;
     private List<String> assuntos = new ArrayList<String>();
-    private List<ProvaVO> provas = new ArrayList<ProvaVO>();
 
     public static final int FACIL = 0;
     public static final int MEDIA = 1;
@@ -23,7 +22,7 @@ public abstract class QuestaoVO {
 
     }
 
-    public QuestaoVO(int dificuldade, String enunciado) throws AuthenticationException {
+    public QuestaoVO(int dificuldade, String enunciado) throws OperationException {
         setDificuldade(dificuldade);
         setEnunciado(enunciado);
     }
@@ -32,14 +31,14 @@ public abstract class QuestaoVO {
         return id;
     }
 
-    public void setId(long id) throws AuthenticationException {
+    public void setId(long id) throws OperationException {
         if (id > 0)
             this.id = id;
         else
-            throw new AuthenticationException("O id precisa ser maior que zero");
+            throw new OperationException("O id precisa ser maior que zero");
     }
 
-    public QuestaoVO(int dificuldade, List<String> assuntos, String enunciado) throws AuthenticationException {
+    public QuestaoVO(int dificuldade, List<String> assuntos, String enunciado) throws OperationException {
         setDificuldade(dificuldade);
         setEnunciado(enunciado);
         setAssuntos(assuntos);
@@ -49,11 +48,11 @@ public abstract class QuestaoVO {
         return enunciado;
     }
 
-    public void setEnunciado(String enunciado) throws AuthenticationException {
+    public void setEnunciado(String enunciado) throws OperationException {
         if (enunciado != null && !enunciado.isEmpty())
             this.enunciado = enunciado.trim();
         else
-            throw new AuthenticationException("O enunciado não pode ficar em branco");
+            throw new OperationException("O enunciado não pode ficar em branco");
     }
 
     public DisciplinaVO getDisciplina() {
@@ -61,7 +60,6 @@ public abstract class QuestaoVO {
     }
 
     public void setDisciplina(DisciplinaVO disciplina) {
-        // Atualizar a questão
         this.disciplina = disciplina;
     }
 
@@ -90,14 +88,6 @@ public abstract class QuestaoVO {
 
     public void setAssuntos(List<String> assuntos) {
         this.assuntos = assuntos;
-    }
-
-    public List<ProvaVO> getProvas() {
-        return provas;
-    }
-
-    public void setProvas(List<ProvaVO> provas) {
-        this.provas = provas;
     }
 
     public String getDificuldadeRotulo() {

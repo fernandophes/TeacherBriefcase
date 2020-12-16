@@ -4,38 +4,22 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import src.exception.AuthenticationException;
+import src.exception.OperationException;
 
 public class QuestaoComAlternativasVO extends QuestaoVO {
-    private long id;
     private List<AlternativaVO> alternativas = new ArrayList<AlternativaVO>();
 
     public QuestaoComAlternativasVO() {
 
     }
 
-    public QuestaoComAlternativasVO(int dificuldade, String enunciado) throws AuthenticationException {
+    public QuestaoComAlternativasVO(int dificuldade, String enunciado) throws OperationException {
         super(dificuldade, enunciado);
     }
 
     public QuestaoComAlternativasVO(int dificuldade, List<String> assuntos, String enunciado)
-            throws AuthenticationException {
+            throws OperationException {
         super(dificuldade, assuntos, enunciado);
-    }
-
-    public long getIdQuestao() {
-        return super.getId();
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) throws AuthenticationException {
-        if (id > 0)
-            this.id = id;
-        else
-            throw new AuthenticationException("O id precisa ser maior que zero");
     }
 
     public List<AlternativaVO> getAlternativas() {
