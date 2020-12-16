@@ -90,8 +90,19 @@ public class QuestaoSubjetivaDAO extends BaseDAO implements QuestaoInterDAO<Ques
 
     @Override
     public ResultSet buscar(String assunto) {
-        // TODO _ Assunto _
-        return null;
+        String sql = "select * from questao right join " + tabela + " on (questao.id = " + tabela + ".id) where questao.id in (select questao from questao_assunto where assunto like ?)";
+        ResultSet resultado = null;
+
+        try {
+            PreparedStatement statement = getConnection().prepareStatement(sql);
+            statement.setString(1, "%" + assunto + "%");
+
+            resultado = statement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return resultado;
     }
 
     @Override
@@ -131,8 +142,20 @@ public class QuestaoSubjetivaDAO extends BaseDAO implements QuestaoInterDAO<Ques
 
     @Override
     public ResultSet buscarPorDificuldade(QuestaoSubjetivaVO questao, String assunto) {
-        // TODO _ Assunto _
-        return null;
+        String sql = "select * from questao right join " + tabela + " on (questao.id = " + tabela + ".id) where questao.id in (select questao from questao_assunto where assunto like ?) and dificuldade = ?";
+        ResultSet resultado = null;
+
+        try {
+            PreparedStatement statement = getConnection().prepareStatement(sql);
+            statement.setString(1, "%" + assunto + "%");
+            statement.setInt(2, questao.getDificuldade());
+
+            resultado = statement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return resultado;
     }
 
     @Override
@@ -191,6 +214,16 @@ public class QuestaoSubjetivaDAO extends BaseDAO implements QuestaoInterDAO<Ques
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void adicionar(QuestaoSubjetivaVO questao, String assunto) {
+        questaoDAO.adicionar(questao, assunto);
+    }
+
+    @Override
+    public void remover(QuestaoSubjetivaVO questao, String assunto) {
+        questaoDAO.remover(questao, assunto);
     }
 
 }

@@ -29,7 +29,7 @@ public class ProvaQuestaoDAO extends BaseDAO implements ProvaQuestaoInterDAO {
 
     @Override
     public ResultSet buscar(ProvaVO prova) {
-        String sql = "select from " + tabela + " where prova = ?";
+        String sql = "select * from " + tabela + " where prova = ?";
         ResultSet resultado = null;
 
         try {

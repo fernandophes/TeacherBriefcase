@@ -207,7 +207,7 @@ public class QuestaoBO implements QuestaoInterBO<QuestaoVO> {
                 lista.add(assunto);
                 questao.setAssuntos(lista);
 
-                // TODO DAO pivô
+                questaoDAO.adicionar(questao, assunto);
             }
     }
 
@@ -220,7 +220,7 @@ public class QuestaoBO implements QuestaoInterBO<QuestaoVO> {
         if (lista.remove(assunto)) {
             questao.setAssuntos(lista);
 
-            // TODO DAO pivô
+            questaoDAO.remover(questao, assunto);
         }
     }
 

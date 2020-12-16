@@ -115,8 +115,19 @@ public class QuestaoDAO<QuestaoDerivadaVO extends QuestaoVO> extends BaseDAO imp
 
     @Override
     public ResultSet buscar(String assunto) {
-        // TODO _ Assunto _
-        return null;
+        String sql = "select * from questao where id in (select questao from questao_assunto where assunto like ?)";
+        ResultSet resultado = null;
+
+        try {
+            PreparedStatement statement = getConnection().prepareStatement(sql);
+            statement.setString(1, "%" + assunto + "%");
+
+            resultado = statement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return resultado;
     }
 
     @Override
@@ -138,8 +149,20 @@ public class QuestaoDAO<QuestaoDerivadaVO extends QuestaoVO> extends BaseDAO imp
 
     @Override
     public ResultSet buscarPorDificuldade(QuestaoDerivadaVO questao, String assunto) {
-        // TODO _ Assunto _
-        return null;
+        String sql = "select * from questao where id in (select questao from questao_assunto where assunto like ?) and dificuldade = ?";
+        ResultSet resultado = null;
+
+        try {
+            PreparedStatement statement = getConnection().prepareStatement(sql);
+            statement.setString(1, "%" + assunto + "%");
+            statement.setInt(2, questao.getDificuldade());
+
+            resultado = statement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return resultado;
     }
 
     @Override
@@ -194,6 +217,18 @@ public class QuestaoDAO<QuestaoDerivadaVO extends QuestaoVO> extends BaseDAO imp
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void adicionar(QuestaoDerivadaVO questao, String assunto) {
+        QuestaoAssuntoDAO questaoAssuntoDAO = new QuestaoAssuntoDAO();
+        questaoAssuntoDAO.adicionar(questao, assunto);
+    }
+
+    @Override
+    public void remover(QuestaoDerivadaVO questao, String assunto) {
+        QuestaoAssuntoDAO questaoAssuntoDAO = new QuestaoAssuntoDAO();
+        questaoAssuntoDAO.remover(questao, assunto);
     }
 
 }

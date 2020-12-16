@@ -4,37 +4,36 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import src.model.VO.DisciplinaVO;
-import src.model.VO.ProfessorVO;
+import src.model.VO.QuestaoVO;
 
-public class ProfessorDisciplinaDAO extends BaseDAO implements ProfessorDisciplinaInterDAO {
+public class QuestaoAssuntoDAO extends BaseDAO implements QuestaoAssuntoInterDAO {
 
-    public static final String tabela = "professor_disciplina";
+    public static final String tabela = "questao_assunto";
 
     @Override
-    public void adicionar(ProfessorVO professor, DisciplinaVO disciplina) {
-        String sql = "insert into " + tabela + "(professor, disciplina) values (?, ?)";
+    public void adicionar(QuestaoVO questao, String assunto) {
+        String sql = "insert into " + tabela + "(questao, assunto) values (?, ?)";
 
         try {
             PreparedStatement statement = getConnection().prepareStatement(sql);
-            statement.setLong(1, professor.getId());
-            statement.setLong(2, disciplina.getId());
+            statement.setLong(1, questao.getId());
+            statement.setString(2, assunto);
 
             if (statement.executeUpdate() == 0)
-                throw new SQLException("Não foi possível associar esta disciplina a este professor.");
+                throw new SQLException("Não foi possível associar este assunto a esta questao.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public ResultSet buscar(ProfessorVO professor) {
-        String sql = "select * from " + tabela + " where professor = ?";
+    public ResultSet buscar(QuestaoVO questao) {
+        String sql = "select * from " + tabela + " where questao = ?";
         ResultSet resultado = null;
 
         try {
             PreparedStatement statement = getConnection().prepareStatement(sql);
-            statement.setLong(1, professor.getId());
+            statement.setLong(1, questao.getId());
 
             resultado = statement.executeQuery();
         } catch (SQLException e) {
@@ -45,13 +44,13 @@ public class ProfessorDisciplinaDAO extends BaseDAO implements ProfessorDiscipli
     }
 
     @Override
-    public ResultSet buscar(DisciplinaVO disciplina) {
-        String sql = "select * from " + tabela + " where disciplina = ?";
+    public ResultSet buscar(String assunto) {
+        String sql = "select * from " + tabela + " where assunto like ?";
         ResultSet resultado = null;
 
         try {
             PreparedStatement statement = getConnection().prepareStatement(sql);
-            statement.setLong(1, disciplina.getId());
+            statement.setString(1, "%" + assunto + "%");
 
             resultado = statement.executeQuery();
         } catch (SQLException e) {
@@ -62,13 +61,13 @@ public class ProfessorDisciplinaDAO extends BaseDAO implements ProfessorDiscipli
     }
 
     @Override
-    public void remover(ProfessorVO professor, DisciplinaVO disciplina) {
-        String sql = "delete from " + tabela + " where professor = ? and disciplina = ?";
+    public void remover(QuestaoVO questao, String assunto) {
+        String sql = "delete from " + tabela + " where questao = ? and assunto = ?";
 
         try {
             PreparedStatement statement = getConnection().prepareStatement(sql);
-            statement.setLong(1, professor.getId());
-            statement.setLong(2, disciplina.getId());
+            statement.setLong(1, questao.getId());
+            statement.setString(2, assunto);
 
             if (statement.executeUpdate() == 0)
                 throw new SQLException("Não foi possível remover esta associação.");

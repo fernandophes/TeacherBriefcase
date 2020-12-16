@@ -5,11 +5,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import src.exception.OperationException;
 import src.model.DAO.ProvaDAO;
 import src.model.VO.DisciplinaVO;
 import src.model.VO.ProvaVO;
+import src.model.VO.QuestaoSubjetivaVO;
 import src.model.VO.QuestaoVO;
 
 public class ProvaBO implements ProvaInterBO {
@@ -116,12 +118,57 @@ public class ProvaBO implements ProvaInterBO {
     }
 
     @Override
-    public ProvaVO gerar(int quaisquer, int faceis, int medias, int dificeis) {
-        // Gera uma prova com questões aleatórias ProvaVO resultado = new ProvaVO();
+    public ProvaVO gerar(DisciplinaVO disciplina, int quaisquer, int faceis, int medias, int dificeis)
+            throws OperationException {
+        // Gera uma prova com questões aleatórias
+        ProvaVO prova = new ProvaVO();
 
-        // TODO DAO gerar
+        QuestaoBO questaoBO = new QuestaoBO();
 
-        return new ProvaVO();
+        QuestaoVO facil = new QuestaoSubjetivaVO();
+        facil.setDificuldade(QuestaoVO.FACIL);
+        facil.setDisciplina(disciplina);
+        List<QuestaoVO> listaFaceis = questaoBO.buscarPorDificuldadeEDisciplina(facil);
+
+        QuestaoVO media = new QuestaoSubjetivaVO();
+        media.setDificuldade(QuestaoVO.MEDIA);
+        media.setDisciplina(disciplina);
+        List<QuestaoVO> listaMedias = questaoBO.buscarPorDificuldadeEDisciplina(media);
+
+        QuestaoVO dificil = new QuestaoSubjetivaVO();
+        dificil.setDificuldade(QuestaoVO.FACIL);
+        dificil.setDisciplina(disciplina);
+        List<QuestaoVO> listaDificeis = questaoBO.buscarPorDificuldadeEDisciplina(dificil);
+
+        List<QuestaoVO> listaQuaisquer = questaoBO.buscar(disciplina);
+
+        Random gerador = new Random();
+
+        for (int i = faceis; i > 0 ; i--) {
+            int id = gerador.nextInt(listaFaceis.size());
+            adicionar(prova, listaFaceis.get(id));
+            listaFaceis.remove(id);
+        }
+
+        for (int i = medias; i > 0 ; i--) {
+            int id = gerador.nextInt(listaMedias.size());
+            adicionar(prova, listaMedias.get(id));
+            listaMedias.remove(id);
+        }
+
+        for (int i = dificeis; i > 0 ; i--) {
+            int id = gerador.nextInt(listaDificeis.size());
+            adicionar(prova, listaDificeis.get(id));
+            listaDificeis.remove(id);
+        }
+
+        for (int i = quaisquer; i > 0 ; i--) {
+            int id = gerador.nextInt(listaQuaisquer.size());
+            adicionar(prova, listaQuaisquer.get(id));
+            listaQuaisquer.remove(id);
+        }
+
+        return prova;
     }
 
     @Override

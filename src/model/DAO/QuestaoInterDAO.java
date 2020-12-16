@@ -20,4 +20,8 @@ public interface QuestaoInterDAO<QuestaoDerivadaVO extends QuestaoVO> extends Ba
     
     public ResultSet buscarPorDificuldadeEDisciplina(QuestaoDerivadaVO questao);
 
+    public void adicionar(QuestaoDerivadaVO questao, String assunto);
+
+    public void remover(QuestaoDerivadaVO questao, String assunto);
+
 }
