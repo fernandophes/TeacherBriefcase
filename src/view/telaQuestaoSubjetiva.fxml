@@ -67,15 +67,15 @@
                                  <children>
                                     <RadioButton fx:id="nivelFacil" mnemonicParsing="false" selected="true" text="Fácil">
                                        <toggleGroup>
-                                          <ToggleGroup fx:id="novaQuestaoDificuldade" />
+                                          <ToggleGroup fx:id="questaoDificuldade" />
                                        </toggleGroup>
                                     </RadioButton>
-                                    <RadioButton fx:id="nivelMedio" mnemonicParsing="false" text="Média">
+                                    <RadioButton fx:id="nivelMedio" mnemonicParsing="false" text="Média" toggleGroup="$questaoDificuldade">
                                        <HBox.margin>
                                           <Insets left="4.0" right="4.0" />
                                        </HBox.margin>
                                     </RadioButton>
-                                    <RadioButton fx:id="nivelDificil" mnemonicParsing="false" text="Díficil" />
+                                    <RadioButton fx:id="nivelDificil" mnemonicParsing="false" text="Díficil" toggleGroup="$questaoDificuldade" />
                                  </children>
                               </HBox>
                            </children>

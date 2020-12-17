@@ -74,6 +74,7 @@ public class QuestaoComAlternativasController extends BarraController {
 
         questaoEnunciado.setText(questao.getEnunciado());
         atualizarAssuntos();
+        atualizarAlternativas();
     }
 
     @FXML
@@ -187,6 +188,7 @@ public class QuestaoComAlternativasController extends BarraController {
         editar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                alternativa.setTexto(texto.getText());
                 editarAlternativa(alternativa);
             }
         });
@@ -232,7 +234,7 @@ public class QuestaoComAlternativasController extends BarraController {
         try {
             AlternativaVO alternativa = criarAlternativa();
             alternativa.setVerdadeira(true);
-            alternativaBO.cadastrar(alternativa, questao);
+            questaoComAlternativasBO.adicionar(questao, alternativa);
             atualizarAlternativas();
         } catch (OperationException e) {
             e.printStackTrace();
@@ -243,7 +245,7 @@ public class QuestaoComAlternativasController extends BarraController {
         try {
             AlternativaVO alternativa = criarAlternativa();
             alternativa.setVerdadeira(false);
-            alternativaBO.cadastrar(alternativa, questao);
+            questaoComAlternativasBO.adicionar(questao, alternativa);
             atualizarAlternativas();
         } catch (OperationException e) {
             e.printStackTrace();
@@ -270,6 +272,7 @@ public class QuestaoComAlternativasController extends BarraController {
 
             questaoComAlternativasBO.atualizar(questao);
             atualizarQuestao();
+            voltar(event);
         } catch (OperationException e) {
             e.printStackTrace();
         }
@@ -291,7 +294,7 @@ public class QuestaoComAlternativasController extends BarraController {
 
     public void excluirAlternativa(AlternativaVO alternativa) {
         try {
-            alternativaBO.excluir(alternativa);
+            questaoComAlternativasBO.remover(questao, alternativa);
             atualizarAlternativas();
         } catch (OperationException e) {
             e.printStackTrace();

@@ -67,15 +67,15 @@
                                  <children>
                                     <RadioButton fx:id="nivelFacil" mnemonicParsing="false" selected="true" text="Fácil">
                                        <toggleGroup>
-                                          <ToggleGroup fx:id="novaQuestaoDificuldade" />
+                                          <ToggleGroup fx:id="questaoDificuldade" />
                                        </toggleGroup>
                                     </RadioButton>
-                                    <RadioButton fx:id="nivelMedio" mnemonicParsing="false" text="Média">
+                                    <RadioButton fx:id="nivelMedio" mnemonicParsing="false" text="Média" toggleGroup="$questaoDificuldade">
                                        <HBox.margin>
                                           <Insets left="4.0" right="4.0" />
                                        </HBox.margin>
                                     </RadioButton>
-                                    <RadioButton fx:id="nivelDificil" mnemonicParsing="false" text="Díficil" />
+                                    <RadioButton fx:id="nivelDificil" mnemonicParsing="false" text="Díficil" toggleGroup="$questaoDificuldade" />
                                  </children>
                               </HBox>
                            </children>
@@ -135,23 +135,9 @@
                                           <HBox alignment="CENTER" spacing="4.0">
                                              <children>
                                                 <TextField fx:id="novaAlternativaTexto" prefWidth="339.0" />
-                                                <Button mnemonicParsing="false" onAction="#criarAlternativaVerdadeira" text="V" />
-                                                <Button mnemonicParsing="false" onAction="#criarAlternativaFalsa" text="F" />
+                                                <Button mnemonicParsing="false" onAction="#criarAlternativaVerdadeira" style="-fx-background-color: #00ff00;" text="V" />
+                                                <Button mnemonicParsing="false" onAction="#criarAlternativaFalsa" style="-fx-background-color: #ff0000;" text="F" textFill="WHITE" />
                                              </children>
-                                          </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="8.0" style="-fx-background-color: #ff0000;">
-                                             <children>
-                                                <Button mnemonicParsing="false" style="-fx-background-color: rgba(0, 0, 0, 0.5);" text="F" textFill="WHITE" />
-                                                <TextField prefWidth="238.0" style="-fx-background-color: transparent;-fx-text-fill: #ffffff;" text="Texto da Alternativa" />
-                                                <Button mnemonicParsing="false" style="-fx-background-color: rgba(0, 0, 0, 0.5);" text="Editar" textFill="WHITE" />
-                                                <Button mnemonicParsing="false" style="-fx-background-color: rgba(0, 0, 0, 0.5);" text="Excluir" textFill="WHITE" />
-                                             </children>
-                                             <padding>
-                                                <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                                             </padding>
-                                             <VBox.margin>
-                                                <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                                             </VBox.margin>
                                           </HBox>
                                        </children>
                                     </VBox>

@@ -3,7 +3,6 @@ package src.model.BO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import src.exception.OperationException;
@@ -55,10 +54,6 @@ public class AlternativaBO extends BaseBO<AlternativaVO> {
                     if (consulta.next()) {
                         alternativa.setTexto(consulta.getString("texto"));
                         alternativa.setVerdadeira(consulta.getBoolean("verdadeira"));
-
-                        Calendar criacao = Calendar.getInstance();
-                        criacao.setTime(consulta.getDate("data_criacao"));
-                        alternativa.setDataCriacao(criacao);
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();

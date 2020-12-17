@@ -17,13 +17,15 @@ public class QuestaoComAlternativasDAO extends BaseDAO implements QuestaoComAlte
     private QuestaoDAO<QuestaoComAlternativasVO> questaoDAO = new QuestaoDAO<QuestaoComAlternativasVO>();
 
     @Override
-    public void cadastrar(QuestaoComAlternativasVO vo) {
+    public void cadastrar(QuestaoComAlternativasVO questao) {
         String sql = "insert into " + tabela + " (id) values (?)";
         PreparedStatement statement;
 
         try {
+            questaoDAO.cadastrar(questao);
+
             statement = getConnection().prepareStatement(sql);
-            statement.setLong(1, vo.getId());
+            statement.setLong(1, questao.getId());
 
             if (statement.executeUpdate() == 0)
                 throw new SQLException("Não foi possível realizar o cadastro.");
@@ -49,15 +51,15 @@ public class QuestaoComAlternativasDAO extends BaseDAO implements QuestaoComAlte
     }
 
     @Override
-    public ResultSet buscar(QuestaoComAlternativasVO vo) {
+    public ResultSet buscar(QuestaoComAlternativasVO questao) {
         String sql = "select * from " + tabela + " where id = ?";
         PreparedStatement statement;
         ResultSet result = null;
 
         try {
-            questaoDAO.buscar(vo);
+            questaoDAO.buscar(questao);
             statement = getConnection().prepareStatement(sql);
-            statement.setLong(1, vo.getId());
+            statement.setLong(1, questao.getId());
             result = statement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -137,15 +139,15 @@ public class QuestaoComAlternativasDAO extends BaseDAO implements QuestaoComAlte
     }
 
     @Override
-    public ResultSet buscarPorDificuldade(QuestaoComAlternativasVO vo) {
+    public ResultSet buscarPorDificuldade(QuestaoComAlternativasVO questao) {
         String sql = "select * from " + tabela + " where dificuldade = ?";
         PreparedStatement statement;
         ResultSet result = null;
 
         try {
-            questaoDAO.buscar(vo);
+            questaoDAO.buscar(questao);
             statement = getConnection().prepareStatement(sql);
-            statement.setInt(1, vo.getDificuldade());
+            statement.setInt(1, questao.getDificuldade());
             result = statement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -173,17 +175,17 @@ public class QuestaoComAlternativasDAO extends BaseDAO implements QuestaoComAlte
     }
 
     @Override
-    public void atualizar(QuestaoComAlternativasVO vo) {
+    public void atualizar(QuestaoComAlternativasVO questao) {
         // A tabela em si só possui duas chaves que não devem ser alteradas.
-        questaoDAO.atualizar(vo);
+        questaoDAO.atualizar(questao);
 
     }
 
     @Override
-    public void excluir(QuestaoComAlternativasVO vo) {
+    public void excluir(QuestaoComAlternativasVO questao) {
         // Primeiro, excluir as alternativas
         AlternativaDAO alternativaDAO = new AlternativaDAO();
-        List<AlternativaVO> alternativas = vo.getAlternativas();
+        List<AlternativaVO> alternativas = questao.getAlternativas();
         while (alternativas.iterator().hasNext())
             alternativaDAO.excluir(alternativas.iterator().next());
 
@@ -193,7 +195,7 @@ public class QuestaoComAlternativasDAO extends BaseDAO implements QuestaoComAlte
 
         try {
             statement = getConnection().prepareStatement(sql);
-            statement.setLong(1, vo.getId());
+            statement.setLong(1, questao.getId());
 
             if (statement.executeUpdate() == 0)
                 throw new SQLException("Não foi possível realizar esta exclusão.");
