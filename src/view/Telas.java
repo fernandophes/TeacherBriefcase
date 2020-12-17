@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import src.controller.DisciplinaDetalhesController;
+import src.controller.QuestaoComAlternativasController;
 import src.controller.QuestaoSubjetivaController;
 import src.model.VO.DisciplinaVO;
 import src.model.VO.QuestaoComAlternativasVO;

@@ -19,19 +19,19 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 import src.exception.OperationException;
 import src.model.BO.QuestaoBO;
-import src.model.BO.QuestaoSubjetivaBO;
-import src.model.VO.QuestaoSubjetivaVO;
+import src.model.BO.QuestaoComAlternativasBO;
+import src.model.VO.QuestaoComAlternativasVO;
 import src.model.VO.QuestaoVO;
 import src.view.Telas;
 
-public class QuestaoSubjetivaController extends BarraController {
+public class QuestaoComAlternativasController extends BarraController {
 
     private static QuestaoBO questaoBO = new QuestaoBO();
-    private static QuestaoSubjetivaBO questaoSubjetivaBO = new QuestaoSubjetivaBO();
+    private static QuestaoComAlternativasBO questaoSubjetivaBO = new QuestaoComAlternativasBO();
 
-    private QuestaoSubjetivaVO questao;
+    private QuestaoComAlternativasVO questao;
 
-    public QuestaoSubjetivaController(QuestaoSubjetivaVO questao) {
+    public QuestaoComAlternativasController(QuestaoComAlternativasVO questao) {
         this.questao = questao;
     }
 
@@ -69,8 +69,7 @@ public class QuestaoSubjetivaController extends BarraController {
             nivelFacil.setSelected(true);
 
         questaoEnunciado.setText(questao.getEnunciado());
-        questaoGabarito.setText(questao.getGabarito());
-
+        // TODO adicionar alternativas
         atualizarAssuntos();
     }
 
@@ -130,10 +129,10 @@ public class QuestaoSubjetivaController extends BarraController {
         return card;
     }
 
-    public QuestaoVO editarQuestao(QuestaoSubjetivaVO questao) {
+    public QuestaoVO editarQuestao(QuestaoComAlternativasVO questao) {
         try {
             questao.setEnunciado(questaoEnunciado.getText());
-            questao.setGabarito(questaoGabarito.getText());
+            // TODO get alternativas
 
             if (nivelFacil.isSelected())
                 questao.setDificuldade(QuestaoVO.FACIL);
