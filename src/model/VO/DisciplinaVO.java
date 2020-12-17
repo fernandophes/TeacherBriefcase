@@ -6,9 +6,8 @@ import java.util.List;
 
 import src.exception.OperationException;
 
-public class DisciplinaVO {
+public class DisciplinaVO extends BaseVO {
     
-    private long id;
     private String codigo = "";
     private String nome = "";
     private Calendar dataCriacao = Calendar.getInstance();
@@ -21,17 +20,6 @@ public class DisciplinaVO {
     public DisciplinaVO(String nome, String codigo) throws OperationException {
         setNome(nome);
         setCodigo(codigo);
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) throws OperationException {
-        if (id > 0)
-            this.id = id;
-        else
-            throw new OperationException("O id precisa ser maior que zero");
     }
 
     public String getCodigo() {

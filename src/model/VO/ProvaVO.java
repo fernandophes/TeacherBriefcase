@@ -5,9 +5,8 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
-public class ProvaVO {
+public class ProvaVO extends BaseVO {
     
-    private long id;
     private DisciplinaVO disciplina = new DisciplinaVO();
     private String titulo = "";
     private Calendar dataCriacao = Calendar.getInstance();

@@ -2,9 +2,8 @@ package src.model.VO;
 
 import java.util.Calendar;
 
-public class AlternativaVO {
+public class AlternativaVO extends BaseVO {
     
-    private long id;
     private String texto = "";
     private boolean verdadeira = false;
     private Calendar dataCriacao = Calendar.getInstance();

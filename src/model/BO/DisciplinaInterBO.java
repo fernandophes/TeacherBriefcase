@@ -6,7 +6,6 @@ import src.exception.AuthenticationException;
 import src.exception.OperationException;
 import src.model.VO.DisciplinaVO;
 import src.model.VO.ProfessorVO;
-import src.model.VO.ProvaVO;
 import src.model.VO.QuestaoVO;
 
 public interface DisciplinaInterBO extends BaseInterBO<DisciplinaVO> {
@@ -22,7 +21,5 @@ public interface DisciplinaInterBO extends BaseInterBO<DisciplinaVO> {
     public void remover(DisciplinaVO disciplina, String assunto) throws OperationException;
 
     public void adicionar(DisciplinaVO disciplina, QuestaoVO questao) throws OperationException;
-
-    public void adicionar(DisciplinaVO disciplina, ProvaVO prova) throws OperationException;
 
 }

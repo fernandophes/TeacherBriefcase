@@ -11,10 +11,9 @@ import src.exception.OperationException;
 import src.model.DAO.DisciplinaDAO;
 import src.model.VO.DisciplinaVO;
 import src.model.VO.ProfessorVO;
-import src.model.VO.ProvaVO;
 import src.model.VO.QuestaoVO;
 
-public class DisciplinaBO implements DisciplinaInterBO {
+public class DisciplinaBO extends BaseBO<DisciplinaVO> implements DisciplinaInterBO {
 
     private static DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
 
@@ -211,16 +210,6 @@ public class DisciplinaBO implements DisciplinaInterBO {
         if (!lista.contains(questao))
             questaoBO.atualizar(questao, disciplina);
 
-    }
-
-    @Override
-    public void adicionar(DisciplinaVO disciplina, ProvaVO prova) throws OperationException {
-
-        prova.setDisciplina(disciplina);
-
-        ProvaBO provaBO = new ProvaBO();
-        provaBO.atualizar(prova);
-        
     }
 
 }

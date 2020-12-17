@@ -9,13 +9,14 @@ import src.model.VO.ProfessorVO;
 
 public interface ProfessorInterBO extends BaseInterBO<ProfessorVO> {
 
-    public ProfessorVO autenticar(ProfessorVO professor) throws AuthenticationException;
+    public ProfessorVO autenticar(ProfessorVO professor) throws AuthenticationException, OperationException;
 
-    public ProfessorVO buscarPorEmail(ProfessorVO professor) throws AuthenticationException;
+    public ProfessorVO buscarPorEmail(ProfessorVO professor) throws AuthenticationException, OperationException;
 
     public List<ProfessorVO> buscar(DisciplinaVO disciplina) throws AuthenticationException, OperationException;
 
     public void adicionar(ProfessorVO professor, DisciplinaVO disciplina);
 
     public void remover(ProfessorVO professor, DisciplinaVO disciplina);
+    
 }

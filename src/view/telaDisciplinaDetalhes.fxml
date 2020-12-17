@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.media.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #E5E5E5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="96.0" prefWidth="1280.0" style="-fx-background-color: #343330;">
+         <children>
+            <ImageView fitHeight="38.0" fitWidth="410.0" layoutX="471.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@VE/med_logo.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="buttonSair" layoutX="1198.0" layoutY="27.0" mnemonicParsing="false" onAction="#sair" style="-fx-background-color: transparent;" text="Sair" textFill="#bad7f2">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="buttonProfessor" alignment="TOP_LEFT" layoutX="22.0" layoutY="25.0" mnemonicParsing="false" onAction="#atualizarBarra" prefHeight="39.0" prefWidth="353.0" style="-fx-background-color: transparent;" text="Seu espaço" textFill="#bad7f2">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <ScrollPane layoutX="10.0" layoutY="108.0" prefHeight="594.0" prefWidth="1260.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="1252.0">
+               <children>
+                  <VBox prefHeight="581.0" prefWidth="1247.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Hyperlink onAction="#voltar" text="&lt; Minhas Disciplinas">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Hyperlink>
+                              <TextField fx:id="campoCodigo" alignment="CENTER" style="-fx-background-color: transparent;" text="Código">
+                                 <HBox.margin>
+                                    <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                                 </HBox.margin>
+                              </TextField>
+                              <TextField fx:id="campoNome" alignment="CENTER" style="-fx-background-color: transparent;" text="Nome da Disciplina">
+                                 <font>
+                                    <Font name="System Bold" size="30.0" />
+                                 </font>
+                              </TextField>
+                              <Separator orientation="VERTICAL" prefHeight="200.0">
+                                 <HBox.margin>
+                                    <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                                 </HBox.margin>
+                              </Separator>
+                              <Button mnemonicParsing="false" onAction="#editar" text="Editar" />
+                              <Button mnemonicParsing="false" onAction="#excluir" text="Excluir" textFill="RED">
+                                 <HBox.margin>
+                                    <Insets left="8.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <Label fx:id="labelAssuntos" text="Assuntos (_)">
+                           <font>
+                              <Font name="System Bold" size="30.0" />
+                           </font>
+                        </Label>
+                        <FlowPane fx:id="flowPaneAssuntos" prefWidth="200.0">
+                           <children>
+                              <HBox alignment="CENTER" style="-fx-background-color: #EEEEEE;">
+                                 <children>
+                                    <TextField fx:id="novoAssuntoNome">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <Button mnemonicParsing="false" onAction="#cadastrarAssunto" text="Criar">
+                                       <HBox.margin>
+                                          <Insets left="8.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                                 </padding>
+                                 <FlowPane.margin>
+                                    <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                                 </FlowPane.margin>
+                              </HBox>
+                           </children></FlowPane>
+                        <Label fx:id="labelProvas" text="Provas (_)">
+                           <font>
+                              <Font name="System Bold" size="30.0" />
+                           </font>
+                        </Label>
+                        <FlowPane fx:id="flowPaneProvas" prefWidth="200.0">
+                           <children>
+                              <VBox alignment="TOP_CENTER" prefWidth="200.0" style="-fx-background-color: #EEEEEE;">
+                                 <children>
+                                    <Label text="Título">
+                                       <VBox.margin>
+                                          <Insets top="20.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <TextField fx:id="novaProvaTitulo" />
+                                    <Button mnemonicParsing="false" onAction="#cadastrarProva" text="Criar">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Label fx:id="erroNovaProva" prefHeight="39.0" prefWidth="176.0" textFill="RED" visible="false" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                                 </padding>
+                                 <FlowPane.margin>
+                                    <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                                 </FlowPane.margin>
+                              </VBox>
+                              <VBox alignment="CENTER" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #EEEEEE;">
+                                 <FlowPane.margin>
+                                    <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                                 </FlowPane.margin>
+                                 <children>
+                                    <Hyperlink text="Título da Prova" textFill="#6610f2">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Hyperlink>
+                                    <Separator prefWidth="200.0">
+                                       <VBox.margin>
+                                          <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                                       </VBox.margin>
+                                    </Separator>
+                                    <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
+                                       <children>
+                                          <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <Hyperlink text="208" textFill="#6610f2">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </Hyperlink>
+                                                <Label text="Questões" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </FlowPane>
+                        <Label fx:id="labelQuestoes" layoutX="24.0" layoutY="218.0" text="Questões (_)">
+                           <font>
+                              <Font name="System Bold" size="30.0" />
+                           </font>
+                        </Label>
+                        <FlowPane fx:id="flowPaneQuestoes" layoutX="24.0" layoutY="263.0" prefWidth="200.0">
+                           <children>
+                              <VBox alignment="TOP_CENTER" prefWidth="200.0" style="-fx-background-color: #EEEEEE;">
+                                 <children>
+                                    <Label text="Criar nova questão">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </Label>
+                                    <HBox alignment="CENTER" prefWidth="200.0">
+                                       <children>
+                                          <RadioButton fx:id="nivelFacil" mnemonicParsing="false" selected="true" text="Fácil">
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="novaQuestaoDificuldade" />
+                                             </toggleGroup>
+                                          </RadioButton>
+                                          <RadioButton fx:id="nivelMedio" mnemonicParsing="false" text="Média">
+                                             <HBox.margin>
+                                                <Insets left="4.0" right="4.0" />
+                                             </HBox.margin>
+                                          </RadioButton>
+                                          <RadioButton fx:id="nivelDificil" mnemonicParsing="false" text="Díficil" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <TextArea fx:id="novaQuestaoEnunciado" prefHeight="100.0" prefWidth="200.0" />
+                                    <HBox alignment="CENTER">
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#cadastrarQuestaoSubjetiva" text="Subjetiva" />
+                                          <Button mnemonicParsing="false" onAction="#cadastrarQuestaoObjetiva" text="Objetiva">
+                                             <HBox.margin>
+                                                <Insets left="8.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="4.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                                 </padding>
+                                 <FlowPane.margin>
+                                    <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                                 </FlowPane.margin>
+                              </VBox>
+                              <VBox alignment="CENTER" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #EEEEEE;">
+                                 <children>
+                                    <Hyperlink alignment="CENTER" prefHeight="90.0" prefWidth="182.0" text="Enunciado" textFill="#6610f2">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Hyperlink>
+                                    <Separator prefWidth="200.0">
+                                       <VBox.margin>
+                                          <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                                       </VBox.margin>
+                                    </Separator>
+                                    <Label text="Subjetiva" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                                 </padding>
+                                 <FlowPane.margin>
+                                    <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                                 </FlowPane.margin>
+                              </VBox>
+                           </children>
+                        </FlowPane>
+                     </children>
+                     <padding>
+                        <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
+</Pane>

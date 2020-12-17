@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import src.exception.AuthenticationException;
+import src.exception.OperationException;
 import src.model.VO.DisciplinaVO;
 import src.model.VO.ProfessorVO;
 
@@ -37,8 +37,8 @@ public class ProfessorDAO extends BaseDAO implements ProfessorInterDAO {
             if (generatedKeys.next())
                 try {
                     vo.setId(generatedKeys.getLong("id"));
-                } catch (AuthenticationException e) {
-                    throw new SQLException("O banco de dados forneceu um id inválido");
+                } catch (OperationException e) {
+                    e.printStackTrace();
                 }
 
         } catch (SQLException e) {

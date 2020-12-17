@@ -13,7 +13,7 @@ import src.model.VO.ProvaVO;
 import src.model.VO.QuestaoComAlternativasVO;
 import src.model.VO.QuestaoVO;
 
-public class QuestaoComAlternativasBO implements QuestaoInterBO<QuestaoComAlternativasVO> {
+public class QuestaoComAlternativasBO extends BaseBO<QuestaoComAlternativasVO> implements QuestaoInterBO<QuestaoComAlternativasVO> {
 
     private static QuestaoBO questaoBO = new QuestaoBO();
     private static QuestaoComAlternativasDAO questaoComAlternativasDAO = new QuestaoComAlternativasDAO();

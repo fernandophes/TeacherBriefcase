@@ -14,7 +14,7 @@ import src.model.VO.ProvaVO;
 import src.model.VO.QuestaoSubjetivaVO;
 import src.model.VO.QuestaoVO;
 
-public class ProvaBO implements ProvaInterBO {
+public class ProvaBO extends BaseBO<ProvaVO> implements ProvaInterBO {
 
     private ProvaDAO provaDAO = new ProvaDAO();
 

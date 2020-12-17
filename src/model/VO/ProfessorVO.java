@@ -6,9 +6,8 @@ import java.util.List;
 
 import src.exception.AuthenticationException;
 
-public class ProfessorVO {
+public class ProfessorVO extends BaseVO {
 
-    private long id;
     private String nome = "";
     private String email = "";
     private String senha = "";
@@ -29,17 +28,6 @@ public class ProfessorVO {
         setNome(nome);
         setEmail(email);
         setSenha(senha);
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) throws AuthenticationException {
-        if (id > 0)
-            this.id = id;
-        else
-            throw new AuthenticationException("O id precisa ser maior que zero");
     }
 
     public String getNome() {

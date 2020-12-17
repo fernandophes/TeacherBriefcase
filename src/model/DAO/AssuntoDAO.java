@@ -101,7 +101,9 @@ public class AssuntoDAO extends BaseDAO implements AssuntoInterDAO {
 
         try {
             PreparedStatement statement = getConnection().prepareStatement(sql);
-            statement.setString(1, assunto);
+            statement.setString(1, novo);
+            statement.setLong(2, disciplina.getId());
+            statement.setString(3, assunto);
 
             if (statement.executeUpdate() == 0)
 				throw new SQLException("Não foi possível realizar esta atualização.");

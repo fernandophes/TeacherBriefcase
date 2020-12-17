@@ -11,7 +11,7 @@ import src.model.DAO.AlternativaDAO;
 import src.model.VO.AlternativaVO;
 import src.model.VO.QuestaoComAlternativasVO;
 
-public class AlternativaBO {
+public class AlternativaBO extends BaseBO<AlternativaVO> {
 
     private static AlternativaDAO alternativaDAO = new AlternativaDAO();
     

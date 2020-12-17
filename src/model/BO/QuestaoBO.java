@@ -14,7 +14,7 @@ import src.model.VO.QuestaoComAlternativasVO;
 import src.model.VO.QuestaoSubjetivaVO;
 import src.model.VO.QuestaoVO;
 
-public class QuestaoBO implements QuestaoInterBO<QuestaoVO> {
+public class QuestaoBO extends BaseBO<QuestaoVO> implements QuestaoInterBO<QuestaoVO> {
 
     private static QuestaoDAO<QuestaoVO> questaoDAO = new QuestaoDAO<QuestaoVO>();
     private static QuestaoSubjetivaBO questaoSubjetivaBO = new QuestaoSubjetivaBO();

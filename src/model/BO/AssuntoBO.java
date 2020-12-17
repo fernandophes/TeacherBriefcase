@@ -21,10 +21,8 @@ public class AssuntoBO implements AssuntoInterBO {
         if (disciplina != null && assunto != null && !assunto.isEmpty()) {
             assuntoDAO.cadastrar(disciplina, assunto);
 
-            // Adiciona o assunto à DisciplinaVO
-            List<String> novaLista = disciplina.getAssuntos();
-            novaLista.add(assunto);
-            disciplina.setAssuntos(novaLista);
+            // Adicionar à lista de assuntos da disciplina
+            disciplinaBO.adicionar(disciplina, assunto);
         } else
             throw new OperationException("Os dados informados são inválidos.");
     }
@@ -59,7 +57,7 @@ public class AssuntoBO implements AssuntoInterBO {
 
             try {
                 if (consulta.next())
-                    resultado = consulta.getString("nome");
+                    resultado = consulta.getString("nome").trim();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -79,7 +77,7 @@ public class AssuntoBO implements AssuntoInterBO {
 
             try {
                 while (consulta.next())
-                    resultado.add(consulta.getString("nome"));
+                    resultado.add(consulta.getString("nome").trim());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -99,7 +97,7 @@ public class AssuntoBO implements AssuntoInterBO {
 
             try {
                 while (consulta.next())
-                    resultado.add(consulta.getString("nome"));
+                    resultado.add(consulta.getString("nome").trim());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -111,9 +109,13 @@ public class AssuntoBO implements AssuntoInterBO {
 
     @Override
     public void atualizar(DisciplinaVO disciplina, String assunto, String novo) throws OperationException {
-        if (disciplina != null && assunto != null && novo != null && !assunto.isEmpty() && !novo.isEmpty())
+        if (disciplina != null && assunto != null && novo != null && !assunto.isEmpty() && !novo.isEmpty()) {
             assuntoDAO.atualizar(disciplina, assunto, novo);
-        else
+            List<String> lista = disciplina.getAssuntos();
+            lista.remove(assunto);
+            lista.add(novo);
+            disciplina.setAssuntos(lista);
+        } else
             throw new OperationException("Os dados submetidos são inválidos.");
     }
 

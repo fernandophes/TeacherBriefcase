@@ -78,7 +78,7 @@ public class DisciplinaDAO extends BaseDAO implements DisciplinaInterDAO {
 
 	@Override
 	public ResultSet buscar(ProfessorVO professor) {
-		String sql = "select * from " + tabela + " where professor = ?";
+		String sql = "select * from disciplina join professor_disciplina on (disciplina.id = professor_disciplina.disciplina) where professor_disciplina.professor = ?";
 		PreparedStatement statement;
 		ResultSet result = null;
 
@@ -129,7 +129,7 @@ public class DisciplinaDAO extends BaseDAO implements DisciplinaInterDAO {
 
 	@Override
 	public void atualizar(DisciplinaVO disciplina) {
-		String sql = "update " + tabela + " set codigo = ?, nome = ?, data_criacao = ?, where id = ?";
+		String sql = "update " + tabela + " set codigo = ?, nome = ?, data_criacao = ? where id = ?";
 		PreparedStatement statement;
 
 		try {
