@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
 import src.exception.OperationException;
 import src.model.BO.DisciplinaBO;
 import src.model.BO.ProfessorBO;
@@ -108,6 +109,9 @@ public class DisciplinasController extends BarraController {
             nome.setText(disciplina.getNome());
             nome.setTextFill(Paint.valueOf("#6610f2"));
             nome.setFont(Font.font("System", FontWeight.BOLD, 14.0));
+            nome.setWrapText(true);
+            nome.setAlignment(Pos.CENTER);
+            nome.setTextAlignment(TextAlignment.CENTER);
             nome.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {

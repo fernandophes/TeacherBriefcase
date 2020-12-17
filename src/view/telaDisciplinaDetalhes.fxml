@@ -222,7 +222,7 @@
                               </VBox>
                               <VBox alignment="CENTER" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #EEEEEE;">
                                  <children>
-                                    <Hyperlink alignment="CENTER" prefHeight="90.0" prefWidth="182.0" text="Enunciado" textFill="#6610f2">
+                                    <Hyperlink alignment="CENTER" prefHeight="90.0" prefWidth="182.0" text="Enunciado" textAlignment="CENTER" textFill="#6610f2" wrapText="true">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>

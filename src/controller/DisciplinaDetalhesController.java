@@ -22,6 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
 import src.exception.OperationException;
 import src.model.BO.AssuntoBO;
 import src.model.BO.DisciplinaBO;
@@ -159,6 +160,7 @@ public class DisciplinaDetalhesController extends BarraController {
         TextField titulo = new TextField();
         titulo.setText(assunto);
         titulo.setStyle("-fx-background-color: transparent;");
+        titulo.setAlignment(Pos.CENTER);
         card.getChildren().add(titulo);
 
         // Editar
@@ -208,8 +210,11 @@ public class DisciplinaDetalhesController extends BarraController {
             // Título da Prova
             Hyperlink titulo = new Hyperlink();
             titulo.setText(prova.getTitulo());
-            titulo.setTextFill(Paint.valueOf("#6610f2"));
+            titulo.setTextFill(Paint.valueOf("#F08A4B"));
             titulo.setFont(Font.font("System", FontWeight.BOLD, 14.0));
+            titulo.setWrapText(true);
+            titulo.setAlignment(Pos.CENTER);
+            titulo.setTextAlignment(TextAlignment.CENTER);
             titulo.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
@@ -237,7 +242,7 @@ public class DisciplinaDetalhesController extends BarraController {
 
             // Dados - Questões - Quantidade
             Label quantQuestoes = new Label(String.valueOf(questaoBO.buscar(prova).size()));
-            quantQuestoes.setTextFill(Paint.valueOf("#6610f2"));
+            quantQuestoes.setTextFill(Paint.valueOf("#F08A4B"));
             quantQuestoes.setFont(Font.font(16.0));
             questoes.getChildren().add(quantQuestoes);
 
@@ -272,6 +277,9 @@ public class DisciplinaDetalhesController extends BarraController {
         titulo.setText(questao.getEnunciado());
         titulo.setTextFill(Paint.valueOf("#6610f2"));
         titulo.setFont(Font.font("System", FontWeight.BOLD, 14.0));
+        titulo.setWrapText(true);
+        titulo.setAlignment(Pos.CENTER);
+        titulo.setTextAlignment(TextAlignment.CENTER);
         titulo.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -294,7 +302,32 @@ public class DisciplinaDetalhesController extends BarraController {
     }
 
     public void verQuestao(ActionEvent event, QuestaoVO questao) {
-        // TODO
+
+        if (questao instanceof QuestaoSubjetivaVO)
+            verQuestaoSubjetiva(event, (QuestaoSubjetivaVO) questao);
+        else if (questao instanceof QuestaoComAlternativasVO)
+            verQuestaoComAlternativas(event, (QuestaoComAlternativasVO) questao);
+
+    }
+
+    public void verQuestaoSubjetiva(ActionEvent event, QuestaoSubjetivaVO questao) {
+
+        try {
+            Telas.telaQuestaoSubjetiva(questao);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void verQuestaoComAlternativas(ActionEvent event, QuestaoComAlternativasVO questao) {
+
+        try {
+            Telas.telaQuestaoComAlternativas(questao);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void verProva(ActionEvent event, ProvaVO prova) {
@@ -362,7 +395,7 @@ public class DisciplinaDetalhesController extends BarraController {
             QuestaoSubjetivaBO questaoSubjetivaBO = new QuestaoSubjetivaBO();
             questaoSubjetivaBO.cadastrar(questao);
 
-            Telas.telaQuestaoSubjetiva(questao);
+            verQuestaoSubjetiva(event, questao);
         } catch (OperationException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -378,7 +411,7 @@ public class DisciplinaDetalhesController extends BarraController {
             QuestaoComAlternativasBO questaoComAlternativasBO = new QuestaoComAlternativasBO();
             questaoComAlternativasBO.cadastrar(questao);
 
-            Telas.telaQuestaoComAlternativas(questao);
+            verQuestaoComAlternativas(event, questao);
         } catch (OperationException e) {
             e.printStackTrace();
         } catch (Exception e) {
