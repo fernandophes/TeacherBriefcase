@@ -21,16 +21,13 @@ public class QuestaoDAO<QuestaoDerivadaVO extends QuestaoVO> extends BaseDAO imp
         PreparedStatement statement;
 
         try {
-            statement = getConnection().prepareStatement(sql);
+            statement = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setLong(1, questao.getDisciplina().getId());
-            statement.setString(1, questao.getEnunciado());
-            statement.setInt(2, questao.getDificuldade());
-            statement.setTimestamp(3, new Timestamp(questao.getDataCriacao().getTimeInMillis()));
+            statement.setString(2, questao.getEnunciado());
+            statement.setInt(3, questao.getDificuldade());
+            statement.setTimestamp(4, new Timestamp(questao.getDataCriacao().getTimeInMillis()));
 
-            int affectedRows = statement.executeUpdate();
-
-            if (affectedRows == 0)
-                throw new SQLException("Não foi possível realizar este cadastro.");
+            statement.execute();
 
             ResultSet generatedKeys = statement.getGeneratedKeys();
 

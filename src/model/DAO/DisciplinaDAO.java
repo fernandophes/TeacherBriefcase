@@ -133,7 +133,7 @@ public class DisciplinaDAO extends BaseDAO implements DisciplinaInterDAO {
 		PreparedStatement statement;
 
 		try {
-			statement = getConnection().prepareStatement(sql);
+			statement = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, disciplina.getCodigo());
 			statement.setString(2, disciplina.getNome());
 			statement.setTimestamp(3, new Timestamp(disciplina.getDataCriacao().getTimeInMillis()));

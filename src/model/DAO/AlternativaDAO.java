@@ -18,7 +18,7 @@ public class AlternativaDAO extends BaseDAO implements AlternativaInterDAO {
         PreparedStatement statement;
 
         try {
-            statement = getConnection().prepareStatement(sql);
+            statement = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setLong(1, questao.getId());
             statement.setString(2, alternativa.getTexto());
             statement.setBoolean(3, alternativa.isVerdadeira());

@@ -129,10 +129,23 @@ public class QuestaoComAlternativasController extends BarraController {
         return card;
     }
 
-    public QuestaoVO editarQuestao(QuestaoComAlternativasVO questao) {
+    @FXML
+    TextField addAssunto;
+
+    public void adicionarAssunto(ActionEvent event) {
+        questaoBO.adicionar(questao, addAssunto.getText());
+        atualizarAssuntos();
+    }
+
+    public void removerAssunto(String assunto) {
+        questaoBO.remover(questao, assunto);
+        atualizarAssuntos();
+    }
+
+    public void editar(ActionEvent event) {
         try {
             questao.setEnunciado(questaoEnunciado.getText());
-            // TODO get alternativas
+            // TODO set alternativas
 
             if (nivelFacil.isSelected())
                 questao.setDificuldade(QuestaoVO.FACIL);
@@ -148,23 +161,8 @@ public class QuestaoComAlternativasController extends BarraController {
         } catch (OperationException e) {
             e.printStackTrace();
         }
-
-        return questao;
     }
-
-    @FXML
-    TextField addAssunto;
-
-    public void adicionarAssunto(ActionEvent event) {
-        questaoBO.adicionar(questao, addAssunto.getText());
-        atualizarAssuntos();
-    }
-
-    public void removerAssunto(String assunto) {
-        questaoBO.remover(questao, assunto);
-        atualizarAssuntos();
-    }
-
+ 
     public void excluir(ActionEvent event) {
         try {
             questaoSubjetivaBO.excluir(questao);

@@ -51,7 +51,6 @@ public class QuestaoComAlternativasBO extends BaseBO<QuestaoComAlternativasVO> i
     @Override
     public void cadastrar(QuestaoComAlternativasVO questao) throws OperationException {
         if (questao != null) {
-            questaoBO.cadastrar(questao);
             questaoComAlternativasDAO.cadastrar(questao);
         } else
             throw new OperationException("A questão não pode ser nula.");
@@ -68,6 +67,7 @@ public class QuestaoComAlternativasBO extends BaseBO<QuestaoComAlternativasVO> i
             try {
                 while (consulta.next()) {
                     QuestaoComAlternativasVO atual = new QuestaoComAlternativasVO();
+                    atual.setId(consulta.getLong("id"));
                     atual = buscar(atual);
                     lista.add(atual);
                 }
@@ -118,6 +118,7 @@ public class QuestaoComAlternativasBO extends BaseBO<QuestaoComAlternativasVO> i
                 try {
                     while (consulta.next()) {
                         QuestaoComAlternativasVO atual = new QuestaoComAlternativasVO();
+                        atual.setId(consulta.getLong("id"));
                         atual = buscar(atual);
                         lista.add(atual);
                     }
@@ -142,6 +143,7 @@ public class QuestaoComAlternativasBO extends BaseBO<QuestaoComAlternativasVO> i
                 try {
                     while (consulta.next()) {
                         QuestaoComAlternativasVO atual = new QuestaoComAlternativasVO();
+                        atual.setId(consulta.getLong("id"));
                         atual = buscar(atual);
                         lista.add(atual);
                     }
@@ -167,6 +169,7 @@ public class QuestaoComAlternativasBO extends BaseBO<QuestaoComAlternativasVO> i
                 try {
                     while (consulta.next()) {
                         QuestaoComAlternativasVO atual = new QuestaoComAlternativasVO();
+                        atual.setId(consulta.getLong("id"));
                         atual = buscar(atual);
                         lista.add(atual);
                     }
@@ -191,6 +194,7 @@ public class QuestaoComAlternativasBO extends BaseBO<QuestaoComAlternativasVO> i
             try {
                 while (consulta.next()) {
                     QuestaoComAlternativasVO atual = new QuestaoComAlternativasVO();
+                    atual.setId(consulta.getLong("id"));
                     atual = buscar(atual);
                     lista.add(atual);
                 }
@@ -215,6 +219,7 @@ public class QuestaoComAlternativasBO extends BaseBO<QuestaoComAlternativasVO> i
                 try {
                     while (consulta.next()) {
                         QuestaoComAlternativasVO atual = new QuestaoComAlternativasVO();
+                        atual.setId(consulta.getLong("id"));
                         atual = buscar(atual);
                         lista.add(atual);
                     }
@@ -241,6 +246,7 @@ public class QuestaoComAlternativasBO extends BaseBO<QuestaoComAlternativasVO> i
                 try {
                     while (consulta.next()) {
                         QuestaoComAlternativasVO atual = new QuestaoComAlternativasVO();
+                        atual.setId(consulta.getLong("id"));
                         atual = buscar(atual);
                         lista.add(atual);
                     }

@@ -80,19 +80,10 @@ public class AssuntoDAO extends BaseDAO implements AssuntoInterDAO {
 
     @Override
     public ResultSet buscar(QuestaoVO questao) {
-        String sql = "select * from " + tabela + " where questao = ?";
-        ResultSet resultado = null;
 
-        try {
-            PreparedStatement statement = getConnection().prepareStatement(sql);
-            statement.setLong(1, questao.getId());
+        QuestaoAssuntoDAO questaoAssuntoDAO = new QuestaoAssuntoDAO();
+        return questaoAssuntoDAO.buscar(questao);
 
-            resultado = statement.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return resultado;
     }
 
     @Override

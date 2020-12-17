@@ -53,7 +53,7 @@ public class QuestaoSubjetivaDAO extends BaseDAO implements QuestaoInterDAO<Ques
 
     @Override
     public ResultSet buscar(QuestaoSubjetivaVO questao) {
-        String sql = "select * from questao right join " + tabela + " on (questao.id = " + tabela + ".id) where questao.id = ?";
+        String sql = "select * from questao join questao_subjetiva on (questao.id = questao_subjetiva.id) where questao.id = ?";
         PreparedStatement statement;
         ResultSet result = null;
 
@@ -71,7 +71,7 @@ public class QuestaoSubjetivaDAO extends BaseDAO implements QuestaoInterDAO<Ques
 
     @Override
     public ResultSet buscar(DisciplinaVO disciplina) {
-        String sql = "select * from questao right join " + tabela + " on (questao.id = " + tabela + ".id) where questao.disciplina = ?";
+        String sql = "select * from questao join " + tabela + " on (questao.id = " + tabela + ".id) where questao.disciplina = ?";
 
         PreparedStatement statement;
         ResultSet result = null;
@@ -90,7 +90,7 @@ public class QuestaoSubjetivaDAO extends BaseDAO implements QuestaoInterDAO<Ques
 
     @Override
     public ResultSet buscar(String assunto) {
-        String sql = "select * from questao right join " + tabela + " on (questao.id = " + tabela + ".id) where questao.id in (select questao from questao_assunto where assunto like ?)";
+        String sql = "select * from questao join " + tabela + " on (questao.id = " + tabela + ".id) where questao.id in (select questao from questao_assunto where assunto like ?)";
         ResultSet resultado = null;
 
         try {
@@ -107,7 +107,7 @@ public class QuestaoSubjetivaDAO extends BaseDAO implements QuestaoInterDAO<Ques
 
     @Override
     public ResultSet buscar(ProvaVO prova) {
-        String sql = "select * from questao right join " + tabela + " on (questao.id = " + tabela + ".id) where questao.id in (select questao from prova_questao where prova = ?)";
+        String sql = "select * from questao join " + tabela + " on (questao.id = " + tabela + ".id) where questao.id in (select questao from prova_questao where prova = ?)";
         PreparedStatement statement;
         ResultSet result = null;
 
@@ -124,7 +124,7 @@ public class QuestaoSubjetivaDAO extends BaseDAO implements QuestaoInterDAO<Ques
 
     @Override
     public ResultSet buscarPorDificuldade(QuestaoSubjetivaVO questao) {
-        String sql = "select * from questao right join " + tabela + " on (questao.id = " + tabela + ".id) where questao.dificuldade = ?";
+        String sql = "select * from questao join " + tabela + " on (questao.id = " + tabela + ".id) where questao.dificuldade = ?";
         PreparedStatement statement;
         ResultSet result = null;
 
@@ -142,7 +142,7 @@ public class QuestaoSubjetivaDAO extends BaseDAO implements QuestaoInterDAO<Ques
 
     @Override
     public ResultSet buscarPorDificuldade(QuestaoSubjetivaVO questao, String assunto) {
-        String sql = "select * from questao right join " + tabela + " on (questao.id = " + tabela + ".id) where questao.id in (select questao from questao_assunto where assunto like ?) and dificuldade = ?";
+        String sql = "select * from questao join " + tabela + " on (questao.id = " + tabela + ".id) where questao.id in (select questao from questao_assunto where assunto like ?) and dificuldade = ?";
         ResultSet resultado = null;
 
         try {
@@ -160,7 +160,7 @@ public class QuestaoSubjetivaDAO extends BaseDAO implements QuestaoInterDAO<Ques
 
     @Override
     public ResultSet buscarPorDificuldadeEDisciplina(QuestaoSubjetivaVO questao) {
-        String sql = "select * from questao right join " + tabela + " on (questao.id = " + tabela + ".id) where questao.dificuldade = ? and questao.disciplina = ?";
+        String sql = "select * from questao join " + tabela + " on (questao.id = " + tabela + ".id) where questao.dificuldade = ? and questao.disciplina = ?";
         PreparedStatement statement;
         ResultSet result = null;
 

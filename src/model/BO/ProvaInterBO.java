@@ -13,7 +13,7 @@ public interface ProvaInterBO extends BaseInterBO<ProvaVO> {
 
     public ProvaVO gerar(DisciplinaVO disciplina, int quaisquer, int faceis, int medias, int dificeis) throws OperationException;
 
-    public void adicionar(ProvaVO prova, QuestaoVO questao);
+    public void adicionar(ProvaVO prova, QuestaoVO questao) throws OperationException;
 
     public void remover(ProvaVO prova, QuestaoVO questao);
 }

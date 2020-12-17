@@ -130,7 +130,20 @@ public class QuestaoSubjetivaController extends BarraController {
         return card;
     }
 
-    public QuestaoVO editarQuestao(QuestaoSubjetivaVO questao) {
+    @FXML
+    TextField addAssunto;
+
+    public void adicionarAssunto(ActionEvent event) {
+        questaoBO.adicionar(questao, addAssunto.getText());
+        atualizarAssuntos();
+    }
+
+    public void removerAssunto(String assunto) {
+        questaoBO.remover(questao, assunto);
+        atualizarAssuntos();
+    }
+
+    public void editar(ActionEvent event) {
         try {
             questao.setEnunciado(questaoEnunciado.getText());
             questao.setGabarito(questaoGabarito.getText());
@@ -146,26 +159,12 @@ public class QuestaoSubjetivaController extends BarraController {
 
             questaoSubjetivaBO.atualizar(questao);
             atualizarQuestao();
+            voltar(event);
         } catch (OperationException e) {
             e.printStackTrace();
         }
-
-        return questao;
     }
-
-    @FXML
-    TextField addAssunto;
-
-    public void adicionarAssunto(ActionEvent event) {
-        questaoBO.adicionar(questao, addAssunto.getText());
-        atualizarAssuntos();
-    }
-
-    public void removerAssunto(String assunto) {
-        questaoBO.remover(questao, assunto);
-        atualizarAssuntos();
-    }
-
+    
     public void excluir(ActionEvent event) {
         try {
             questaoSubjetivaBO.excluir(questao);

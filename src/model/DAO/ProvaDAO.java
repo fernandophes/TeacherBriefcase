@@ -21,7 +21,7 @@ public class ProvaDAO extends BaseDAO implements ProvaInterDAO {
         PreparedStatement statement;
 
         try {
-            statement = getConnection().prepareStatement(sql);
+            statement = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setLong(1, prova.getDisciplina().getId());
             statement.setString(2, prova.getTitulo());
             statement.setTimestamp(3, new Timestamp(prova.getDataCriacao().getTimeInMillis()));

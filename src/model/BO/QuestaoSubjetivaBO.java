@@ -20,7 +20,6 @@ public class QuestaoSubjetivaBO extends BaseBO<QuestaoSubjetivaVO> implements Qu
     @Override
     public void cadastrar(QuestaoSubjetivaVO questao) throws OperationException {
         if (questao != null) {
-            questaoBO.cadastrar(questao);
             questaoSubjetivaDAO.cadastrar(questao);
         } else
             throw new OperationException("A questão não pode ser nula.");
@@ -37,6 +36,7 @@ public class QuestaoSubjetivaBO extends BaseBO<QuestaoSubjetivaVO> implements Qu
             try {
                 while (consulta.next()) {
                     QuestaoSubjetivaVO atual = new QuestaoSubjetivaVO();
+                    atual.setId(consulta.getLong("id"));
                     atual = buscar(atual);
                     lista.add(atual);
                 }
@@ -86,6 +86,7 @@ public class QuestaoSubjetivaBO extends BaseBO<QuestaoSubjetivaVO> implements Qu
                 try {
                     while (consulta.next()) {
                         QuestaoSubjetivaVO atual = new QuestaoSubjetivaVO();
+                        atual.setId(consulta.getLong("id"));
                         atual = buscar(atual);
                         lista.add(atual);
                     }
@@ -110,6 +111,7 @@ public class QuestaoSubjetivaBO extends BaseBO<QuestaoSubjetivaVO> implements Qu
                 try {
                     while (consulta.next()) {
                         QuestaoSubjetivaVO atual = new QuestaoSubjetivaVO();
+                        atual.setId(consulta.getLong("id"));
                         atual = buscar(atual);
                         lista.add(atual);
                     }
@@ -135,6 +137,7 @@ public class QuestaoSubjetivaBO extends BaseBO<QuestaoSubjetivaVO> implements Qu
                 try {
                     while (consulta.next()) {
                         QuestaoSubjetivaVO atual = new QuestaoSubjetivaVO();
+                        atual.setId(consulta.getLong("id"));
                         atual = buscar(atual);
                         lista.add(atual);
                     }
@@ -158,6 +161,7 @@ public class QuestaoSubjetivaBO extends BaseBO<QuestaoSubjetivaVO> implements Qu
             try {
                 while (consulta.next()) {
                     QuestaoSubjetivaVO atual = new QuestaoSubjetivaVO();
+                    atual.setId(consulta.getLong("id"));
                     atual = buscar(atual);
                     lista.add(atual);
                 }
@@ -181,6 +185,7 @@ public class QuestaoSubjetivaBO extends BaseBO<QuestaoSubjetivaVO> implements Qu
                 try {
                     while (consulta.next()) {
                         QuestaoSubjetivaVO atual = new QuestaoSubjetivaVO();
+                        atual.setId(consulta.getLong("id"));
                         atual = buscar(atual);
                         lista.add(atual);
                     }
@@ -207,6 +212,7 @@ public class QuestaoSubjetivaBO extends BaseBO<QuestaoSubjetivaVO> implements Qu
                 try {
                     while (consulta.next()) {
                         QuestaoSubjetivaVO atual = new QuestaoSubjetivaVO();
+                        atual.setId(consulta.getLong("id"));
                         atual = buscar(atual);
                         lista.add(atual);
                     }

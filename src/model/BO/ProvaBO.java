@@ -172,7 +172,7 @@ public class ProvaBO extends BaseBO<ProvaVO> implements ProvaInterBO {
     }
 
     @Override
-    public void adicionar(ProvaVO prova, QuestaoVO questao) {
+    public void adicionar(ProvaVO prova, QuestaoVO questao) throws OperationException {
 
         List<QuestaoVO> lista = prova.getQuestoes();
 
@@ -186,9 +186,8 @@ public class ProvaBO extends BaseBO<ProvaVO> implements ProvaInterBO {
                 prova.setQuestoes(lista);
 
                 provaDAO.remover(prova, questao);
-            } else {
-                System.out.println("A prova e a questão não pertencem à mesma disciplina");
-            }
+            } else
+                throw new OperationException("A prova e a questão não pertencem à mesma disciplina");
     }
 
     public void remover(ProvaVO prova, QuestaoVO questao) {

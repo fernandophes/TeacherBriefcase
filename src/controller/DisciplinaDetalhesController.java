@@ -136,8 +136,10 @@ public class DisciplinaDetalhesController extends BarraController {
 
             // Cards
             Iterator<QuestaoVO> listaIt = lista.iterator();
-            while (listaIt.hasNext())
-                flowPaneQuestoes.getChildren().add(criarCard(listaIt.next()));
+            while (listaIt.hasNext()) {
+                QuestaoVO q = listaIt.next();
+                flowPaneQuestoes.getChildren().add(criarCard(q));
+            }
 
         } catch (OperationException e) {
             e.printStackTrace();
@@ -284,7 +286,8 @@ public class DisciplinaDetalhesController extends BarraController {
         card.getChildren().addAll(separador1);
 
         // Dados - Tipo de Questão
-        Label tipo = new Label("Questões");
+        Label tipo = new Label((questao instanceof QuestaoSubjetivaVO ? "Subjetiva" : "Objetiva") + " - "
+                + questao.getDificuldadeRotulo());
         card.getChildren().add(tipo);
 
         return card;

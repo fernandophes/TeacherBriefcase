@@ -11,7 +11,7 @@ public abstract class QuestaoVO extends BaseVO {
     private String enunciado = "";
     private DisciplinaVO disciplina = new DisciplinaVO();
     private int dificuldade;
-    private Calendar dataCriacao;
+    private Calendar dataCriacao = Calendar.getInstance();
     private List<String> assuntos = new ArrayList<String>();
 
     public static final int FACIL = 0;
