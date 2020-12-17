@@ -5,6 +5,7 @@ import java.util.List;
 import src.exception.OperationException;
 
 public class QuestaoSubjetivaVO extends QuestaoVO {
+    
     private String gabarito = "";
 
     public QuestaoSubjetivaVO() {

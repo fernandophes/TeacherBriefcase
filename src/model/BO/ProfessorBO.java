@@ -14,7 +14,7 @@ import src.model.VO.ProfessorVO;
 
 public class ProfessorBO implements ProfessorInterBO {
 
-    ProfessorDAO professorDAO = new ProfessorDAO();
+    private static ProfessorDAO professorDAO = new ProfessorDAO();
 
     @Override
     public void cadastrar(ProfessorVO professor) {
@@ -146,11 +146,8 @@ public class ProfessorBO implements ProfessorInterBO {
             lista.add(disciplina);
             professor.setDisciplinas(lista);
 
-            // atualiza a disciplina
-            DisciplinaBO disciplinaBO = new DisciplinaBO();
-            disciplinaBO.adicionar(disciplina, professor);
-
             // Se a relação ainda NÃO estiver adicionada no BD (pode ocorrer de estar)
+            DisciplinaBO disciplinaBO = new DisciplinaBO();
             if (!disciplinaBO.buscar(professor).contains(disciplina))
                 professorDAO.adicionar(professor, disciplina);
         }
@@ -164,12 +161,9 @@ public class ProfessorBO implements ProfessorInterBO {
         if (lista.remove(disciplina)) {
             professor.setDisciplinas(lista);
 
-            // atualiza a disciplina
-            DisciplinaBO disciplinaBO = new DisciplinaBO();
-            disciplinaBO.remover(disciplina, professor);
-
             // Se a disciplina ainda REALMENTE estiver adicionada no BD (pode ocorrer de não
             // estar)
+            DisciplinaBO disciplinaBO = new DisciplinaBO();
             if (disciplinaBO.buscar(professor).contains(disciplina))
                 professorDAO.remover(professor, disciplina);
         }

@@ -3,6 +3,7 @@ package src.model.VO;
 import java.util.Calendar;
 
 public class AlternativaVO {
+    
     private long id;
     private String texto = "";
     private boolean verdadeira = false;

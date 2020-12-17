@@ -2,7 +2,6 @@ package src.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import src.exception.AuthenticationException;
@@ -27,7 +26,7 @@ public class FrontController {
             professor.setEmail(loginEmail.getText());
             professor.setSenha(loginSenha.getText());
             professorBO.autenticar(professor);
-            ProfessorVO.logado = professor;
+            ProfessorVO.logado = professorBO.buscarPorEmail(professor);
             Telas.telaInicial();
         } catch (AuthenticationException e) {
             erroAut.setText(e.getMessage());
@@ -57,7 +56,7 @@ public class FrontController {
                 professor.setEmail(cadastroEmail.getText());
                 professor.setSenha(cadastroSenha.getText());
                 professorBO.cadastrar(professor);
-                ProfessorVO.logado = professor;
+                ProfessorVO.logado = professorBO.buscarPorEmail(professor);
                 Telas.telaInicial();
             } else
                 throw new AuthenticationException("As senhas não conferem");
@@ -70,20 +69,4 @@ public class FrontController {
         }
     }
 
-    public void sair(ActionEvent event) {
-        try {
-            ProfessorVO.logado = null;
-            Telas.telaLogin();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    @FXML
-    private Button buttonProfessor;
-
-    public void carregarBarraPrincipal() {
-        buttonProfessor.setText(ProfessorVO.logado.getNome());
-    }
 }

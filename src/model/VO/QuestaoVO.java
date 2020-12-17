@@ -7,6 +7,7 @@ import java.util.List;
 import src.exception.OperationException;
 
 public abstract class QuestaoVO {
+    
     private long id;
     private String enunciado = "";
     private DisciplinaVO disciplina = new DisciplinaVO();

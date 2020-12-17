@@ -15,8 +15,8 @@ import src.model.VO.QuestaoVO;
 
 public class QuestaoComAlternativasBO implements QuestaoInterBO<QuestaoComAlternativasVO> {
 
-    private QuestaoBO questaoBO = new QuestaoBO();
-    private QuestaoComAlternativasDAO questaoComAlternativasDAO = new QuestaoComAlternativasDAO();
+    private static QuestaoBO questaoBO = new QuestaoBO();
+    private static QuestaoComAlternativasDAO questaoComAlternativasDAO = new QuestaoComAlternativasDAO();
 
     public void adicionar(QuestaoComAlternativasVO questao, AlternativaVO alternativa) throws OperationException {
         // adiciona uma alternativa à questão

@@ -16,9 +16,9 @@ import src.model.VO.QuestaoVO;
 
 public class QuestaoBO implements QuestaoInterBO<QuestaoVO> {
 
-    private QuestaoDAO<QuestaoVO> questaoDAO = new QuestaoDAO<QuestaoVO>();
-    private QuestaoSubjetivaBO questaoSubjetivaBO = new QuestaoSubjetivaBO();
-    private QuestaoComAlternativasBO questaoComAlternativasBO = new QuestaoComAlternativasBO();
+    private static QuestaoDAO<QuestaoVO> questaoDAO = new QuestaoDAO<QuestaoVO>();
+    private static QuestaoSubjetivaBO questaoSubjetivaBO = new QuestaoSubjetivaBO();
+    private static QuestaoComAlternativasBO questaoComAlternativasBO = new QuestaoComAlternativasBO();
 
     @Override
     public void cadastrar(QuestaoVO questao) throws OperationException {
@@ -232,16 +232,9 @@ public class QuestaoBO implements QuestaoInterBO<QuestaoVO> {
 
     @Override
     public void atualizar(QuestaoVO questao, DisciplinaVO disciplina) {
-        // Atualizar a disciplina antiga, removendo a questão da sua lista
-        DisciplinaBO disciplinaBO = new DisciplinaBO();
-        disciplinaBO.remover(questao.getDisciplina(), questao);
 
-        // Atualizar a questão em si
         questao.setDisciplina(disciplina);
         questaoDAO.atualizar(questao);
 
-        if (disciplina != null)
-            // Atualizar a nova disciplina, adicionando a questão à sua lista
-            disciplinaBO.adicionar(disciplina, questao);
     }
 }

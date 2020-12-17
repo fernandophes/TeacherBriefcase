@@ -13,7 +13,7 @@ import src.model.VO.QuestaoComAlternativasVO;
 
 public class AlternativaBO {
 
-    private AlternativaDAO alternativaDAO = new AlternativaDAO();
+    private static AlternativaDAO alternativaDAO = new AlternativaDAO();
     
     public void cadastrar(AlternativaVO alternativa, QuestaoComAlternativasVO questao) throws OperationException {
         if (alternativa != null) {

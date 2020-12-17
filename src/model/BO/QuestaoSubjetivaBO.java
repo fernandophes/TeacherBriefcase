@@ -14,8 +14,8 @@ import src.model.VO.QuestaoVO;
 
 public class QuestaoSubjetivaBO implements QuestaoInterBO<QuestaoSubjetivaVO> {
 
-    private QuestaoBO questaoBO = new QuestaoBO();
-    private QuestaoSubjetivaDAO questaoSubjetivaDAO = new QuestaoSubjetivaDAO();
+    private static QuestaoBO questaoBO = new QuestaoBO();
+    private static QuestaoSubjetivaDAO questaoSubjetivaDAO = new QuestaoSubjetivaDAO();
 
     @Override
     public void cadastrar(QuestaoSubjetivaVO questao) throws OperationException {

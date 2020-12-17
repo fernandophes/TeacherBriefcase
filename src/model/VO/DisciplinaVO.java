@@ -7,14 +7,12 @@ import java.util.List;
 import src.exception.OperationException;
 
 public class DisciplinaVO {
+    
     private long id;
     private String codigo = "";
     private String nome = "";
     private Calendar dataCriacao = Calendar.getInstance();
-    private List<ProfessorVO> professores = new ArrayList<ProfessorVO>();
     private List<String> assuntos = new ArrayList<String>();
-    private List<QuestaoVO> questoes = new ArrayList<QuestaoVO>();
-    private List<ProvaVO> provas = new ArrayList<ProvaVO>();
 
     public DisciplinaVO() {
 
@@ -72,36 +70,12 @@ public class DisciplinaVO {
             throw new OperationException("A data de criação não pode ficar em branco");
     }
 
-    public List<ProfessorVO> getProfessores() {
-        return professores;
-    }
-
-    public void setProfessores(List<ProfessorVO> professores) {
-        this.professores = professores;
-    }
-
     public List<String> getAssuntos() {
         return assuntos;
     }
 
     public void setAssuntos(List<String> assuntos) {
         this.assuntos = assuntos;
-    }
-
-    public List<QuestaoVO> getQuestoes() {
-        return questoes;
-    }
-
-    public void setQuestoes(List<QuestaoVO> questoes) {
-        this.questoes = questoes;
-    }
-
-    public List<ProvaVO> getProvas() {
-        return provas;
-    }
-
-    public void setProvas(List<ProvaVO> provas) {
-        this.provas = provas;
     }
 
     @Override

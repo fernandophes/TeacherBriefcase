@@ -7,6 +7,7 @@ import java.util.List;
 import src.exception.OperationException;
 
 public class QuestaoComAlternativasVO extends QuestaoVO {
+    
     private List<AlternativaVO> alternativas = new ArrayList<AlternativaVO>();
 
     public QuestaoComAlternativasVO() {

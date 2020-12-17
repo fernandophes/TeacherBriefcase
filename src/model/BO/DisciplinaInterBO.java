@@ -21,16 +21,8 @@ public interface DisciplinaInterBO extends BaseInterBO<DisciplinaVO> {
 
     public void remover(DisciplinaVO disciplina, String assunto) throws OperationException;
 
-    public void adicionar(DisciplinaVO disciplina, ProfessorVO professor);
+    public void adicionar(DisciplinaVO disciplina, QuestaoVO questao) throws OperationException;
 
-    public void remover(DisciplinaVO disciplina, ProfessorVO professor);
-
-    public void adicionar(DisciplinaVO disciplina, QuestaoVO questao);
-
-    public void remover(DisciplinaVO disciplina, QuestaoVO questao);
-
-    public void adicionar(DisciplinaVO disciplina, ProvaVO prova);
-
-    public void remover(DisciplinaVO disciplina, ProvaVO prova);
+    public void adicionar(DisciplinaVO disciplina, ProvaVO prova) throws OperationException;
 
 }

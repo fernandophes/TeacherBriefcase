@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import src.controller.FrontController;
 
 public class Telas extends Application {
 
@@ -40,7 +39,7 @@ public class Telas extends Application {
     }
 
     public static void telaInicial() throws Exception {
-        telaProvas();
+        telaDisciplinas();
     }
 
     public static void barraPrincipal() {
@@ -52,8 +51,13 @@ public class Telas extends Application {
         Scene cena = new Scene(root);
         primaryStage.setTitle("Provas | Teacher Briefcase");
         primaryStage.setScene(cena);
-        FrontController frontController = new FrontController();
-        frontController.carregarBarraPrincipal();
+    }
+
+    public static void telaDisciplinas() throws Exception {
+        Parent root = FXMLLoader.load(Telas.class.getResource("telaDisciplinas.fxml"));
+        Scene cena = new Scene(root);
+        primaryStage.setTitle("Disciplinas | Teacher Briefcase");
+        primaryStage.setScene(cena);
     }
     
 }

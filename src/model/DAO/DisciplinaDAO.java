@@ -15,7 +15,7 @@ public class DisciplinaDAO extends BaseDAO implements DisciplinaInterDAO {
 	public static final String tabela = "disciplina";
 
 	@Override
-	public void cadastrar(DisciplinaVO disciplina) {
+	public void cadastrar(DisciplinaVO disciplina) throws OperationException {
 		String sql = "insert into " + tabela + " (codigo, nome, data_criacao) values (?, ?, ?)";
 		PreparedStatement statement;
 
@@ -39,6 +39,7 @@ public class DisciplinaDAO extends BaseDAO implements DisciplinaInterDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new OperationException("Não foi possível realizar este cadastro.");
 		}
 	}
 

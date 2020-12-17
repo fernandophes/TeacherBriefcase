@@ -13,8 +13,8 @@ import src.model.VO.QuestaoVO;
 
 public class AssuntoBO implements AssuntoInterBO {
 
-    AssuntoDAO assuntoDAO = new AssuntoDAO();
-    DisciplinaBO disciplinaBO = new DisciplinaBO();
+    private static AssuntoDAO assuntoDAO = new AssuntoDAO();
+    private static DisciplinaBO disciplinaBO = new DisciplinaBO();
 
     @Override
     public void cadastrar(DisciplinaVO disciplina, String assunto) throws OperationException {
