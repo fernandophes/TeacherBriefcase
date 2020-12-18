@@ -12,7 +12,6 @@ import src.model.QuestaoDificuldade;
 import src.model.DAO.ProvaDAO;
 import src.model.VO.DisciplinaVO;
 import src.model.VO.ProvaVO;
-import src.model.VO.QuestaoSubjetivaVO;
 import src.model.VO.QuestaoVO;
 
 public class ProvaBO extends BaseBO<ProvaVO> implements ProvaInterBO {
@@ -127,20 +126,11 @@ public class ProvaBO extends BaseBO<ProvaVO> implements ProvaInterBO {
 
         QuestaoBO questaoBO = new QuestaoBO();
 
-        QuestaoVO facil = new QuestaoSubjetivaVO();
-        facil.setDificuldade(QuestaoDificuldade.FACIL);
-        facil.setDisciplina(disciplina);
-        List<QuestaoVO> listaFaceis = questaoBO.buscarPorDificuldadeEDisciplina(facil);
+        List<QuestaoVO> listaFaceis = questaoBO.buscarPorDificuldadeEDisciplina(QuestaoDificuldade.FACIL, disciplina);
 
-        QuestaoVO media = new QuestaoSubjetivaVO();
-        media.setDificuldade(QuestaoDificuldade.MEDIA);
-        media.setDisciplina(disciplina);
-        List<QuestaoVO> listaMedias = questaoBO.buscarPorDificuldadeEDisciplina(media);
+        List<QuestaoVO> listaMedias = questaoBO.buscarPorDificuldadeEDisciplina(QuestaoDificuldade.MEDIA, disciplina);
 
-        QuestaoVO dificil = new QuestaoSubjetivaVO();
-        dificil.setDificuldade(QuestaoDificuldade.FACIL);
-        dificil.setDisciplina(disciplina);
-        List<QuestaoVO> listaDificeis = questaoBO.buscarPorDificuldadeEDisciplina(dificil);
+        List<QuestaoVO> listaDificeis = questaoBO.buscarPorDificuldadeEDisciplina(QuestaoDificuldade.DIFICIL, disciplina);
 
         List<QuestaoVO> listaQuaisquer = questaoBO.buscar(disciplina);
 

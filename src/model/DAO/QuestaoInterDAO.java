@@ -2,6 +2,7 @@ package src.model.DAO;
 
 import java.sql.ResultSet;
 
+import src.model.QuestaoDificuldade;
 import src.model.VO.DisciplinaVO;
 import src.model.VO.ProvaVO;
 import src.model.VO.QuestaoVO;
@@ -18,7 +19,7 @@ public interface QuestaoInterDAO<QuestaoDerivadaVO extends QuestaoVO> extends Ba
     
     public ResultSet buscarPorDificuldade(QuestaoDerivadaVO questao, String assunto);
     
-    public ResultSet buscarPorDificuldadeEDisciplina(QuestaoDerivadaVO questao);
+    public ResultSet buscarPorDificuldadeEDisciplina(QuestaoDificuldade dificuldade, DisciplinaVO disciplina);
 
     public void adicionar(QuestaoDerivadaVO questao, String assunto);
 

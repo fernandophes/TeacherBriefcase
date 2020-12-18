@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 
 import src.exception.OperationException;
+import src.model.QuestaoDificuldade;
 import src.model.VO.DisciplinaVO;
 import src.model.VO.ProvaVO;
 import src.model.VO.QuestaoVO;
@@ -163,15 +164,15 @@ public class QuestaoDAO<QuestaoDerivadaVO extends QuestaoVO> extends BaseDAO imp
     }
 
     @Override
-    public ResultSet buscarPorDificuldadeEDisciplina(QuestaoDerivadaVO questao) {
+    public ResultSet buscarPorDificuldadeEDisciplina(QuestaoDificuldade dificuldade, DisciplinaVO disciplina) {
         String sql = "select * from " + tabela + " where dificuldade = ? and disciplina = ?";
         PreparedStatement statement;
         ResultSet result = null;
 
         try {
             statement = getConnection().prepareStatement(sql);
-            statement.setInt(1, questao.getDificuldade().getId());
-            statement.setLong(2, questao.getDisciplina().getId());
+            statement.setInt(1, dificuldade.getId());
+            statement.setLong(2, disciplina.getId());
             result = statement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import src.model.QuestaoDificuldade;
 import src.model.VO.DisciplinaVO;
 import src.model.VO.ProvaVO;
 import src.model.VO.QuestaoSubjetivaVO;
@@ -159,16 +160,15 @@ public class QuestaoSubjetivaDAO extends BaseDAO implements QuestaoInterDAO<Ques
     }
 
     @Override
-    public ResultSet buscarPorDificuldadeEDisciplina(QuestaoSubjetivaVO questao) {
+    public ResultSet buscarPorDificuldadeEDisciplina(QuestaoDificuldade dificuldade, DisciplinaVO disciplina) {
         String sql = "select * from questao join " + tabela + " on (questao.id = " + tabela + ".id) where questao.dificuldade = ? and questao.disciplina = ?";
         PreparedStatement statement;
         ResultSet result = null;
 
         try {
-            questaoDAO.buscar(questao);
             statement = getConnection().prepareStatement(sql);
-            statement.setInt(1, questao.getDificuldade().getId());
-            statement.setLong(2, questao.getDisciplina().getId());
+            statement.setInt(1, dificuldade.getId());
+            statement.setLong(2, disciplina.getId());
             result = statement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();

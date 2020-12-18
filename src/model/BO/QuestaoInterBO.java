@@ -3,6 +3,7 @@ package src.model.BO;
 import java.util.List;
 
 import src.exception.OperationException;
+import src.model.QuestaoDificuldade;
 import src.model.VO.DisciplinaVO;
 import src.model.VO.ProvaVO;
 import src.model.VO.QuestaoVO;
@@ -19,7 +20,7 @@ public interface QuestaoInterBO<QuestaoDerivadaVO extends QuestaoVO> extends Bas
 
     public List<QuestaoDerivadaVO> buscarPorDificuldade(QuestaoDerivadaVO questao, String assunto) throws OperationException;
 
-    public List<QuestaoDerivadaVO> buscarPorDificuldadeEDisciplina(QuestaoDerivadaVO questao) throws OperationException;
+    public List<QuestaoDerivadaVO> buscarPorDificuldadeEDisciplina(QuestaoDificuldade dificuldade, DisciplinaVO disciplina) throws OperationException;
 
     public void adicionar(QuestaoDerivadaVO questao, String assunto);
 

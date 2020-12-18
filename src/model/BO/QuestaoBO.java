@@ -160,14 +160,14 @@ public class QuestaoBO extends BaseBO<QuestaoVO> implements QuestaoInterBO<Quest
     }
 
     @Override
-    public List<QuestaoVO> buscarPorDificuldadeEDisciplina(QuestaoVO questao) throws OperationException {
+    public List<QuestaoVO> buscarPorDificuldadeEDisciplina(QuestaoDificuldade dificuldade, DisciplinaVO disciplina) throws OperationException {
         // busca todas as questoes desta disciplina neste nível de dificuldade
 
         List<QuestaoVO> lista = new ArrayList<QuestaoVO>();
 
-        if (questao != null && questao.getDisciplina() != null) {
-            lista.addAll(questaoSubjetivaBO.buscarPorDificuldadeEDisciplina((QuestaoSubjetivaVO)questao));
-            lista.addAll(questaoComAlternativasBO.buscarPorDificuldadeEDisciplina((QuestaoComAlternativasVO)questao));
+        if (dificuldade != null && disciplina != null) {
+            lista.addAll(questaoSubjetivaBO.buscarPorDificuldadeEDisciplina(dificuldade, disciplina));
+            lista.addAll(questaoComAlternativasBO.buscarPorDificuldadeEDisciplina(dificuldade, disciplina));
         } else
             throw new OperationException("A disciplina fornecida não pode ser nula.");
 

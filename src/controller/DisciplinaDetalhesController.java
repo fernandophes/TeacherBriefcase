@@ -60,7 +60,6 @@ public class DisciplinaDetalhesController extends BarraController {
         atualizarAssuntos();
         atualizarProvas();
         atualizarQuestoes();
-        gerarAtualizarQuantidades();
     }
 
     @FXML
@@ -106,8 +105,10 @@ public class DisciplinaDetalhesController extends BarraController {
 
     public void atualizarProvas() {
 
-        Node criar = flowPaneProvas.getChildren().get(0);
+        Node aleatoria = flowPaneProvas.getChildren().get(0);
+        Node criar = flowPaneProvas.getChildren().get(1);
         flowPaneProvas.getChildren().clear();
+        flowPaneProvas.getChildren().add(aleatoria);
         flowPaneProvas.getChildren().add(criar);
 
         // Título e quantidade
@@ -375,79 +376,34 @@ public class DisciplinaDetalhesController extends BarraController {
     @FXML
     Label gerarResumo;
 
-    public void gerarAtualizarQuantidades() {
-        try {
-            QuestaoVO modeloFacil = new QuestaoSubjetivaVO();
-            modeloFacil.setDificuldade(QuestaoDificuldade.FACIL);
-            modeloFacil.setDisciplina(disciplina);
-            gerarFaceis.setMax(questaoBO.buscarPorDificuldadeEDisciplina(modeloFacil).size());
-
-            QuestaoVO modeloMedia = new QuestaoSubjetivaVO();
-            modeloMedia.setDificuldade(QuestaoDificuldade.MEDIA);
-            modeloMedia.setDisciplina(disciplina);
-            gerarMedias.setMax(questaoBO.buscarPorDificuldadeEDisciplina(modeloMedia).size());
-
-            QuestaoVO modeloDificil = new QuestaoSubjetivaVO();
-            modeloDificil.setDificuldade(QuestaoDificuldade.DIFICIL);
-            modeloDificil.setDisciplina(disciplina);
-            gerarDificeis.setMax(questaoBO.buscarPorDificuldadeEDisciplina(modeloDificil).size());
-
-            gerarAtualizarQuantidadeQuaisquer();
-        } catch (OperationException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void gerarAtualizarQuantidadeQuaisquer() {
-        int total;
-        try {
-            total = questaoBO.buscar(disciplina).size();
-            int faceis = (int) gerarFaceis.getValue();
-            int medias = (int) gerarMedias.getValue();
-            int dificeis = (int) gerarDificeis.getValue();
-
-            int max = total - faceis - medias - dificeis;
-
-            // Reduz a quantidade selecionada se exceder o máximo
-            if (gerarQuaisquer.getValue() > max)
-                gerarQuaisquer.setValue(max);
-
-            gerarQuaisquer.setMax(max);
-        } catch (OperationException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void gerarAtualizarResumo(ActionEvent event) {
 
-        gerarAtualizarQuantidadeQuaisquer();
+        // int faceis = Integer.parseInt(gerarFaceis.getText());
+        // int medias = Integer.parseInt(gerarMedias.getText());
+        // int dificeis = Integer.parseInt(gerarDificeis.getText());
+        // int quaisquer = Integer.parseInt(gerarQuaisquer.getText());
+        // int total = faceis + medias + dificeis + quaisquer;
 
-        int faceis = (int) gerarFaceis.getValue();
-        int medias = (int) gerarMedias.getValue();
-        int dificeis = (int) gerarDificeis.getValue();
-        int quaisquer = (int) gerarQuaisquer.getValue();
-        int total = faceis + medias + dificeis + quaisquer;
+        // String resumo = "Total: " + total;
 
-        String resumo = "Total: " + total + " (" + faceis + " fác., " + medias + " méd., " + dificeis + " dif., " + quaisquer + " q.)";
-
-        gerarResumo.setText(resumo);
+        // gerarResumo.setText(resumo);
 
     }
 
     public void gerarProvaAleatoria(ActionEvent event) {
 
-        int faceis = (int) gerarFaceis.getValue();
-        int medias = (int) gerarMedias.getValue();
-        int dificeis = (int) gerarDificeis.getValue();
-        int quaisquer = (int) gerarQuaisquer.getValue();
+        // int faceis = Integer.parseInt(gerarFaceis.getText());
+        // int medias = Integer.parseInt(gerarMedias.getText());
+        // int dificeis = Integer.parseInt(gerarDificeis.getText());
+        // int quaisquer = Integer.parseInt(gerarQuaisquer.getText());
 
-        try {
-            ProvaVO prova = provaBO.gerar(disciplina, quaisquer, faceis, medias, dificeis);
-            prova.setTitulo(gerarProvaTitulo.getText());
-            verProva(prova);
-        } catch (OperationException e) {
-            e.printStackTrace();
-        }
+        // try {
+        //     ProvaVO prova = provaBO.gerar(disciplina, quaisquer, faceis, medias, dificeis);
+        //     prova.setTitulo(gerarProvaTitulo.getText());
+        //     verProva(prova);
+        // } catch (OperationException e) {
+        //     e.printStackTrace();
+        // }
     }
 
     @FXML

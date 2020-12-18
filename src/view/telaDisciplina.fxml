@@ -115,22 +115,22 @@
                                        </VBox.margin>
                                     </Label>
                                     <TextField fx:id="gerarProvaTitulo" />
-                                    <HBox>
+                                    <HBox spacing="4.0">
                                        <children>
                                           <VBox alignment="CENTER" prefWidth="100.0" spacing="4.0">
                                              <children>
                                                 <Label text="Quest. faceis" />
-                                                <Slider fx:id="gerarFaceis" max="0.0" onDragDetected="#gerarAtualizarResumo" />
+                                                <TextField fx:id="gerarFaceis" onInputMethodTextChanged="#atualizarResumo" />
                                                 <Label text="Difíceis" />
-                                                <Slider fx:id="gerarDificeis" max="0.0" onDragDetected="#gerarAtualizarResumo" />
+                                                <TextField fx:id="gerarDificeis" layoutX="10.0" layoutY="31.0" onInputMethodTextChanged="#atualizarResumo" />
                                              </children>
                                           </VBox>
                                           <VBox alignment="CENTER" prefWidth="100.0" spacing="4.0">
                                              <children>
                                                 <Label text="Médias" />
-                                                <Slider fx:id="gerarMedias" max="0.0" onDragDetected="#gerarAtualizarResumo" />
+                                                <TextField fx:id="gerarMedias" onInputMethodTextChanged="#atualizarResumo" />
                                                 <Label text="Quaisquer" />
-                                                <Slider fx:id="gerarQuaisquer" max="0.0" onDragDetected="#gerarAtualizarResumo" />
+                                                <TextField fx:id="gerarQuaisquer" layoutX="10.0" layoutY="46.0" onInputMethodTextChanged="#atualizarResumo" />
                                              </children>
                                           </VBox>
                                        </children>

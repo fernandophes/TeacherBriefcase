@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import src.exception.OperationException;
+import src.model.QuestaoDificuldade;
 import src.model.DAO.QuestaoComAlternativasDAO;
 import src.model.VO.AlternativaVO;
 import src.model.VO.DisciplinaVO;
@@ -206,14 +207,14 @@ public class QuestaoComAlternativasBO extends BaseBO<QuestaoComAlternativasVO>
     }
 
     @Override
-    public List<QuestaoComAlternativasVO> buscarPorDificuldadeEDisciplina(QuestaoComAlternativasVO questao)
+    public List<QuestaoComAlternativasVO> buscarPorDificuldadeEDisciplina(QuestaoDificuldade dificuldade, DisciplinaVO disciplina)
             throws OperationException {
         // busca todas as questoes desta disciplina neste nível de dificuldade
 
         List<QuestaoComAlternativasVO> lista = new ArrayList<QuestaoComAlternativasVO>();
 
-        if (questao != null && questao.getDisciplina() != null) {
-            ResultSet consulta = questaoComAlternativasDAO.buscarPorDificuldadeEDisciplina(questao);
+        if (dificuldade != null && disciplina != null) {
+            ResultSet consulta = questaoComAlternativasDAO.buscarPorDificuldadeEDisciplina(dificuldade, disciplina);
 
             if (consulta != null)
                 try {
