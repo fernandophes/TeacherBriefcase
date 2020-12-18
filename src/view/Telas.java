@@ -6,9 +6,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import src.controller.DisciplinaDetalhesController;
+import src.controller.ProvaController;
 import src.controller.QuestaoComAlternativasController;
 import src.controller.QuestaoSubjetivaController;
 import src.model.VO.DisciplinaVO;
+import src.model.VO.ProvaVO;
 import src.model.VO.QuestaoComAlternativasVO;
 import src.model.VO.QuestaoSubjetivaVO;
 
@@ -52,10 +54,12 @@ public class Telas extends Application {
         
     }
 
-    public static void telaProvas() throws Exception {
-        Parent root = FXMLLoader.load(Telas.class.getResource("telaProvas.fxml"));
+    public static void telaProva(ProvaVO prova) throws Exception {
+        FXMLLoader loader = new FXMLLoader(Telas.class.getResource("telaProva.fxml"));
+        loader.setController(new ProvaController(prova));
+        Parent root = loader.load();
         Scene cena = new Scene(root);
-        primaryStage.setTitle("Provas | Teacher Briefcase");
+        primaryStage.setTitle(prova.getTitulo() + " | Teacher Briefcase");
         primaryStage.setScene(cena);
     }
 

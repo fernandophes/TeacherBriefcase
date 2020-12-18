@@ -197,9 +197,9 @@ public class DisciplinasController extends BarraController {
                 @Override
                 public void handle(ActionEvent event) {
                     if (leciona)
-                        remover(event, disciplina);
+                        remover(disciplina);
                     else
-                        adicionar(event, disciplina);
+                        adicionar(disciplina);
                 }
             });
 
@@ -247,14 +247,14 @@ public class DisciplinasController extends BarraController {
         }
     }
 
-    public void adicionar(ActionEvent event, DisciplinaVO disciplina) {
+    public void adicionar(DisciplinaVO disciplina) {
         ProfessorBO professorBO = new ProfessorBO();
         professorBO.adicionar(ProfessorVO.logado, disciplina);
         atualizarMinhasDisciplinas();
         atualizarTodasAsDisciplinas();
     }
 
-    public void remover(ActionEvent event, DisciplinaVO disciplina) {
+    public void remover(DisciplinaVO disciplina) {
         ProfessorBO professorBO = new ProfessorBO();
         professorBO.remover(ProfessorVO.logado, disciplina);
         atualizarMinhasDisciplinas();

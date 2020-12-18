@@ -10,6 +10,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
@@ -36,10 +37,15 @@ public class QuestaoSubjetivaController extends BarraController {
     }
 
     @FXML
+    Hyperlink voltarDisciplina;
+
+    @FXML
     @Override
     protected void initialize() {
         super.initialize();
         atualizarQuestao();
+
+        voltarDisciplina.setText(questao.getDisciplina().getNome());
     }
 
     @FXML
@@ -159,7 +165,6 @@ public class QuestaoSubjetivaController extends BarraController {
 
             questaoSubjetivaBO.atualizar(questao);
             atualizarQuestao();
-            voltar(event);
         } catch (OperationException e) {
             e.printStackTrace();
         }
@@ -168,13 +173,18 @@ public class QuestaoSubjetivaController extends BarraController {
     public void excluir(ActionEvent event) {
         try {
             questaoSubjetivaBO.excluir(questao);
-            voltar(event);
+            voltar();
         } catch (OperationException e) {
             e.printStackTrace();
         }
     }
 
-    public void voltar(ActionEvent event) {
+    public void salvarEVoltar(ActionEvent event) {
+        editar(event);
+        voltar();
+    }
+
+    public void voltar() {
         try {
             Telas.telaDisciplinaDetalhes(questao.getDisciplina());
         } catch (Exception e) {

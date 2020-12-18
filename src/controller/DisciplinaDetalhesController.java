@@ -218,7 +218,7 @@ public class DisciplinaDetalhesController extends BarraController {
             titulo.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    verProva(event, prova);
+                    verProva(prova);
                 }
             });
             card.getChildren().add(titulo);
@@ -283,7 +283,7 @@ public class DisciplinaDetalhesController extends BarraController {
         titulo.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                verQuestao(event, questao);
+                verQuestao(questao);
             }
         });
         card.getChildren().add(titulo);
@@ -301,16 +301,16 @@ public class DisciplinaDetalhesController extends BarraController {
         return card;
     }
 
-    public void verQuestao(ActionEvent event, QuestaoVO questao) {
+    public void verQuestao(QuestaoVO questao) {
 
         if (questao instanceof QuestaoSubjetivaVO)
-            verQuestaoSubjetiva(event, (QuestaoSubjetivaVO) questao);
+            verQuestaoSubjetiva((QuestaoSubjetivaVO) questao);
         else if (questao instanceof QuestaoComAlternativasVO)
-            verQuestaoComAlternativas(event, (QuestaoComAlternativasVO) questao);
+            verQuestaoComAlternativas((QuestaoComAlternativasVO) questao);
 
     }
 
-    public void verQuestaoSubjetiva(ActionEvent event, QuestaoSubjetivaVO questao) {
+    public void verQuestaoSubjetiva(QuestaoSubjetivaVO questao) {
 
         try {
             Telas.telaQuestaoSubjetiva(questao);
@@ -320,7 +320,7 @@ public class DisciplinaDetalhesController extends BarraController {
 
     }
 
-    public void verQuestaoComAlternativas(ActionEvent event, QuestaoComAlternativasVO questao) {
+    public void verQuestaoComAlternativas(QuestaoComAlternativasVO questao) {
 
         try {
             Telas.telaQuestaoComAlternativas(questao);
@@ -330,8 +330,12 @@ public class DisciplinaDetalhesController extends BarraController {
 
     }
 
-    public void verProva(ActionEvent event, ProvaVO prova) {
-        // TODO
+    public void verProva(ProvaVO prova) {
+        try {
+            Telas.telaProva(prova);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -395,7 +399,7 @@ public class DisciplinaDetalhesController extends BarraController {
             QuestaoSubjetivaBO questaoSubjetivaBO = new QuestaoSubjetivaBO();
             questaoSubjetivaBO.cadastrar(questao);
 
-            verQuestaoSubjetiva(event, questao);
+            verQuestaoSubjetiva(questao);
         } catch (OperationException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -411,7 +415,7 @@ public class DisciplinaDetalhesController extends BarraController {
             QuestaoComAlternativasBO questaoComAlternativasBO = new QuestaoComAlternativasBO();
             questaoComAlternativasBO.cadastrar(questao);
 
-            verQuestaoComAlternativas(event, questao);
+            verQuestaoComAlternativas(questao);
         } catch (OperationException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -474,6 +478,7 @@ public class DisciplinaDetalhesController extends BarraController {
 
     public void voltar(ActionEvent event) {
         try {
+            editar(event);
             Telas.telaDisciplinas();
         } catch (Exception e) {
             e.printStackTrace();
