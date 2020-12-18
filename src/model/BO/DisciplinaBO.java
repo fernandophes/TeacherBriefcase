@@ -16,6 +16,8 @@ import src.model.VO.QuestaoVO;
 public class DisciplinaBO extends BaseBO<DisciplinaVO> implements DisciplinaInterBO {
 
     private static DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
+    private static QuestaoBO questaoBO = new QuestaoBO();
+    private static AssuntoBO assuntoBO = new AssuntoBO();
 
     @Override
     public void cadastrar(DisciplinaVO disciplina) throws OperationException {
@@ -58,7 +60,6 @@ public class DisciplinaBO extends BaseBO<DisciplinaVO> implements DisciplinaInte
                     criacao.setTime(consulta.getDate("data_criacao"));
                     disciplina.setDataCriacao(criacao);
 
-                    AssuntoBO assuntoBO = new AssuntoBO();
                     disciplina.setAssuntos(assuntoBO.buscar(disciplina));
                 }
         } catch (SQLException e) {
@@ -169,7 +170,6 @@ public class DisciplinaBO extends BaseBO<DisciplinaVO> implements DisciplinaInte
             disciplina.setAssuntos(lista);
 
             // Adiciona ao Banco de Dados
-            AssuntoBO assuntoBO = new AssuntoBO();
             assuntoBO.cadastrar(disciplina, assunto);
 
         }
@@ -185,7 +185,6 @@ public class DisciplinaBO extends BaseBO<DisciplinaVO> implements DisciplinaInte
             disciplina.setAssuntos(lista);
 
             // Atualizar as questões (remover este assunto da lista de cada uma)
-            QuestaoBO questaoBO = new QuestaoBO();
             List<QuestaoVO> questoes = questaoBO.buscar(disciplina);
 
             Iterator<QuestaoVO> questoesIt = questoes.iterator();
@@ -194,7 +193,6 @@ public class DisciplinaBO extends BaseBO<DisciplinaVO> implements DisciplinaInte
             }
 
             // Remove do Banco de Dados
-            AssuntoBO assuntoBO = new AssuntoBO();
             assuntoBO.excluir(disciplina, assunto);
 
         }
@@ -203,11 +201,10 @@ public class DisciplinaBO extends BaseBO<DisciplinaVO> implements DisciplinaInte
     @Override
     public void adicionar(DisciplinaVO disciplina, QuestaoVO questao) throws OperationException {
 
-        QuestaoBO questaoBO = new QuestaoBO();
         List<QuestaoVO> lista = questaoBO.buscar(disciplina);
 
         // Se esta questão não estiver na lista desta disciplina, será adicionada
-        if (!lista.contains(questao))
+        if (!questaoBO.contem(lista, questao))
             questaoBO.atualizar(questao, disciplina);
 
     }

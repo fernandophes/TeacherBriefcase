@@ -24,7 +24,7 @@ public class QuestaoDAO<QuestaoDerivadaVO extends QuestaoVO> extends BaseDAO imp
             statement = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setLong(1, questao.getDisciplina().getId());
             statement.setString(2, questao.getEnunciado());
-            statement.setInt(3, questao.getDificuldade());
+            statement.setInt(3, questao.getDificuldade().getId());
             statement.setTimestamp(4, new Timestamp(questao.getDataCriacao().getTimeInMillis()));
 
             statement.execute();
@@ -135,7 +135,7 @@ public class QuestaoDAO<QuestaoDerivadaVO extends QuestaoVO> extends BaseDAO imp
 
         try {
             statement = getConnection().prepareStatement(sql);
-            statement.setInt(1, questao.getDificuldade());
+            statement.setInt(1, questao.getDificuldade().getId());
             result = statement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -152,7 +152,7 @@ public class QuestaoDAO<QuestaoDerivadaVO extends QuestaoVO> extends BaseDAO imp
         try {
             PreparedStatement statement = getConnection().prepareStatement(sql);
             statement.setString(1, "%" + assunto + "%");
-            statement.setInt(2, questao.getDificuldade());
+            statement.setInt(2, questao.getDificuldade().getId());
 
             resultado = statement.executeQuery();
         } catch (SQLException e) {
@@ -170,7 +170,7 @@ public class QuestaoDAO<QuestaoDerivadaVO extends QuestaoVO> extends BaseDAO imp
 
         try {
             statement = getConnection().prepareStatement(sql);
-            statement.setInt(1, questao.getDificuldade());
+            statement.setInt(1, questao.getDificuldade().getId());
             statement.setLong(2, questao.getDisciplina().getId());
             result = statement.executeQuery();
         } catch (SQLException e) {
@@ -188,7 +188,7 @@ public class QuestaoDAO<QuestaoDerivadaVO extends QuestaoVO> extends BaseDAO imp
         try {
             statement = getConnection().prepareStatement(sql);
             statement.setString(1, questao.getEnunciado());
-            statement.setInt(2, questao.getDificuldade());
+            statement.setInt(2, questao.getDificuldade().getId());
             statement.setLong(3, questao.getId());
 
             if (statement.executeUpdate() == 0)

@@ -14,6 +14,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Separator;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
@@ -24,6 +25,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import src.exception.OperationException;
+import src.model.QuestaoDificuldade;
 import src.model.BO.AssuntoBO;
 import src.model.BO.DisciplinaBO;
 import src.model.BO.ProvaBO;
@@ -58,6 +60,7 @@ public class DisciplinaDetalhesController extends BarraController {
         atualizarAssuntos();
         atualizarProvas();
         atualizarQuestoes();
+        gerarAtualizarQuantidades();
     }
 
     @FXML
@@ -339,9 +342,6 @@ public class DisciplinaDetalhesController extends BarraController {
     }
 
     @FXML
-    Label erroNovaProva;
-
-    @FXML
     TextField novaProvaTitulo;
 
     public void cadastrarProva(ActionEvent event) {
@@ -351,13 +351,103 @@ public class DisciplinaDetalhesController extends BarraController {
 
         try {
             provaBO.cadastrar(prova);
+            verProva(prova);
         } catch (OperationException e) {
-            erroNovaProva.setText(e.getMessage());
-            erroNovaProva.setVisible(true);
             e.printStackTrace();
         }
-        atualizarProvas();
-        atualizarQuestoes();
+    }
+
+    @FXML
+    TextField gerarProvaTitulo;
+
+    @FXML
+    Slider gerarFaceis;
+
+    @FXML
+    Slider gerarMedias;
+
+    @FXML
+    Slider gerarDificeis;
+
+    @FXML
+    Slider gerarQuaisquer;
+
+    @FXML
+    Label gerarResumo;
+
+    public void gerarAtualizarQuantidades() {
+        try {
+            QuestaoVO modeloFacil = new QuestaoSubjetivaVO();
+            modeloFacil.setDificuldade(QuestaoDificuldade.FACIL);
+            modeloFacil.setDisciplina(disciplina);
+            gerarFaceis.setMax(questaoBO.buscarPorDificuldadeEDisciplina(modeloFacil).size());
+
+            QuestaoVO modeloMedia = new QuestaoSubjetivaVO();
+            modeloMedia.setDificuldade(QuestaoDificuldade.MEDIA);
+            modeloMedia.setDisciplina(disciplina);
+            gerarMedias.setMax(questaoBO.buscarPorDificuldadeEDisciplina(modeloMedia).size());
+
+            QuestaoVO modeloDificil = new QuestaoSubjetivaVO();
+            modeloDificil.setDificuldade(QuestaoDificuldade.DIFICIL);
+            modeloDificil.setDisciplina(disciplina);
+            gerarDificeis.setMax(questaoBO.buscarPorDificuldadeEDisciplina(modeloDificil).size());
+
+            gerarAtualizarQuantidadeQuaisquer();
+        } catch (OperationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void gerarAtualizarQuantidadeQuaisquer() {
+        int total;
+        try {
+            total = questaoBO.buscar(disciplina).size();
+            int faceis = (int) gerarFaceis.getValue();
+            int medias = (int) gerarMedias.getValue();
+            int dificeis = (int) gerarDificeis.getValue();
+
+            int max = total - faceis - medias - dificeis;
+
+            // Reduz a quantidade selecionada se exceder o máximo
+            if (gerarQuaisquer.getValue() > max)
+                gerarQuaisquer.setValue(max);
+
+            gerarQuaisquer.setMax(max);
+        } catch (OperationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void gerarAtualizarResumo(ActionEvent event) {
+
+        gerarAtualizarQuantidadeQuaisquer();
+
+        int faceis = (int) gerarFaceis.getValue();
+        int medias = (int) gerarMedias.getValue();
+        int dificeis = (int) gerarDificeis.getValue();
+        int quaisquer = (int) gerarQuaisquer.getValue();
+        int total = faceis + medias + dificeis + quaisquer;
+
+        String resumo = "Total: " + total + " (" + faceis + " fác., " + medias + " méd., " + dificeis + " dif., " + quaisquer + " q.)";
+
+        gerarResumo.setText(resumo);
+
+    }
+
+    public void gerarProvaAleatoria(ActionEvent event) {
+
+        int faceis = (int) gerarFaceis.getValue();
+        int medias = (int) gerarMedias.getValue();
+        int dificeis = (int) gerarDificeis.getValue();
+        int quaisquer = (int) gerarQuaisquer.getValue();
+
+        try {
+            ProvaVO prova = provaBO.gerar(disciplina, quaisquer, faceis, medias, dificeis);
+            prova.setTitulo(gerarProvaTitulo.getText());
+            verProva(prova);
+        } catch (OperationException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -377,11 +467,11 @@ public class DisciplinaDetalhesController extends BarraController {
             questao.setEnunciado(novaQuestaoEnunciado.getText());
             questao.setDisciplina(disciplina);
             if (nivelFacil.isSelected())
-                questao.setDificuldade(QuestaoVO.FACIL);
+                questao.setDificuldade(QuestaoDificuldade.FACIL);
             else if (nivelMedio.isSelected())
-                questao.setDificuldade(QuestaoVO.MEDIA);
+                questao.setDificuldade(QuestaoDificuldade.MEDIA);
             else if (nivelDificil.isSelected())
-                questao.setDificuldade(QuestaoVO.DIFICIL);
+                questao.setDificuldade(QuestaoDificuldade.DIFICIL);
             else
                 throw new OperationException("O nível de dificuldade não está correto.");
         } catch (OperationException e) {

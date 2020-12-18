@@ -111,16 +111,39 @@
                                  <children>
                                     <Label text="Título">
                                        <VBox.margin>
-                                          <Insets top="20.0" />
+                                          <Insets />
                                        </VBox.margin>
                                     </Label>
-                                    <TextField fx:id="novaProvaTitulo" />
-                                    <Button mnemonicParsing="false" onAction="#cadastrarProva" text="Criar">
+                                    <TextField fx:id="gerarProvaTitulo" />
+                                    <HBox>
+                                       <children>
+                                          <VBox alignment="CENTER" prefWidth="100.0" spacing="4.0">
+                                             <children>
+                                                <Label text="Quest. faceis" />
+                                                <Slider fx:id="gerarFaceis" max="0.0" onDragDetected="#gerarAtualizarResumo" />
+                                                <Label text="Difíceis" />
+                                                <Slider fx:id="gerarDificeis" max="0.0" onDragDetected="#gerarAtualizarResumo" />
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER" prefWidth="100.0" spacing="4.0">
+                                             <children>
+                                                <Label text="Médias" />
+                                                <Slider fx:id="gerarMedias" max="0.0" onDragDetected="#gerarAtualizarResumo" />
+                                                <Label text="Quaisquer" />
+                                                <Slider fx:id="gerarQuaisquer" max="0.0" onDragDetected="#gerarAtualizarResumo" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="4.0" top="4.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <Label fx:id="gerarResumo" text="Total: 0 (0 fác., 0 méd., 0 dif., 0 q.)" />
+                                    <Button mnemonicParsing="false" onAction="#gerarProvaAleatoria" text="Gerar Prova Aleatória">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Label fx:id="erroNovaProva" prefHeight="39.0" prefWidth="176.0" textFill="RED" visible="false" />
                                  </children>
                                  <padding>
                                     <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
@@ -129,39 +152,26 @@
                                     <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                                  </FlowPane.margin>
                               </VBox>
-                              <VBox alignment="CENTER" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #EEEEEE;">
-                                 <FlowPane.margin>
-                                    <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                                 </FlowPane.margin>
+                              <VBox alignment="CENTER" layoutX="14.0" layoutY="14.0" prefWidth="200.0" style="-fx-background-color: #EEEEEE;">
                                  <children>
-                                    <Hyperlink text="Título da Prova" textFill="#6610f2">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" />
-                                       </font>
-                                    </Hyperlink>
-                                    <Separator prefWidth="200.0">
+                                    <Label text="Título">
                                        <VBox.margin>
-                                          <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                                          <Insets />
                                        </VBox.margin>
-                                    </Separator>
-                                    <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
-                                       <children>
-                                          <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                                             <children>
-                                                <Hyperlink text="208" textFill="#6610f2">
-                                                   <font>
-                                                      <Font size="16.0" />
-                                                   </font>
-                                                </Hyperlink>
-                                                <Label text="Questões" />
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                    </HBox>
+                                    </Label>
+                                    <TextField fx:id="novaProvaTitulo1" />
+                                    <Button mnemonicParsing="false" onAction="#cadastrarProva" text="Criar Prova em Branco">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </Button>
                                  </children>
                                  <padding>
                                     <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                                  </padding>
+                                 <FlowPane.margin>
+                                    <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                                 </FlowPane.margin>
                               </VBox>
                            </children>
                         </FlowPane>
@@ -211,27 +221,6 @@
                                           <Insets top="4.0" />
                                        </VBox.margin>
                                     </HBox>
-                                 </children>
-                                 <padding>
-                                    <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                                 </padding>
-                                 <FlowPane.margin>
-                                    <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                                 </FlowPane.margin>
-                              </VBox>
-                              <VBox alignment="CENTER" prefWidth="200.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #EEEEEE;">
-                                 <children>
-                                    <Hyperlink alignment="CENTER" prefHeight="90.0" prefWidth="182.0" text="Enunciado" textAlignment="CENTER" textFill="#6610f2" wrapText="true">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" />
-                                       </font>
-                                    </Hyperlink>
-                                    <Separator prefWidth="200.0">
-                                       <VBox.margin>
-                                          <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                                       </VBox.margin>
-                                    </Separator>
-                                    <Label text="Subjetiva" />
                                  </children>
                                  <padding>
                                     <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />

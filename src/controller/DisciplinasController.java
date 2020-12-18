@@ -220,9 +220,6 @@ public class DisciplinasController extends BarraController {
     @FXML
     private TextField novaDisciplinaNome;
 
-    @FXML
-    private Label erroNovaDisciplina;
-
     public void cadastrar(ActionEvent event) {
         try {
             DisciplinaVO disciplina = new DisciplinaVO();
@@ -233,8 +230,6 @@ public class DisciplinasController extends BarraController {
 
             atualizarTodasAsDisciplinas();
         } catch (OperationException e) {
-            erroNovaDisciplina.setText(e.getMessage());
-            erroNovaDisciplina.setVisible(true);
             e.printStackTrace();
         }
     }

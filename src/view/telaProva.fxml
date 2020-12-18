@@ -45,7 +45,7 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Hyperlink onAction="#voltar" text="&lt; Minhas Disciplinas">
+                              <Hyperlink onAction="#salvarEVoltar" text="&lt; Minhas Disciplinas">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
@@ -67,7 +67,7 @@
                               </Button>
                            </children>
                         </HBox>
-                        <Label fx:id="labelQuestoes" layoutX="24.0" layoutY="218.0" text="Questões desta prova (_)">
+                        <Label fx:id="labelQuestoesDaProva" layoutX="24.0" layoutY="218.0" text="Questões desta prova (_)">
                            <font>
                               <Font name="System Bold" size="30.0" />
                            </font>
@@ -97,7 +97,7 @@
                               </VBox>
                            </children>
                         </FlowPane>
-                        <Label fx:id="labelQuestoes1" layoutX="24.0" layoutY="124.0" text="Todas as questões da disciplina (_)">
+                        <Label fx:id="labelQuestoesDaDisciplina" layoutX="24.0" layoutY="124.0" text="Todas as questões da disciplina (_)">
                            <font>
                               <Font name="System Bold" size="30.0" />
                            </font>

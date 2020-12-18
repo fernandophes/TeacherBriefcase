@@ -5,24 +5,21 @@ import java.util.Calendar;
 import java.util.List;
 
 import src.exception.OperationException;
+import src.model.QuestaoDificuldade;
 
 public abstract class QuestaoVO extends BaseVO {
-    
+
     private String enunciado = "";
     private DisciplinaVO disciplina = new DisciplinaVO();
-    private int dificuldade;
+    private QuestaoDificuldade dificuldade;
     private Calendar dataCriacao = Calendar.getInstance();
     private List<String> assuntos = new ArrayList<String>();
-
-    public static final int FACIL = 0;
-    public static final int MEDIA = 1;
-    public static final int DIFICIL = 2;
 
     public QuestaoVO() {
 
     }
 
-    public QuestaoVO(int dificuldade, String enunciado) throws OperationException {
+    public QuestaoVO(QuestaoDificuldade dificuldade, String enunciado) throws OperationException {
         setDificuldade(dificuldade);
         setEnunciado(enunciado);
     }
@@ -38,7 +35,7 @@ public abstract class QuestaoVO extends BaseVO {
             throw new OperationException("O id precisa ser maior que zero");
     }
 
-    public QuestaoVO(int dificuldade, List<String> assuntos, String enunciado) throws OperationException {
+    public QuestaoVO(QuestaoDificuldade dificuldade, List<String> assuntos, String enunciado) throws OperationException {
         setDificuldade(dificuldade);
         setEnunciado(enunciado);
         setAssuntos(assuntos);
@@ -63,13 +60,12 @@ public abstract class QuestaoVO extends BaseVO {
         this.disciplina = disciplina;
     }
 
-    public int getDificuldade() {
+    public QuestaoDificuldade getDificuldade() {
         return dificuldade;
     }
 
-    public void setDificuldade(int dificuldade) {
-        if (dificuldade >= 0)
-            this.dificuldade = dificuldade;
+    public void setDificuldade(QuestaoDificuldade dificuldade) {
+        this.dificuldade = dificuldade;
     }
 
     public Calendar getDataCriacao() {

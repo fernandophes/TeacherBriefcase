@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 import src.exception.OperationException;
+import src.model.QuestaoDificuldade;
 import src.model.DAO.ProvaDAO;
 import src.model.VO.DisciplinaVO;
 import src.model.VO.ProvaVO;
@@ -16,7 +17,8 @@ import src.model.VO.QuestaoVO;
 
 public class ProvaBO extends BaseBO<ProvaVO> implements ProvaInterBO {
 
-    private ProvaDAO provaDAO = new ProvaDAO();
+    private static ProvaDAO provaDAO = new ProvaDAO();
+    private static QuestaoBO questaoBO = new QuestaoBO();
 
     @Override
     public void cadastrar(ProvaVO prova) throws OperationException {
@@ -126,17 +128,17 @@ public class ProvaBO extends BaseBO<ProvaVO> implements ProvaInterBO {
         QuestaoBO questaoBO = new QuestaoBO();
 
         QuestaoVO facil = new QuestaoSubjetivaVO();
-        facil.setDificuldade(QuestaoVO.FACIL);
+        facil.setDificuldade(QuestaoDificuldade.FACIL);
         facil.setDisciplina(disciplina);
         List<QuestaoVO> listaFaceis = questaoBO.buscarPorDificuldadeEDisciplina(facil);
 
         QuestaoVO media = new QuestaoSubjetivaVO();
-        media.setDificuldade(QuestaoVO.MEDIA);
+        media.setDificuldade(QuestaoDificuldade.MEDIA);
         media.setDisciplina(disciplina);
         List<QuestaoVO> listaMedias = questaoBO.buscarPorDificuldadeEDisciplina(media);
 
         QuestaoVO dificil = new QuestaoSubjetivaVO();
-        dificil.setDificuldade(QuestaoVO.FACIL);
+        dificil.setDificuldade(QuestaoDificuldade.FACIL);
         dificil.setDisciplina(disciplina);
         List<QuestaoVO> listaDificeis = questaoBO.buscarPorDificuldadeEDisciplina(dificil);
 
@@ -144,25 +146,25 @@ public class ProvaBO extends BaseBO<ProvaVO> implements ProvaInterBO {
 
         Random gerador = new Random();
 
-        for (int i = faceis; i > 0 ; i--) {
+        for (int i = faceis; i > 0; i--) {
             int id = gerador.nextInt(listaFaceis.size());
             adicionar(prova, listaFaceis.get(id));
             listaFaceis.remove(id);
         }
 
-        for (int i = medias; i > 0 ; i--) {
+        for (int i = medias; i > 0; i--) {
             int id = gerador.nextInt(listaMedias.size());
             adicionar(prova, listaMedias.get(id));
             listaMedias.remove(id);
         }
 
-        for (int i = dificeis; i > 0 ; i--) {
+        for (int i = dificeis; i > 0; i--) {
             int id = gerador.nextInt(listaDificeis.size());
             adicionar(prova, listaDificeis.get(id));
             listaDificeis.remove(id);
         }
 
-        for (int i = quaisquer; i > 0 ; i--) {
+        for (int i = quaisquer; i > 0; i--) {
             int id = gerador.nextInt(listaQuaisquer.size());
             adicionar(prova, listaQuaisquer.get(id));
             listaQuaisquer.remove(id);
@@ -178,14 +180,14 @@ public class ProvaBO extends BaseBO<ProvaVO> implements ProvaInterBO {
 
         // Se esta questão não estiver na lista desta prova, poderá ou não ser
         // adicionada
-        if (!lista.contains(questao))
+        if (!questaoBO.contem(lista, questao))
             // Esta questão só será adicionada a esta prova se ambas pertencerem à mesma
             // disciplina
-            if (prova.getDisciplina().equals(questao.getDisciplina())) {
+            if (prova.getDisciplina().getId() == questao.getDisciplina().getId()) {
                 lista.add(questao);
                 prova.setQuestoes(lista);
 
-                provaDAO.remover(prova, questao);
+                provaDAO.adicionar(prova, questao);
             } else
                 throw new OperationException("A prova e a questão não pertencem à mesma disciplina");
     }
@@ -195,10 +197,12 @@ public class ProvaBO extends BaseBO<ProvaVO> implements ProvaInterBO {
         List<QuestaoVO> lista = prova.getQuestoes();
 
         // Se esta questão estiver na lista desta prova, será removida
-        if (lista.remove(questao)) {
+        if (questaoBO.contem(lista, questao)) {
+            lista.remove(questaoBO.localizar(lista, questao));
             prova.setQuestoes(lista);
 
             provaDAO.remover(prova, questao);
         }
+
     }
 }

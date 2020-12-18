@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import src.exception.OperationException;
+import src.model.QuestaoDificuldade;
 import src.model.DAO.QuestaoDAO;
 import src.model.VO.DisciplinaVO;
 import src.model.VO.ProvaVO;
@@ -48,7 +49,7 @@ public class QuestaoBO extends BaseBO<QuestaoVO> implements QuestaoInterBO<Quest
                 if (consulta != null)
                     while (consulta.next()) {
                         questao.setEnunciado(consulta.getString("enunciado"));
-                        questao.setDificuldade(consulta.getInt("dificuldade"));
+                        questao.setDificuldade(QuestaoDificuldade.buscar(consulta.getInt("dificuldade")));
                         Calendar criacao = Calendar.getInstance();
                         criacao.setTime(consulta.getDate("data_criacao"));
                         questao.setDataCriacao(criacao);

@@ -19,10 +19,10 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 import src.exception.OperationException;
+import src.model.QuestaoDificuldade;
 import src.model.BO.QuestaoBO;
 import src.model.BO.QuestaoSubjetivaBO;
 import src.model.VO.QuestaoSubjetivaVO;
-import src.model.VO.QuestaoVO;
 import src.view.Telas;
 
 public class QuestaoSubjetivaController extends BarraController {
@@ -65,11 +65,11 @@ public class QuestaoSubjetivaController extends BarraController {
 
     public void atualizarQuestao() {
 
-        if (questao.getDificuldade() == QuestaoVO.FACIL)
+        if (questao.getDificuldade() == QuestaoDificuldade.FACIL)
             nivelFacil.setSelected(true);
-        else if (questao.getDificuldade() == QuestaoVO.MEDIA)
+        else if (questao.getDificuldade() == QuestaoDificuldade.MEDIA)
             nivelMedio.setSelected(true);
-        else if (questao.getDificuldade() == QuestaoVO.DIFICIL)
+        else if (questao.getDificuldade() == QuestaoDificuldade.DIFICIL)
             nivelDificil.setSelected(true);
         else
             nivelFacil.setSelected(true);
@@ -155,11 +155,11 @@ public class QuestaoSubjetivaController extends BarraController {
             questao.setGabarito(questaoGabarito.getText());
 
             if (nivelFacil.isSelected())
-                questao.setDificuldade(QuestaoVO.FACIL);
+                questao.setDificuldade(QuestaoDificuldade.FACIL);
             else if (nivelMedio.isSelected())
-                questao.setDificuldade(QuestaoVO.MEDIA);
+                questao.setDificuldade(QuestaoDificuldade.MEDIA);
             else if (nivelDificil.isSelected())
-                questao.setDificuldade(QuestaoVO.DIFICIL);
+                questao.setDificuldade(QuestaoDificuldade.DIFICIL);
             else
                 throw new OperationException("O nível de dificuldade não está correto.");
 

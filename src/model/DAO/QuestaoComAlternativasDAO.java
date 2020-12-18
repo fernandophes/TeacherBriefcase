@@ -128,7 +128,7 @@ public class QuestaoComAlternativasDAO extends BaseDAO implements QuestaoComAlte
         try {
             PreparedStatement statement = getConnection().prepareStatement(sql);
             statement.setString(1, "%" + assunto + "%");
-            statement.setInt(2, questao.getDificuldade());
+            statement.setInt(2, questao.getDificuldade().getId());
 
             resultado = statement.executeQuery();
         } catch (SQLException e) {
@@ -147,7 +147,7 @@ public class QuestaoComAlternativasDAO extends BaseDAO implements QuestaoComAlte
         try {
             questaoDAO.buscar(questao);
             statement = getConnection().prepareStatement(sql);
-            statement.setInt(1, questao.getDificuldade());
+            statement.setInt(1, questao.getDificuldade().getId());
             result = statement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -164,7 +164,7 @@ public class QuestaoComAlternativasDAO extends BaseDAO implements QuestaoComAlte
         try {
             questaoDAO.buscar(questao);
             statement = getConnection().prepareStatement(sql);
-            statement.setInt(1, questao.getDificuldade());
+            statement.setInt(1, questao.getDificuldade().getId());
             statement.setLong(2, questao.getDisciplina().getId());
             result = statement.executeQuery();
         } catch (SQLException e) {

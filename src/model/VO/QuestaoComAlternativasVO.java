@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import src.exception.OperationException;
+import src.model.QuestaoDificuldade;
 
 public class QuestaoComAlternativasVO extends QuestaoVO {
     
@@ -26,11 +27,11 @@ public class QuestaoComAlternativasVO extends QuestaoVO {
             throw new OperationException("A questão fornecida não pode ser nula");
     }
 
-    public QuestaoComAlternativasVO(int dificuldade, String enunciado) throws OperationException {
+    public QuestaoComAlternativasVO(QuestaoDificuldade dificuldade, String enunciado) throws OperationException {
         super(dificuldade, enunciado);
     }
 
-    public QuestaoComAlternativasVO(int dificuldade, List<String> assuntos, String enunciado)
+    public QuestaoComAlternativasVO(QuestaoDificuldade dificuldade, List<String> assuntos, String enunciado)
             throws OperationException {
         super(dificuldade, assuntos, enunciado);
     }

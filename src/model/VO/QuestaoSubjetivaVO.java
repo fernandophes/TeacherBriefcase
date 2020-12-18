@@ -3,6 +3,7 @@ package src.model.VO;
 import java.util.List;
 
 import src.exception.OperationException;
+import src.model.QuestaoDificuldade;
 
 public class QuestaoSubjetivaVO extends QuestaoVO {
     
@@ -24,20 +25,20 @@ public class QuestaoSubjetivaVO extends QuestaoVO {
             throw new OperationException("A questão fornecida não pode ser nula");
     }
 
-    public QuestaoSubjetivaVO(int dificuldade, String enunciado) throws OperationException {
+    public QuestaoSubjetivaVO(QuestaoDificuldade dificuldade, String enunciado) throws OperationException {
         super(dificuldade, enunciado);
     }
 
-    public QuestaoSubjetivaVO(int dificuldade, List<String> assuntos, String enunciado) throws OperationException {
+    public QuestaoSubjetivaVO(QuestaoDificuldade dificuldade, List<String> assuntos, String enunciado) throws OperationException {
         super(dificuldade, assuntos, enunciado);
     }
 
-    public QuestaoSubjetivaVO(int dificuldade, String enunciado, String gabarito) throws OperationException {
+    public QuestaoSubjetivaVO(QuestaoDificuldade dificuldade, String enunciado, String gabarito) throws OperationException {
         super(dificuldade, enunciado);
         setGabarito(gabarito);
     }
 
-    public QuestaoSubjetivaVO(int dificuldade, List<String> assuntos, String enunciado, String gabarito)
+    public QuestaoSubjetivaVO(QuestaoDificuldade dificuldade, List<String> assuntos, String enunciado, String gabarito)
             throws OperationException {
         super(dificuldade, assuntos, enunciado);
         setGabarito(gabarito);

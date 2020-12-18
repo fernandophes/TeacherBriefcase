@@ -13,10 +13,12 @@ import src.model.VO.ProvaVO;
 import src.model.VO.QuestaoComAlternativasVO;
 import src.model.VO.QuestaoVO;
 
-public class QuestaoComAlternativasBO extends BaseBO<QuestaoComAlternativasVO> implements QuestaoInterBO<QuestaoComAlternativasVO> {
+public class QuestaoComAlternativasBO extends BaseBO<QuestaoComAlternativasVO>
+        implements QuestaoInterBO<QuestaoComAlternativasVO> {
 
     private static QuestaoBO questaoBO = new QuestaoBO();
     private static QuestaoComAlternativasDAO questaoComAlternativasDAO = new QuestaoComAlternativasDAO();
+    private static AlternativaBO alternativaBO = new AlternativaBO();
 
     public void adicionar(QuestaoComAlternativasVO questao, AlternativaVO alternativa) throws OperationException {
         // adiciona uma alternativa à questão
@@ -24,11 +26,10 @@ public class QuestaoComAlternativasBO extends BaseBO<QuestaoComAlternativasVO> i
         List<AlternativaVO> lista = questao.getAlternativas();
 
         // Se esta alternativa não estiver na lista desta questão, será adicionada
-        if (!lista.contains(alternativa)) {
+        if (!alternativaBO.contem(lista, alternativa)) {
             lista.add(alternativa);
             questao.setAlternativas(lista);
 
-            AlternativaBO alternativaBO = new AlternativaBO();
             alternativaBO.cadastrar(alternativa, questao);
         }
     }
@@ -39,11 +40,11 @@ public class QuestaoComAlternativasBO extends BaseBO<QuestaoComAlternativasVO> i
         List<AlternativaVO> lista = questao.getAlternativas();
 
         // Se esta alternativa estiver na lista desta questão, será removida
-        if (lista.remove(alternativa)) {
+        if (alternativaBO.contem(lista, alternativa)) {
+            lista.remove(alternativaBO.localizar(lista, alternativa));
             questao.setAlternativas(lista);
 
             // atualiza a alternativa (exclui, pois ela depende do vínculo com a questão)
-            AlternativaBO alternativaBO = new AlternativaBO();
             alternativaBO.excluir(alternativa);
         }
     }
@@ -93,7 +94,6 @@ public class QuestaoComAlternativasBO extends BaseBO<QuestaoComAlternativasVO> i
                         questao.setDisciplina(raiz.getDisciplina());
                         questao.setEnunciado(raiz.getEnunciado());
 
-                        AlternativaBO alternativaBO = new AlternativaBO();
                         questao.setAlternativas(alternativaBO.buscar(questao));
                     }
             } catch (SQLException e) {

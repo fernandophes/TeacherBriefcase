@@ -35,6 +35,21 @@ public class ProvaController extends BarraController {
 
     private ProvaVO prova;
 
+    @FXML
+    private Label labelQuestoesDaProva;
+
+    @FXML
+    private FlowPane flowPaneQuestoesDaProva;
+
+    @FXML
+    private Label labelQuestoesDaDisciplina;
+
+    @FXML
+    private FlowPane flowPaneQuestoesDaDisciplina;
+
+    @FXML
+    TextField campoTitulo;
+
     public ProvaController(ProvaVO prova) {
         this.prova = prova;
     }
@@ -46,9 +61,6 @@ public class ProvaController extends BarraController {
         atualizarProva();
     }
 
-    @FXML
-    TextField campoTitulo;
-
     public void atualizarProva() {
 
         prova.setTitulo(campoTitulo.getText());
@@ -56,12 +68,6 @@ public class ProvaController extends BarraController {
         atualizarQuestoesDaProva();
         atualizarQuestoesDaDisciplina();
     }
-
-    @FXML
-    private Label labelQuestoesDaProva;
-
-    @FXML
-    private FlowPane flowPaneQuestoesDaProva;
 
     public void atualizarQuestoesDaProva() {
 
@@ -83,12 +89,6 @@ public class ProvaController extends BarraController {
             e.printStackTrace();
         }
     }
-
-    @FXML
-    private Label labelQuestoesDaDisciplina;
-
-    @FXML
-    private FlowPane flowPaneQuestoesDaDisciplina;
 
     public void atualizarQuestoesDaDisciplina() {
 
@@ -156,13 +156,11 @@ public class ProvaController extends BarraController {
 
         // Opção
         HBox opcao = new HBox();
-        opcao.setPrefHeight(50.0);
-        opcao.setPrefWidth(200.0);
         opcao.setAlignment(Pos.CENTER);
 
         // Opção - Link
         Hyperlink linkOpcao = new Hyperlink();
-        boolean pertence = false;
+        boolean pertence = questaoBO.contem(prova.getQuestoes(), questao);
         linkOpcao.setText((pertence ? "Remover da" : "Adicionar à") + " prova");
         linkOpcao.setTextFill(Paint.valueOf(pertence ? "#ff0000" : "#6610f2"));
         linkOpcao.setOnAction(new EventHandler<ActionEvent>() {

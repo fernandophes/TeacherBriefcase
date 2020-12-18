@@ -154,7 +154,7 @@ public class ProfessorBO extends BaseBO<ProfessorVO> implements ProfessorInterBO
         }
 
         // Se a relação ainda NÃO estiver adicionada no BD (pode ocorrer de estar)
-        if (!disciplinaBO.buscar(professor).contains(disciplina))
+        if (!disciplinaBO.contem(disciplinaBO.buscar(professor), disciplina))
             professorDAO.adicionar(professor, disciplina);
     }
 
