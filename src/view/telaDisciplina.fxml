@@ -120,17 +120,17 @@
                                           <VBox alignment="CENTER" prefWidth="100.0" spacing="4.0">
                                              <children>
                                                 <Label text="Quest. faceis" />
-                                                <TextField fx:id="gerarFaceis" onInputMethodTextChanged="#atualizarResumo" />
+                                                <TextField fx:id="gerarFaceis" onInputMethodTextChanged="#gerarAtualizarResumo" />
                                                 <Label text="Difíceis" />
-                                                <TextField fx:id="gerarDificeis" layoutX="10.0" layoutY="31.0" onInputMethodTextChanged="#atualizarResumo" />
+                                                <TextField fx:id="gerarDificeis" layoutX="10.0" layoutY="31.0" onInputMethodTextChanged="#gerarAtualizarResumo" />
                                              </children>
                                           </VBox>
                                           <VBox alignment="CENTER" prefWidth="100.0" spacing="4.0">
                                              <children>
                                                 <Label text="Médias" />
-                                                <TextField fx:id="gerarMedias" onInputMethodTextChanged="#atualizarResumo" />
+                                                <TextField fx:id="gerarMedias" onInputMethodTextChanged="#gerarAtualizarResumo" />
                                                 <Label text="Quaisquer" />
-                                                <TextField fx:id="gerarQuaisquer" layoutX="10.0" layoutY="46.0" onInputMethodTextChanged="#atualizarResumo" />
+                                                <TextField fx:id="gerarQuaisquer" layoutX="10.0" layoutY="46.0" onInputMethodTextChanged="#gerarAtualizarResumo" />
                                              </children>
                                           </VBox>
                                        </children>
@@ -159,7 +159,7 @@
                                           <Insets />
                                        </VBox.margin>
                                     </Label>
-                                    <TextField fx:id="novaProvaTitulo1" />
+                                    <TextField fx:id="novaProvaTitulo" />
                                     <Button mnemonicParsing="false" onAction="#cadastrarProva" text="Criar Prova em Branco">
                                        <VBox.margin>
                                           <Insets top="10.0" />

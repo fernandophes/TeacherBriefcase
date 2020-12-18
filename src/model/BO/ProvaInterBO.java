@@ -11,7 +11,7 @@ public interface ProvaInterBO extends BaseInterBO<ProvaVO> {
 
     public List<ProvaVO> buscar(DisciplinaVO disciplina);
 
-    public ProvaVO gerar(DisciplinaVO disciplina, int quaisquer, int faceis, int medias, int dificeis) throws OperationException;
+    public ProvaVO gerar(DisciplinaVO disciplina, String titulo, int quaisquer, int faceis, int medias, int dificeis) throws OperationException;
 
     public void adicionar(ProvaVO prova, QuestaoVO questao) throws OperationException;
 

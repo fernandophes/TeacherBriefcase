@@ -49,10 +49,10 @@ public class QuestaoSubjetivaVO extends QuestaoVO {
     }
 
     public void setGabarito(String gabarito) throws OperationException {
-        if (gabarito != null && !gabarito.isEmpty())
+        if (gabarito != null)
             this.gabarito = gabarito.trim();
         else
-            throw new OperationException("O gabarito não pode ficar em branco");
+            throw new OperationException("O gabarito não pode ser nulo");
     }
 
     public String getQuestaoRespondida() {

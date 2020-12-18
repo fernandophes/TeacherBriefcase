@@ -22,6 +22,7 @@ import javafx.scene.text.TextAlignment;
 import src.exception.OperationException;
 import src.model.BO.ProvaBO;
 import src.model.BO.QuestaoBO;
+import src.model.VO.DisciplinaVO;
 import src.model.VO.ProvaVO;
 import src.model.VO.QuestaoComAlternativasVO;
 import src.model.VO.QuestaoSubjetivaVO;
@@ -63,7 +64,7 @@ public class ProvaController extends BarraController {
 
     public void atualizarProva() {
 
-        prova.setTitulo(campoTitulo.getText());
+        campoTitulo.setText(prova.getTitulo());
 
         atualizarQuestoesDaProva();
         atualizarQuestoesDaDisciplina();
@@ -237,8 +238,9 @@ public class ProvaController extends BarraController {
 
     public void excluir(ActionEvent event) {
         try {
+            DisciplinaVO disciplina = prova.getDisciplina();
             provaBO.excluir(prova);
-            voltar();
+            voltar(disciplina);
         } catch (OperationException e) {
             e.printStackTrace();
         }
@@ -246,12 +248,12 @@ public class ProvaController extends BarraController {
 
     public void salvarEVoltar(ActionEvent event) {
         editar(event);
-        voltar();
+        voltar(prova.getDisciplina());
     }
 
-    public void voltar() {
+    public void voltar(DisciplinaVO disciplina) {
         try {
-            Telas.telaDisciplinas();
+            Telas.telaDisciplinaDetalhes(disciplina);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -71,7 +71,7 @@ public class Telas extends Application {
     }
 
     public static void telaDisciplinaDetalhes(DisciplinaVO disciplina) throws Exception {
-        FXMLLoader loader = new FXMLLoader(Telas.class.getResource("telaDisciplinaDetalhes.fxml"));
+        FXMLLoader loader = new FXMLLoader(Telas.class.getResource("telaDisciplina.fxml"));
         loader.setController(new DisciplinaDetalhesController(disciplina));
         Parent root = loader.load();
         Scene cena = new Scene(root);

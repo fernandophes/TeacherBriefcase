@@ -14,7 +14,6 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Separator;
-import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
@@ -362,48 +361,77 @@ public class DisciplinaDetalhesController extends BarraController {
     TextField gerarProvaTitulo;
 
     @FXML
-    Slider gerarFaceis;
+    TextField gerarFaceis;
 
     @FXML
-    Slider gerarMedias;
+    TextField gerarMedias;
 
     @FXML
-    Slider gerarDificeis;
+    TextField gerarDificeis;
 
     @FXML
-    Slider gerarQuaisquer;
+    TextField gerarQuaisquer;
 
     @FXML
     Label gerarResumo;
 
     public void gerarAtualizarResumo(ActionEvent event) {
 
-        // int faceis = Integer.parseInt(gerarFaceis.getText());
-        // int medias = Integer.parseInt(gerarMedias.getText());
-        // int dificeis = Integer.parseInt(gerarDificeis.getText());
-        // int quaisquer = Integer.parseInt(gerarQuaisquer.getText());
-        // int total = faceis + medias + dificeis + quaisquer;
+        int faceis = Integer.parseInt(gerarFaceis.getText());
+        int medias = Integer.parseInt(gerarMedias.getText());
+        int dificeis = Integer.parseInt(gerarDificeis.getText());
+        int quaisquer = Integer.parseInt(gerarQuaisquer.getText());
+        int total = faceis + medias + dificeis + quaisquer;
 
-        // String resumo = "Total: " + total;
+        String resumo = "Total: " + total;
 
-        // gerarResumo.setText(resumo);
+        gerarResumo.setText(resumo);
 
     }
 
     public void gerarProvaAleatoria(ActionEvent event) {
 
-        // int faceis = Integer.parseInt(gerarFaceis.getText());
-        // int medias = Integer.parseInt(gerarMedias.getText());
-        // int dificeis = Integer.parseInt(gerarDificeis.getText());
-        // int quaisquer = Integer.parseInt(gerarQuaisquer.getText());
+        try {
+            int faceis = 0;
+            int medias = 0;
+            int dificeis = 0;
+            int quaisquer = 0;
 
-        // try {
-        //     ProvaVO prova = provaBO.gerar(disciplina, quaisquer, faceis, medias, dificeis);
-        //     prova.setTitulo(gerarProvaTitulo.getText());
-        //     verProva(prova);
-        // } catch (OperationException e) {
-        //     e.printStackTrace();
-        // }
+            int maxFaceis = questaoBO.buscarPorDificuldadeEDisciplina(QuestaoDificuldade.FACIL, disciplina).size();
+            int maxMedias = questaoBO.buscarPorDificuldadeEDisciplina(QuestaoDificuldade.MEDIA, disciplina).size();
+            int maxDificeis = questaoBO.buscarPorDificuldadeEDisciplina(QuestaoDificuldade.DIFICIL, disciplina).size();
+
+            if (!gerarFaceis.getText().isEmpty())
+                faceis = Integer.parseInt(gerarFaceis.getText());
+
+            if (!gerarMedias.getText().isEmpty())
+                medias = Integer.parseInt(gerarMedias.getText());
+
+            if (!gerarDificeis.getText().isEmpty())
+                dificeis = Integer.parseInt(gerarDificeis.getText());
+
+            if (faceis > maxFaceis)
+                faceis = maxFaceis;
+
+            if (medias > maxMedias)
+                medias = maxMedias;
+
+            if (dificeis > maxDificeis)
+                dificeis = maxDificeis;
+
+            int maxQuaisquer = maxFaceis + maxMedias + maxDificeis - faceis - medias - dificeis;
+
+            if (!gerarQuaisquer.getText().isEmpty())
+                quaisquer = Integer.parseInt(gerarQuaisquer.getText());
+
+            if (quaisquer > maxQuaisquer)
+                quaisquer = maxQuaisquer;
+
+            ProvaVO prova = provaBO.gerar(disciplina, gerarProvaTitulo.getText(), quaisquer, faceis, medias, dificeis);
+            verProva(prova);
+        } catch (OperationException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
