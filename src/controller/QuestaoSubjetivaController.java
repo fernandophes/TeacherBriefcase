@@ -43,6 +43,11 @@ public class QuestaoSubjetivaController extends BarraController {
     @Override
     protected void initialize() {
         super.initialize();
+        try {
+            questao = questaoSubjetivaBO.buscar(questao);
+        } catch (OperationException e) {
+            e.printStackTrace();
+        }
         atualizarQuestao();
 
         voltarDisciplina.setText(questao.getDisciplina().getNome());

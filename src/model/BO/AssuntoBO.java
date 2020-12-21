@@ -97,7 +97,7 @@ public class AssuntoBO implements AssuntoInterBO {
 
             try {
                 while (consulta.next())
-                    resultado.add(consulta.getString("nome").trim());
+                    resultado.add(consulta.getString("assunto").trim());
             } catch (SQLException e) {
                 e.printStackTrace();
             }

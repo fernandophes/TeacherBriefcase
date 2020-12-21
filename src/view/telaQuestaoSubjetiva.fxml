@@ -41,11 +41,11 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="1252.0">
                <children>
-                  <VBox prefHeight="581.0" prefWidth="1247.0">
+                  <VBox fx:id="voltarDisciplona" prefHeight="581.0" prefWidth="1247.0">
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Hyperlink fx:id="voltarDisciplina" onAction="#voltar" text="&lt; Minhas Disciplinas">
+                              <Hyperlink fx:id="voltarDisciplina" onAction="#salvarEVoltar" text="&lt; Minhas Disciplinas">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
@@ -110,7 +110,7 @@
                                     </Label>
                                     <FlowPane fx:id="flowPaneQuestoes">
                                        <children>
-                                          <TextArea fx:id="questaoEnunciado" onInputMethodTextChanged="#editar" />
+                                          <TextArea fx:id="questaoEnunciado" onInputMethodTextChanged="#editar" prefHeight="178.0" prefWidth="465.0" />
                                        </children>
                                     </FlowPane>
                                  </children>
@@ -134,11 +134,12 @@
                         <HBox alignment="CENTER" prefWidth="200.0" spacing="8.0">
                            <children>
                               <Label text="Salvando automaticamente" />
-                              <Button mnemonicParsing="false" onAction="#excluir" text="Excluir" textFill="RED">
+                              <Button mnemonicParsing="false" onAction="#editar" text="Salvar" textFill="RED">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
                               </Button>
+                              <Button layoutX="671.0" layoutY="10.0" mnemonicParsing="false" onAction="#excluir" text="Excluir" textFill="RED" />
                            </children>
                         </HBox>
                      </children>

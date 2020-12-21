@@ -47,6 +47,11 @@ public class QuestaoComAlternativasController extends BarraController {
     @Override
     protected void initialize() {
         super.initialize();
+        try {
+            questao = questaoComAlternativasBO.buscar(questao);
+        } catch (OperationException e) {
+            e.printStackTrace();
+        }
         atualizarQuestao();
 
         voltarDisciplina.setText(questao.getDisciplina().getNome());
