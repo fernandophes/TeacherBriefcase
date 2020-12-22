@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Iterator;
 import java.util.List;
 
 import src.model.QuestaoDificuldade;
@@ -186,11 +187,12 @@ public class QuestaoComAlternativasDAO extends BaseDAO implements QuestaoComAlte
         // Primeiro, excluir as alternativas
         AlternativaDAO alternativaDAO = new AlternativaDAO();
         List<AlternativaVO> alternativas = questao.getAlternativas();
-        while (alternativas.iterator().hasNext())
-            alternativaDAO.excluir(alternativas.iterator().next());
+        Iterator<AlternativaVO> lista = alternativas.iterator();
+        while (lista.hasNext())
+            alternativaDAO.excluir(lista.next());
 
         // E então excluir a questão
-        String sql = "delete from questao_com_alternativa where id = ?";
+        String sql = "delete from questao_com_alternativas where id = ?";
         PreparedStatement statement;
 
         try {

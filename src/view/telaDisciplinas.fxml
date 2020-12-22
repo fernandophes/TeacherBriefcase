@@ -49,11 +49,16 @@
                            </font>
                         </Label>
                         <FlowPane fx:id="flowPaneMinhasDisciplinas" prefHeight="200.0" prefWidth="200.0" />
-                        <Label fx:id="labelTodasAsDisciplinas" text="Todas as Disciplinas (_)">
-                           <font>
-                              <Font name="System Bold" size="30.0" />
-                           </font>
-                        </Label>
+                        <HBox alignment="CENTER_LEFT" spacing="4.0">
+                           <children>
+                              <Label fx:id="labelTodasAsDisciplinas" text="Todas as Disciplinas (_)">
+                                 <font>
+                                    <Font name="System Bold" size="30.0" />
+                                 </font>
+                              </Label>
+                              <Hyperlink onAction="#verTabelaDisciplinas" text="Ver tabela de todas" />
+                           </children>
+                        </HBox>
                         <FlowPane fx:id="flowPaneTodasAsDisciplinas" prefHeight="200.0" prefWidth="200.0">
                            <children>
                               <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EEEEEE;">

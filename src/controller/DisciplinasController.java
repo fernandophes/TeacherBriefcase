@@ -20,6 +20,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
+import src.exception.AuthenticationException;
 import src.exception.OperationException;
 import src.model.BO.DisciplinaBO;
 import src.model.BO.ProfessorBO;
@@ -31,12 +32,22 @@ import src.view.Telas;
 
 public class DisciplinasController extends BarraController {
 
-    private DisciplinaBO disciplinaBO = new DisciplinaBO();
+    private static DisciplinaBO disciplinaBO = new DisciplinaBO();
+    private static ProfessorBO professorBO = new ProfessorBO();
 
     @FXML
     @Override
     protected void initialize() {
         super.initialize();
+
+        try {
+            ProfessorVO.logado = professorBO.buscar(ProfessorVO.logado);
+        } catch (AuthenticationException e) {
+            e.printStackTrace();
+        } catch (OperationException e) {
+            e.printStackTrace();
+        }
+
         atualizarMinhasDisciplinas();
         atualizarTodasAsDisciplinas();
     }
@@ -237,6 +248,14 @@ public class DisciplinasController extends BarraController {
     public void verDisciplina(ActionEvent event, DisciplinaVO disciplina) {
         try {
             Telas.telaDisciplinaDetalhes(disciplina);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void verTabelaDisciplinas(ActionEvent event) {
+        try {
+            Telas.tabelaDisciplinas();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -96,5 +96,12 @@ public class Telas extends Application {
         primaryStage.setTitle("Questao de " + questao.getDisciplina().getNome() + " | Teacher Briefcase");
         primaryStage.setScene(cena);
     }
-    
+        
+    public static void tabelaDisciplinas() throws Exception {
+        Parent root = FXMLLoader.load(Telas.class.getResource("tabelaDisciplinas.fxml"));
+        Scene cena = new Scene(root);
+        primaryStage.setTitle("Disciplinas | Teacher Briefcase");
+        primaryStage.setScene(cena);
+    }
+
 }

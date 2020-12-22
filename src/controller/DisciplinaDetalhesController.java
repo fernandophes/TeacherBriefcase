@@ -16,6 +16,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -164,20 +165,13 @@ public class DisciplinaDetalhesController extends BarraController {
         titulo.setText(assunto);
         titulo.setStyle("-fx-background-color: transparent;");
         titulo.setAlignment(Pos.CENTER);
-        card.getChildren().add(titulo);
-
-        // Editar
-        Button editar = new Button("Editar");
-        editar.setTextFill(Paint.valueOf("#ff0000"));
-        editar.setMnemonicParsing(false);
-        editar.setOnAction(new EventHandler<ActionEvent>() {
+        titulo.setOnInputMethodTextChanged(new EventHandler<InputMethodEvent>() {
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(InputMethodEvent arg0) {
                 editarAssunto(disciplina, assunto, titulo.getText());
             }
         });
-
-        card.getChildren().add(editar);
+        card.getChildren().add(titulo);
 
         // Excluir
         Button excluir = new Button("X");
@@ -551,8 +545,12 @@ public class DisciplinaDetalhesController extends BarraController {
     }
 
     public void voltar(ActionEvent event) {
+        editar(event);
+        sair();
+    }
+
+    public void sair() {
         try {
-            editar(event);
             Telas.telaDisciplinas();
         } catch (Exception e) {
             e.printStackTrace();

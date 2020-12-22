@@ -116,17 +116,19 @@ public class QuestaoSubjetivaController extends BarraController {
         card.setAlignment(Pos.CENTER);
         card.setPadding(new Insets(8.0));
         card.setStyle("-fx-background-color: #F5FF90;");
+        card.setSpacing(4.0);
         FlowPane.setMargin(card, new Insets(4.0));
 
         // Nome do Assunto
-        TextField titulo = new TextField();
+        Label titulo = new Label();
         titulo.setText(assunto);
         titulo.setStyle("-fx-background-color: transparent;");
         card.getChildren().add(titulo);
 
         // Excluir
         Button excluir = new Button("X");
-        excluir.setTextFill(Paint.valueOf("#ff0000"));
+        excluir.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
+        excluir.setTextFill(Paint.valueOf("#ffffff"));
         excluir.setMnemonicParsing(false);
         HBox.setMargin(excluir, new Insets(0.0, 4.0, 0.0, 0.0));
         excluir.setOnAction(new EventHandler<ActionEvent>() {
